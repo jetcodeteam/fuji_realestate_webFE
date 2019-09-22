@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { RootProvider } from './store';
 
-const MasterLayout = lazy(() => import('./layouts/masterLayout'));
+const MasterLayout = lazy(() => import('./layouts/MasterLayout'));
 const LoginPage = lazy(() => import('./containers/loginPage'));
 
 const App = () => (

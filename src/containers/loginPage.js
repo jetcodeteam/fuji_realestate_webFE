@@ -1,130 +1,135 @@
-import React,
-{
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-} from 'react';
-import anime from 'animejs';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withI18n } from 'react-i18next';
-import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import AdornedButton from '../components/AdornedButton';
+// import { userLogin } from '../services/UserLogIn';
 
-import { RootContext } from '../store';
+const styles = () => ({
+  container: {
+    position: 'absolute',
+    width: '100%',
+  },
+  login: {
+    boxShadow: '0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07)',
+    borderRadius: '4px',
+    padding: '5vh',
+    backgroundColor: '#fff',
+    maxWidth: '340px',
+    margin: '25vh auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  input: {
+    paddingBottom: '25px',
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  button: {
+    marginBottom: '25px',
+    maxWidth: '200px',
+  },
+  gutter: {
+    marginBottom: '1em',
+  },
+});
 
 const LoginPage = (props) => {
-  const { t } = props;
+  const {
+    classes,
+  } = props;
 
-  const { state, dispatch } = useContext(RootContext);
-  const [errorState, setErrorState] = useState(null);
+  const [isFormLoading, setFormLoading] = useState(false);
+  const [error, setError] = useState(' ');
+  const [isError, setIsError] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [shouldRememberUser, setShouldRememberUser] = useState(false);
 
-  const helloWorldHeader = useRef();
-  const counterRef = useRef();
-
-  useEffect(() => {
-    if (state.shouldHeaderShow) {
-      const tl = anime.timeline({
-        easing: 'easeOutExpo',
-      });
-
-      tl.add({
-        targets: helloWorldHeader.current,
-        top: '20%',
-        opacity: 1,
-        duration: 1000,
-      });
-
-      tl.add({
-        targets: counterRef.current,
-        opacity: 1,
-        duration: 250,
-      });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (isFormLoading) {
+      return;
     }
-  }, [state.shouldHeaderShow]);
-
-  const handleCount = (sign) => {
-    if (sign === 'minus') {
-      if (state.count === 0) {
-        setErrorState('Cannot go below 0!');
-      } else {
-        dispatch({ type: 'decrement' });
-      }
-    } else if (sign === 'plus') {
-      dispatch({ type: 'increment' });
-      if (errorState) {
-        setErrorState(null);
-      }
-    }
+    setFormLoading(true);
+    setTimeout(() => {
+      setFormLoading(false);
+      setIsError(true);
+      setError('Wrong!');
+    }, 3000);
+    // UserLogIn(userName, password)
+    //   .then(() => {
+    //     if (isFormLoading) {
+    //       setFormLoading(false);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setIsError(true);
+    //     setError(err.message);
+    //   });
   };
 
   return (
-    <React.Fragment>
-      <h1
-        ref={helloWorldHeader}
-        style={{
-          position: 'absolute',
-          top: '40%',
-          left: '12%',
-          opacity: 0,
-        }}
-      >
-        {t('hello_world')}
-        ,
-      </h1>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          lineHeight: '25px',
-          opacity: 0,
-        }}
-        ref={counterRef}
-      >
-        <h1 style={{ fontSize: '30px', marginBottom: '30px' }}>
-          Little Counter
-        </h1>
-        <div style={{ display: 'flex', width: '150px', justifyContent: 'space-between' }}>
-          <Button
-            style={{
-              maxWidth: '30px',
-              maxHeight: '30px',
-              minWidth: '30px',
-              minHeight: '30px',
-              lineHeight: '10px',
-            }}
+    <div>
+      <form className={classes.login}>
+        <div className={classes.gutter}>
+          <TextField
+            className={classes.input}
+            fullWidth
+            error={isError}
+            id="user-name"
+            label="User Name"
+            value={userName}
+            onChange={evt => setUserName(evt.currentTarget.value)}
+            autoComplete="current-user"
+          />
+          <TextField
+            className={classes.input}
+            error={isError}
+            type="password"
+            id="password"
+            label="Password"
+            fullWidth
+            value={password}
+            onChange={evt => setPassword(evt.currentTarget.value)}
+            helperText={error}
+          />
+        </div>
+        <div className={classes.row}>
+          <AdornedButton
+            className={classes.button}
+            loading={isFormLoading}
             variant="contained"
             color="primary"
-            onClick={() => handleCount('minus')}
+            id="submit-login"
+            onClick={handleSubmit}
           >
-            -
-          </Button>
-          {state.count}
-          <Button
-            style={{
-              maxWidth: '30px',
-              maxHeight: '30px',
-              minWidth: '30px',
-              minHeight: '30px',
-              lineHeight: '10px',
-            }}
-            variant="contained"
-            color="secondary"
-            onClick={() => handleCount('plus')}
-          >
-            +
-          </Button>
+            Sign in
+          </AdornedButton>
         </div>
-        <div>
-          {errorState}
-        </div>
-      </div>
-    </React.Fragment>
+        <FormControlLabel
+          control={(
+            <Checkbox
+              checked={shouldRememberUser}
+              color="secondary"
+              onChange={() => setShouldRememberUser(!shouldRememberUser)}
+            />
+          )}
+          label="Remember me"
+        />
+      </form>
+    </div>
   );
 };
 
 LoginPage.propTypes = {
-  t: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  classes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
 };
 
-export default withI18n()(LoginPage);
+export default withStyles(styles)(LoginPage);

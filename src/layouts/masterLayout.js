@@ -10,14 +10,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import TranslateButton from '../components/translateButton';
+import TranslateButton from '../components/TranslateButton';
 
 import { RootContext } from '../store';
 
 const styles = {
   root: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    color: 'white',
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',

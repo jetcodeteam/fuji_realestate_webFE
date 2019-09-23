@@ -1,1 +1,1 @@
-# fuji_realestate_webFE
+# fujiwara_project

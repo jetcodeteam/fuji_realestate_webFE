@@ -1,0 +1,18 @@
+{
+    "hello_world": "Hello World",
+    "en": "English",
+    "jp": "Japanese",
+    "home": "HOME",
+    "product": "PRODUCT",
+    "news": "NEWS",
+    "contact_us": "CONTACT US",
+    "details": "Details",
+    "about": "ABOUT",
+    "main_service": "OUR MAIN SERVICES",
+    "home_sales": "Home Sales",
+    "home_sales_des": "Customers are able to provide spreadsheet services. More than 50 characters",
+    "visa_consulting": "Visa Consulting",
+    "visa_consulting_des": "Customers are able to provide spreadsheet services. More than 50 characters",
+    "employment_consultation": "Employment Consultation",
+    "employment_consultation_des": "Customers are able to provide spreadsheet services. More than 50 characters"
+}

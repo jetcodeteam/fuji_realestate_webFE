@@ -26,7 +26,7 @@ import TextField from '@material-ui/core/TextField';
 import facebookLogo from '../static/images/facebook-logo.png';
 import twitterLogo from '../static/images/twitter-logo.png';
 import linkedinLogo from '../static/images/linkedin-logo.png';
-import avatar from '../static/images/avatar-2.jpg';
+import avatar from '../static/images/product.png';
 
 const Home = lazy(() => import('./Home'));
 const News = lazy(() => import('./News'));
@@ -208,7 +208,7 @@ const ProductPage = (props) => {
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
-                        Title
+                        {t('title')}
                       </Typography>
                       <Typography variant="body2" color="textSecondary" component="p">
                         27 dien bien phu, HCM, Vietnam
@@ -226,7 +226,7 @@ const ProductPage = (props) => {
                   </CardActionArea>
                   <CardActions>
                     <Button size="small" color="primary">
-                      Learn More
+                      {t('learn_more')}
                     </Button>
                   </CardActions>
                 </Card>

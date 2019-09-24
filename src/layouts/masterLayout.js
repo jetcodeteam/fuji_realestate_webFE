@@ -16,11 +16,10 @@ import { RootContext } from '../store';
 
 const styles = {
   root: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    background: 'white',
+    color: 'black',
     height: '100vh',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     zIndex: -1,
     padding: '0',
   },
@@ -67,7 +66,7 @@ const MasterLayout = (props) => {
 
       tl.add({
         targets: elRef.current.map(el => el.current),
-        backgroundColor: 'rgb(197, 197, 255)',
+        backgroundColor: 'white',
         delay: anime.stagger(200),
       });
 

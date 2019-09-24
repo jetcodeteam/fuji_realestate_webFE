@@ -1,241 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import { withI18n } from 'react-i18next';
-import { withRouter } from 'react-router';
+// Menu component: https://ant.design/components/menu/
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Layout,
+  Menu,
   Icon,
-  Popover,
-  Button,
 } from 'antd';
-// Service
-import {
-  getUserRole,
-  setAccessToken,
-  setUserRole,
-  getUserInformation,
-  setRefreshToken,
-} from '../services/TokenService';
-import MenuHolder from '../styled/menuHolder';
-import Container from '../styled/container';
-// Data for menu
-import { menuData, responsiveWidth } from '../../configs/constants';
-// Sidebar Menu component
-import CustomMenu from '../customMenu';
-import UniversalSearch from './universalSearch';
-import '../../public/css/masterLayout.css';
-import logo from '../../public/images/logoACB.png';
-import miniLogo from '../../public/images/minilogo.png';
+// React router
+import { Link } from 'react-router-dom';
+// Translation
+import { withI18n } from 'react-i18next';
 
-const { Header, Sider, Content } = Layout;
 
-const miniLogoACB = () => (
-  <img
-    src={miniLogo}
-    alt="mini"
-    style={{ width: '50%', margin: 'auto', display: 'block' }}
-  />
-);
-const logoACB = () => (
-  <img
-    src={logo}
-    alt="Logo"
-    style={{ width: '50%', margin: 'auto', display: 'block' }}
-  />
-);
-const directionIcon = () => <Icon type="left" />;
-
-const MasterLayout = (props) => {
+// Generate menu for sidebar
+const CustomMenu = (props) => {
   const {
-    children,
-    t,
-    history,
+    t, menuData, isTranslate, roles, i18nOptions,
+    ...rest
   } = props;
 
-  // Control open and close sidebar menu
-  const [isCollasped, setCollasped] = useState(false);
-  // User Roles info
-  const [uroles, setUrole] = useState(null);
-
-  // Language Status
-  // const [lgn, setLgn] = useState('en');
-
-  // User information
-  const [userInfo, setUserInfo] = useState({});
-
-  // Try another idea, comment old idea
-  // const changeLanguage = () => {
-  //   if (lgn === 'vi') {
-  //     setLgn('en');
-  //     i18n.changeLanguage('vi');
-  //   }
-  //   if (lgn === 'en') {
-  //     setLgn('vi');
-  //     i18n.changeLanguage('en');
-  //   }
-  // };
-
-  // Mock user's data
-  const userTitle = (
-    <div className="user-information-holder">
-      <strong>{userInfo.fullName}</strong>
-      <p>
-        <strong>{`${t('fullname')}: `}</strong>
-        {`${userInfo.firstName} ${userInfo.lastName}`}
-        <br />
-        <strong>{`${t('email')}: `}</strong>
-        {userInfo.email}
-      </p>
-    </div>
-  );
-
-  const logOut = () => {
-    setAccessToken(null);
-    setRefreshToken(null);
-    setUserRole(null);
-    localStorage.clear();
-    history.push('/');
-  };
-
-  const logOutContent = (
-    <Button
-      className="logout-button"
-      type="link"
-      icon="logout"
-      onClick={logOut}
-    >
-      Log out
-    </Button>
-  );
-
-  // Get current window size
-  const getWindowDimensions = () => {
-    const { innerWidth: width } = window;
-    if (width <= responsiveWidth) {
-      setCollasped(true);
+  const getMenus = menuArray => menuArray.map((item) => {
+    if (item.release
+      && (!item.allowFunc || (item.allowFunc && roles && (roles.bitwise && item.allowFunc) > 0))) {
+      if (item.child) {
+        return (
+          // For submenu item
+          <Menu.SubMenu
+            key={item.link}
+            title={(
+              <span>
+                {
+                  item.icon
+                    ? <Icon component={item.icon} />
+                    : null
+                }
+                <span>
+                  {
+                    isTranslate
+                      ? t(item.name)
+                      : item.name
+                  }
+                </span>
+              </span>
+            )}
+          >
+            {getMenus(item.child)}
+          </Menu.SubMenu>
+        );
+      }
+      return (
+        // For normal menu item
+        <Menu.Item key={item.link}>
+          <span>
+            {
+              item.icon
+                ? <Icon component={item.icon} />
+                : null
+            }
+            <span>
+              {
+                isTranslate
+                  ? t(item.name)
+                  : item.name
+              }
+            </span>
+          </span>
+          {
+            item.link
+              ? <Link to={item.link} />
+              : null
+          }
+        </Menu.Item>
+      );
     }
-  };
-
-  // set default Languages
-  useEffect(() => {
-    i18n.changeLanguage('vi');
-  }, []);
-
-  // Get current user's roles
-  useEffect(() => {
-    try {
-      setUserInfo(getUserInformation());
-      setUrole(getUserRole());
-    } catch (err) {
-      setUserInfo({});
-      setUrole({});
-    }
-  }, []);
-
-  // Listen for window resize
-  useEffect(() => {
-    const handleResize = () => {
-      getWindowDimensions();
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
+    return null;
+  });
   return (
-    <Container fluid flex fullheight>
-      <Layout style={{ height: '100%', maxWidth: '100%' }}>
-        {/* Sider */}
-        <Sider
-          theme="light"
-          style={{ height: '100%', overflowY: 'auto', boxShadow: '0 0 20px rgba(201, 200, 207, 0.8)' }}
-          trigger={null}
-          collapsible
-          collapsed={isCollasped}
-        >
-          <MenuHolder colasped={isCollasped}>
-            {/* Open and close icon */}
-            <Icon
-              className="siderTrigger"
-              onClick={() => setCollasped(!isCollasped)}
-              style={{
-                fontSize: '15px',
-              }}
-              component={isCollasped ? miniLogoACB : directionIcon}
-            />
-            {!isCollasped && <Icon component={logoACB} />}
-
-          </MenuHolder>
-          {/*  Sidebar Menu */}
-          <CustomMenu
-            menuData={menuData}
-            roles={uroles}
-            theme="light"
-            mode="inline"
-            selectedKeys={[history.location.pathname]}
-            isTranslate
-            style={{
-              paddingTop: '12px',
-              paddingRight: '1px',
-              border: 'none',
-            }}
-          />
-        </Sider>
-        <Layout style={{ backgroundColor: '#fdfcff' }}>
-
-          {/* Header */}
-          <Header
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              backgroundImage: 'linear-gradient(to right, #1890ff 0%, #91d5ff 100%, #bae7ff 100%, #2dd3aa 100%)',
-              position: 'relative',
-              paddingLeft: '25px',
-              // backgroundImage: 'linear-gradient(to right, #1890ff, #91d5ff, #bae7ff)',
-            }}
-          >
-            <UniversalSearch />
-            {/* User's avatar - Translate button */}
-            <div style={{
-              width: 100,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}
-            >
-              <Popover placement="bottomRight" title={userTitle} content={logOutContent} trigger="click">
-                <Button
-                  type="danger"
-                  shape="circle"
-                  icon="user"
-                />
-              </Popover>
-              {/* <Button onClick={() => changeLanguage()} style={{ width: 50 }}>
-                {lgn.toUpperCase()}
-              </Button> */}
-            </div>
-          </Header>
-
-          {/* Content */}
-          <Content
-            style={{
-              margin: '10px 5px',
-              padding: 24,
-              minHeight: 280,
-            }}
-          >
-            {children}
-          </Content>
-        </Layout>
-      </Layout>
-    </Container>
+    <Menu {...rest}>
+      {getMenus(menuData)}
+    </Menu>
   );
 };
 
-MasterLayout.propTypes = {
-  children: PropTypes.node.isRequired,
+CustomMenu.propTypes = {
+  menuData: PropTypes.arrayOf(PropTypes.object).isRequired,
   t: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  history: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  isTranslate: PropTypes.bool,
+  roles: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  i18nOptions: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-export default withRouter(withI18n()(MasterLayout));
+CustomMenu.defaultProps = {
+  roles: null,
+  isTranslate: false,
+};
+
+export default withI18n()(CustomMenu);

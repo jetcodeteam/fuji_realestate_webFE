@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { withI18n } from 'react-i18next';
+import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import AdornedButton from '../components/AdornedButton';
-// import { userLogin } from '../services/UserLogIn';
+import Background from '../assets/admin-bg.png';
+import { userLogin } from '../services/UserServices';
+import { setAccessToken } from '../services/TokenServices';
 
 const styles = () => ({
   container: {
     position: 'absolute',
+    top: 0,
+    left: 0,
     width: '100%',
+    backgroundImage: `url(${Background})`,
+    height: '100vh',
+    zIndex: -1,
   },
   login: {
     boxShadow: '0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07)',
@@ -22,6 +32,7 @@ const styles = () => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    zIndex: 1,
   },
   input: {
     paddingBottom: '25px',
@@ -43,6 +54,8 @@ const styles = () => ({
 const LoginPage = (props) => {
   const {
     classes,
+    t,
+    history,
   } = props;
 
   const [isFormLoading, setFormLoading] = useState(false);
@@ -58,25 +71,33 @@ const LoginPage = (props) => {
       return;
     }
     setFormLoading(true);
-    setTimeout(() => {
+    if (!userName || !password) {
       setFormLoading(false);
       setIsError(true);
-      setError('Wrong!');
-    }, 3000);
-    // UserLogIn(userName, password)
-    //   .then(() => {
-    //     if (isFormLoading) {
-    //       setFormLoading(false);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setIsError(true);
-    //     setError(err.message);
-    //   });
+      setError('User and password cannot be empty');
+    } else {
+      userLogin({
+        username: userName,
+        password,
+      })
+        .then((res) => {
+          console.log(res);
+          setFormLoading(false);
+          setAccessToken(_.get(res, 'data.token'));
+          history.push('/emails');
+        })
+        .catch((err) => {
+          console.log(err.response);
+          setFormLoading(false);
+          setIsError(true);
+          setError(_.get(err, 'response.data.message'));
+        });
+    }
   };
 
   return (
-    <div>
+    <React.Fragment>
+      <div className={classes.container} />
       <form className={classes.login}>
         <div className={classes.gutter}>
           <TextField
@@ -110,7 +131,7 @@ const LoginPage = (props) => {
             id="submit-login"
             onClick={handleSubmit}
           >
-            Sign in
+            {t('sign_in')}
           </AdornedButton>
         </div>
         <FormControlLabel
@@ -124,12 +145,14 @@ const LoginPage = (props) => {
           label="Remember me"
         />
       </form>
-    </div>
+    </React.Fragment>
   );
 };
 
 LoginPage.propTypes = {
   classes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
+  t: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  history: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-export default withStyles(styles)(LoginPage);
+export default withRouter(withI18n()(withStyles(styles)(LoginPage)));

@@ -12,7 +12,7 @@ let accessToken = null;
 | @param string token
 | @param boolean onlySession
 */
-export const setAccessToken = (tokenString, onlySession) => {
+export const setAccessToken = (tokenString, onlySession = false) => {
   try {
     if (storage) {
       if (tokenString) {

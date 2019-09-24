@@ -5,11 +5,12 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import AdminLayout from '../layouts/AdminLayout';
-import { getAccessToken } from '../services/TokenService';
+import AdminLayout from '../layouts/adminLayout';
+import { getAccessToken } from '../services/TokenServices';
 import { isEmpty } from '../utils/index';
 
 function PrivateRoute({ component: Component, ...rest }) {
+  console.log(getAccessToken());
   return (
     <Route
       {...rest}
@@ -22,7 +23,7 @@ function PrivateRoute({ component: Component, ...rest }) {
       ) : (
         <Redirect
           to={{
-            pathname: '/',
+            pathname: '/admin',
             state: { from: props.location },
           }}
         />

@@ -42,9 +42,10 @@ const styles = {
     alignItems: 'center',
   },
   translateButton: {
+    zIndex: 10,
     position: 'absolute',
-    bottom: '5%',
-    right: '3%',
+    top: '2%',
+    left: '42%',
   },
 };
 

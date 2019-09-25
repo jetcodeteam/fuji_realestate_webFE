@@ -111,7 +111,7 @@ const ProductDetail = (props) => {
       alignItems: 'center',
       alignContent: 'center',
       position: 'absolute',
-      top: '190%',
+      top: '220%',
       left: 0,
       right: 0,
       width: '100%',

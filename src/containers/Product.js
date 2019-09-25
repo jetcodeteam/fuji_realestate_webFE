@@ -40,7 +40,7 @@ function useHover() {
       ref.current.removeEventListener('mouseenter', enter);
       ref.current.removeEventListener('mouseleave', leave);
     };
-  }, [ref.current]);
+  }, []);
 
   return [ref, hovered];
 }

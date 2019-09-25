@@ -136,7 +136,7 @@ const ProductPage = (props) => {
       alignItems: 'center',
       alignContent: 'center',
       position: 'absolute',
-      top: '160%',
+      top: '140%',
       left: '0%',
       width: '100%',
       height: '25%',
@@ -217,30 +217,32 @@ const ProductPage = (props) => {
           <Grid item xs={12}>
             <Grid container justify="center" spacing={6}>
               {[0, 1, 2].map(value => (
-                <Grid key={value} item>
-                  <Card className={classes.card}>
-                    <CardMedia
-                      className={classes.cover}
-                      image={news}
-                      title="News Title"
-                    />
-                    <div className={classes.details}>
-                      <CardContent className={classes.content}>
-                        <Typography component="h5" variant="h5" style={{ marginBottom: '10%' }}>
-                          意味のない大きなタイトル、意味のない大きなタイトル、意味のない大きなタイトル
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          color="textSecondary"
-                          style={{ fontSize: '12px' }}
-                        >
-                          オバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶして
-                          最も人気のある家のタイトルを主張しました
-                        </Typography>
-                      </CardContent>
-                    </div>
-                  </Card>
-                </Grid>
+                <Link to="/newsdetail" className={classes.linkDecoration}>
+                  <Grid key={value} style={{ marginBottom: 20 }} item>
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cover}
+                        image={news}
+                        title="News Title"
+                      />
+                      <div className={classes.details}>
+                        <CardContent className={classes.content}>
+                          <Typography component="h5" variant="h5" style={{ marginBottom: '10%' }}>
+                            意味のない大きなタイトル、意味のない大きなタイトル、意味のない大きなタイトル
+                          </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="textSecondary"
+                            style={{ fontSize: '12px' }}
+                          >
+                            オバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶして
+                            最も人気のある家のタイトルを主張しました
+                          </Typography>
+                        </CardContent>
+                      </div>
+                    </Card>
+                  </Grid>
+                </Link>
               ))}
             </Grid>
           </Grid>

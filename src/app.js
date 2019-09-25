@@ -16,6 +16,7 @@ const Home = lazy(() => import('./containers/Home'));
 const Product = lazy(() => import('./containers/Product'));
 const ProductDetail = lazy(() => import('./containers/ProductDetail'));
 const News = lazy(() => import('./containers/News'));
+const NewsDetail = lazy(() => import('./containers/NewsDetail'));
 const AdminEmails = lazy(() => import('./containers/AdminEmails'));
 const LoginPage = lazy(() => import('./containers/LoginPage'));
 
@@ -51,6 +52,7 @@ const App = () => {
               <Route exact path="/product" component={Product} />
               <Route exact path="/productdetail" component={ProductDetail} />
               <Route exact path="/news" component={News} />
+              <Route exact path="/newsdetail" component={NewsDetail} />
               <Route exact path="/admin" component={LoginPage} />
               <PrivateRoute exact path="/emails" component={AdminEmails} />
               {/* <PrivateRoute exact path="/admin/news" component={} /> */}

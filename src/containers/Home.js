@@ -195,25 +195,25 @@ const HomePage = (props) => {
           <Link to="/" className={classes.linkDecoration}>
             {t('home')}
           </Link>
-          <div className={classes.line}>.</div>
+          <div className={classes.line} />
         </div>
         <div className={classes.headerMenu} ref={productRef}>
           <Link to="/product" className={classes.linkDecoration}>
             {t('product')}
           </Link>
-          {productHovered && <div className={classes.line}>.</div>}
+          {productHovered && <div className={classes.line} />}
         </div>
         <div className={classes.headerMenu} ref={newsRef}>
           <Link to="/news" className={classes.linkDecoration}>
             {t('news')}
           </Link>
-          {newsHovered && <div className={classes.line}>.</div>}
+          {newsHovered && <div className={classes.line} />}
         </div>
         <div className={classes.headerMenu} ref={contactRef}>
           <Link to="/" className={classes.linkDecoration}>
             {t('contact_us')}
           </Link>
-          {contactHovered && <div className={classes.line}>.</div>}
+          {contactHovered && <div className={classes.line} />}
         </div>
       </header>
       {/* ------------------- CAROUSEL -------------------- */}

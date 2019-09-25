@@ -21,10 +21,10 @@ import facebookLogo from '../static/images/icon/facebook-logo.png';
 import twitterLogo from '../static/images/icon/twitter-logo.png';
 import linkedinLogo from '../static/images/icon/linkedin-logo.png';
 import product from '../static/images/product/product.png';
-// import product1 from '../static/images/product/product1.png';
-// import product2 from '../static/images/product/product2.png';
-// import product3 from '../static/images/product/product3.png';
-// import product4 from '../static/images/product/pr.png';
+import product1 from '../static/images/product/product1.png';
+import product2 from '../static/images/product/product2.png';
+import product3 from '../static/images/product/product3.png';
+import product4 from '../static/images/product/pr.png';
 
 
 function useHover() {
@@ -49,9 +49,7 @@ function useHover() {
 const ProductDetail = (props) => {
   const useStyles = makeStyles(theme => ({
     root: {
-      maxWidth: 1500,
-      // marginTop: '30%',
-      // flexGrow: 1,
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -62,7 +60,7 @@ const ProductDetail = (props) => {
       bottom: '-57%',
     },
     card: {
-      maxWidth: 345,
+      maxWidth: 300,
       width: 345,
     },
     media: {
@@ -116,7 +114,7 @@ const ProductDetail = (props) => {
       alignItems: 'center',
       alignContent: 'center',
       position: 'absolute',
-      top: '150%',
+      top: '180%',
       left: 0,
       right: 0,
       width: '100%',
@@ -143,25 +141,25 @@ const ProductDetail = (props) => {
           <Link to="/" className={classes.linkDecoration}>
             {t('home')}
           </Link>
-          {homeHovered && <div className={classes.line}>.</div>}
+          {homeHovered && <div className={classes.line} />}
         </div>
         <div className={classes.headerMenu}>
           <Link to="/product" className={classes.linkDecoration}>
             {t('product')}
           </Link>
-          <div className={classes.line}>.</div>
+          <div className={classes.line} />
         </div>
         <div className={classes.headerMenu} ref={newsRef}>
           <Link to="/news" className={classes.linkDecoration}>
             {t('news')}
           </Link>
-          {newsHovered && <div className={classes.line}>.</div>}
+          {newsHovered && <div className={classes.line} />}
         </div>
         <div className={classes.headerMenu} ref={contactRef}>
           <Link to="/" className={classes.linkDecoration}>
             {t('contact_us')}
           </Link>
-          {contactHovered && <div className={classes.line}>.</div>}
+          {contactHovered && <div className={classes.line} />}
         </div>
       </header>
       {/* ----------------- PRODUCTS ------------------------- */}
@@ -169,7 +167,7 @@ const ProductDetail = (props) => {
         style={{
           width: '100%',
           position: 'absolute',
-          top: '25%',
+          top: '40%',
           backgroundColor: 'rgb(232,232,232)',
           height: 400,
         }}
@@ -178,9 +176,122 @@ const ProductDetail = (props) => {
       </div>
       <div
         style={{
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'absolute',
+          top: '15%',
+          left: '10%',
+        }}
+      >
+        <h2>ホーチミン中心の１区、日本食も多く</h2>
+        <h2>日本人が多く住んでいるエリア内です</h2>
+      </div>
+      <h1
+        style={{
+          color: 'rgb(214,137,67)',
+          position: 'absolute',
+          top: '45%',
+          left: '8%',
+          fontSize: 40,
+        }}
+      >
+        約40㎡
+      </h1>
+      <h1
+        style={{
+          color: 'rgb(40,208,55)',
+          position: 'absolute',
+          top: '45%',
+          left: '43%',
+          fontSize: 60,
+        }}
+      >
+        400
+      </h1>
+      <div
+        style={{
+          width: 40,
+          position: 'absolute',
+          top: '40%',
+          left: '52%',
+          textAlign: 'center',
+          verticalAlign: 'center',
+        }}
+      >
+        <h2 style={{ color: 'rgb(40,208,55)', fontSize: 50 }}>ドル～</h2>
+      </div>
+      <div
+        style={{
+          width: 40,
+          backgroundColor: 'rgb(105,192,255)',
+          position: 'absolute',
+          top: '27%',
+          left: '3%',
+          textAlign: 'center',
+          verticalAlign: 'center',
+        }}
+      >
+        <h2 style={{ color: 'white' }}>ワンルーム</h2>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'absolute',
+          top: '55%',
+          left: '5%',
+        }}
+      >
+        <h4>所在地：ホーチミン１区の日本人街</h4>
+        <h4>階数：</h4>
+        <h4>キッチン：　あり</h4>
+        <h4>バルコニー：　あり</h4>
+        <h4>物件設備：　テレビ/ソファー/テーブル</h4>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          position: 'absolute',
+          top: '80%',
+          left: '5%',
+        }}
+      >
+        <img
+          style={{
+            width: 300,
+            height: 200,
+            marginRight: '40px',
+          }}
+          src={product3}
+          alt="product3"
+        />
+        <img src={product4} alt="product4" style={{ width: 300, height: 200 }} />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'absolute',
+          top: '35%',
+          left: '73%',
+        }}
+      >
+        <img
+          src={product1}
+          alt="product1"
+          style={{
+            width: 500,
+            height: 220,
+            marginBottom: '25px',
+          }}
+        />
+        <img src={product2} alt="product2" style={{ width: 500, height: 220 }} />
+      </div>
+      <div
+        style={{
           width: '80%',
           position: 'absolute',
-          top: '95%',
+          top: '120%',
           alignSelf: 'center',
           display: 'flex',
           justifyContent: 'center',

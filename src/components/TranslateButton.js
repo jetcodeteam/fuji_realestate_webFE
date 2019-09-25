@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { withNamespaces } from 'react-i18next';
-import IconButton from '@material-ui/core/IconButton';
+import Fab from '@material-ui/core/Fab';
 import PropTypes from 'prop-types';
 
 import { RootContext } from '../store';
@@ -24,7 +24,7 @@ const TranslateButton = (props) => {
   };
 
   return (
-    <IconButton
+    <Fab
       color="primary"
       size="small"
       className={className}
@@ -32,7 +32,7 @@ const TranslateButton = (props) => {
       onClick={() => changeLanguage()}
     >
       {state.currentLanguage}
-    </IconButton>
+    </Fab>
   );
 };
 

@@ -8,23 +8,21 @@ import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import MobileStepper from '@material-ui/core/MobileStepper';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 
 import facebookLogo from '../static/images/icon/facebook-logo.png';
 import twitterLogo from '../static/images/icon/twitter-logo.png';
 import linkedinLogo from '../static/images/icon/linkedin-logo.png';
-import product from '../static/images/product/product.png';
+import article from '../static/images/news/article.png';
+import news from '../static/images/news/news2.png';
+
 
 function useHover() {
   const ref = useRef(null);
@@ -40,27 +38,15 @@ function useHover() {
       ref.current.removeEventListener('mouseenter', enter);
       ref.current.removeEventListener('mouseleave', leave);
     };
-  }, []);
+  }, [ref.current]);
 
   return [ref, hovered];
 }
 
-const ProductPage = (props) => {
-  const themes = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  function handleNext() {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-  }
-
-  function handleBack() {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  }
+const ProductDetail = (props) => {
   const useStyles = makeStyles(theme => ({
     root: {
-      maxWidth: 1100,
-      marginTop: '20%',
-      flexGrow: 0.5,
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -68,10 +54,10 @@ const ProductPage = (props) => {
     },
     pagination: {
       position: 'absolute',
-      bottom: '-27%',
+      bottom: '-57%',
     },
     card: {
-      maxWidth: 345,
+      maxWidth: 300,
       width: 345,
     },
     media: {
@@ -118,13 +104,14 @@ const ProductPage = (props) => {
       backgroundColor: 'rgb(105, 192, 255)',
     },
     pageFooter: {
+      marginTop: 30,
       backgroundColor: 'rgb(186,231,255)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       alignContent: 'center',
       position: 'absolute',
-      top: '130%',
+      top: '220%',
       left: 0,
       right: 0,
       width: '100%',
@@ -138,8 +125,8 @@ const ProductPage = (props) => {
   const { t } = props;
   const Header = useRef();
   const [homeRef, homeHovered] = useHover();
-  const [newsRef, newsHovered] = useHover();
   const [contactRef, contactHovered] = useHover();
+  const [productRef, productHovered] = useHover();
   const classes = useStyles();
 
   return (
@@ -159,11 +146,11 @@ const ProductPage = (props) => {
           </Link>
           <div className={classes.line} />
         </div>
-        <div className={classes.headerMenu} ref={newsRef}>
+        <div className={classes.headerMenu} ref={productRef}>
           <Link to="/news" className={classes.linkDecoration}>
             {t('news')}
           </Link>
-          {newsHovered && <div className={classes.line} />}
+          {productHovered && <div className={classes.line} />}
         </div>
         <div className={classes.headerMenu} ref={contactRef}>
           <Link to="/" className={classes.linkDecoration}>
@@ -172,86 +159,129 @@ const ProductPage = (props) => {
           {contactHovered && <div className={classes.line} />}
         </div>
       </header>
-      <TextField
-        id="standard-bare"
-        className={classes.textField}
-        placeholder="Enter your search here"
-        margin="normal"
-        inputProps={{ 'aria-label': 'bare' }}
-      />
+      {/* ----------------- NEWS ------------------------- */}
       <div
         style={{
-          width: '80%',
-          marginTop: '15px',
-          height: '1px',
-          backgroundColor: 'gray',
-          opacity: 0.2,
-          marginLeft: 5,
-          marginRight: 5,
+          width: '100%',
           position: 'absolute',
           top: '15%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        .
-      </div>
-      {/* ----------------- PRODUCTS ------------------------- */}
-      <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={6}>
-            {[0, 1, 2, 3, 4, 5].map(value => (
-              <Link to="/productdetail" className={classes.linkDecoration}>
-                <Grid key={value} style={{ margin: 12 }} item>
-                  <Card className={classes.card}>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        image={product}
-                        title="Title"
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {t('title')}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          27 dien bien phu, HCM, Vietnam
-                        </Typography>
-                        <Typography variant="body3" color="textSecondary" component="p">
-                          2 寝室
-                        </Typography>
-                        <Typography variant="body4" color="textSecondary" component="p">
-                          ¥1,280
-                        </Typography>
-                        <Typography variant="body5" color="textSecondary" component="p">
-                          278,499 đ
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              </Link>
-            ))}
+        <div
+          style={{
+            display: 'flex',
+            width: '60%',
+            alignSelf: 'center',
+            justifyContent: 'center',
+            WebkitJustifyContent: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <h1>新しい研究は成功について最も安っぽいクリシェを確認します</h1>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginBottom: 20,
+            }}
+          >
+            <img src={article} alt="article" style={{ height: 400, marginBottom: 5 }} />
+            <h7 style={{ opacity: 0.5 }}>クレジット: Mike Harrington/DigitalVision/Getty</h7>
+          </div>
+          <p>
+            これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあります。 これらはす
+            べて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあ
+            ります。 これらはすべて段落になります。これらはすべて段落になります。
+          </p>
+          <p>
+            これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあります。 これらはす
+            べて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあ
+            これらはすべて段落になります。
+          </p>
+          <p>
+            これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあります。 これらはす
+            べて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあ
+            これらはすべて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目
+            のものがあります。 これらはす べて段落になります。これは文です。 これは2番目のものですが、それより長く
+            なります。 次に、3番目のものがあこ。これは文です。 これは2番目のものですが、それより長くなります。次に、3番目
+            のものがあります。 これらはす べて段落になります。これは文です。 これは2番目のものですが、それより長く
+            なります。 次に、3番目のものがあこ
+          </p>
+          <p>
+            これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあります。 これらはす
+            べて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあ
+            これらはすべて段落になります。
+          </p>
+        </div>
+        <div
+          style={{
+            width: '80%',
+            position: 'absolute',
+            top: '100%',
+            alignSelf: 'center',
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            height: 350,
+            flexGrow: 1,
+          }}
+        >
+          <div style={{ flexGrow: 1 }}>
+            <h3>{t('more')}</h3>
+            <div
+              style={{
+                width: '125%',
+                height: '1px',
+                backgroundColor: 'gray',
+                opacity: 0.2,
+                marginLeft: 5,
+                marginRight: 5,
+                flexGrow: 1,
+                marginBottom: 10,
+              }}
+            >
+              .
+            </div>
+          </div>
+          <Grid container className={classes.root} spacing={2}>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={6}>
+                {[0, 1, 2].map(value => (
+                  <Link to="/newsdetail" className={classes.linkDecoration}>
+                    <Grid key={value} style={{ margin: 12 }} item>
+                      <Card className={classes.card}>
+                        <CardActionArea>
+                          <CardMedia
+                            className={classes.media}
+                            image={news}
+                            title="Title"
+                          />
+                          <CardContent>
+                            <Typography gutterBottom variant="h5" component="h2">
+                              ニュースのタイトル、ただ長くします
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                              オバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶして
+                            </Typography>
+                            <Typography variant="body3" color="textSecondary" component="p">
+                              5時間前
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                      </Card>
+                    </Grid>
+                  </Link>
+                ))}
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-        <MobileStepper
-          variant="dots"
-          steps={6}
-          position="static"
-          activeStep={activeStep}
-          className={classes.pagination}
-          nextButton={(
-            <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
-              Next
-              {themes.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-            </Button>
-          )}
-          backButton={(
-            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-              {themes.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Back
-            </Button>
-          )}
-        />
-      </Grid>
+        </div>
+      </div>
       {/* ---------------- FOOTER ---------------- */}
       <footer>
         <div className={classes.pageFooter}>
@@ -355,8 +385,8 @@ const ProductPage = (props) => {
   );
 };
 
-ProductPage.propTypes = {
+ProductDetail.propTypes = {
   t: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-export default withI18n()(ProductPage);
+export default withI18n()(ProductDetail);

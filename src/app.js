@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react';
+import PropTypes from 'prop-types';
 import './i18n';
 import {
   BrowserRouter,
@@ -14,10 +15,12 @@ import PrivateRoute from './components/PrivateRoute';
 import './assets/app.css';
 
 // const MasterLayout = lazy(() => import('./layouts/masterLayout'));
+const MasterLayout = lazy(() => import('./layouts/masterLayout'));
 const Home = lazy(() => import('./containers/Home'));
 const Product = lazy(() => import('./containers/Product'));
 const ProductDetail = lazy(() => import('./containers/ProductDetail'));
 const News = lazy(() => import('./containers/News'));
+const NewsDetail = lazy(() => import('./containers/NewsDetail'));
 const AdminEmails = lazy(() => import('./containers/AdminEmails'));
 const AdminProducts = lazy(() => import('./containers/AdminProducts'));
 const LoginPage = lazy(() => import('./containers/LoginPage'));
@@ -35,6 +38,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const PublicRoute = ({ component: Component, ...rest }) => {
+  const classes = useStyles();
+
+  return (
+    <Route
+      {...rest}
+      render={props => (
+        <MasterLayout>
+          <Suspense fallback={(
+            <div className={classes.suspense}>
+              <CircularProgress className={classes.progress} />
+            </div>
+          )}
+          >
+            <Component {...props} />
+          </Suspense>
+        </MasterLayout>
+      )}
+    />
+  );
+};
+
 const App = () => {
   const classes = useStyles();
   return (
@@ -47,23 +72,27 @@ const App = () => {
         )}
       >
         <BrowserRouter>
-          {/* <MasterLayout> */}
           <Switch>
-
-            <Route exact path="/" component={Home} />
-            <Route exact path="/product" component={Product} />
-            <Route exact path="/productdetail" component={ProductDetail} />
-            <Route exact path="/news" component={News} />
+            <PublicRoute exact path="/" component={Home} />
+            <PublicRoute exact path="/product" component={Product} />
+            <PublicRoute exact path="/productdetail" component={ProductDetail} />
+            <PublicRoute exact path="/news" component={News} />
+            <PublicRoute exact path="/newsdetail" component={NewsDetail} />
             <Route exact path="/admin" component={LoginPage} />
             <PrivateRoute exact path="/emails" component={AdminEmails} />
             {/* <PrivateRoute exact path="/admin/news" component={} /> */}
             <PrivateRoute exact path="/products" component={AdminProducts} />
             <Redirect to="/" />
           </Switch>
-          {/* </MasterLayout> */}
         </BrowserRouter>
       </Suspense>
     </RootProvider>
   );
 };
+
+PublicRoute.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.string]).isRequired,
+};
+
+
 export default App;

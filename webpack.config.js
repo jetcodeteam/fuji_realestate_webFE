@@ -44,7 +44,7 @@ module.exports = () => {
         ],
       },
       {
-        test: /\.(woff|woff2|eot|ttf|svg)$/,
+        test: /\.(woff|woff2|eot|ttf|svg|otf)$/,
         loader: 'url-loader?limit=100000',
       },
       {
@@ -56,6 +56,8 @@ module.exports = () => {
     entry: './src/index.js',
     output: {
       libraryTarget: 'umd',
+      path: path.resolve(__dirname, 'build'),
+      filename: '[name].[contenthash].js',
     },
     plugins: [
       new HtmlWebPackPlugin({
@@ -65,7 +67,7 @@ module.exports = () => {
       new webpack.DefinePlugin(envKeys),
       new MiniCssExtractPlugin({
         filename: devMode ? '[name].css' : '[name].[hash].css',
-        chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        chunkFilename: '[name].[chunkhash].css',
         ignoreOrder: true,
       }),
       new ErrorOverlayPlugin(),

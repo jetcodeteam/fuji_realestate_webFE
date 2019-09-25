@@ -23,10 +23,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
-import facebookLogo from '../static/images/facebook-logo.png';
-import twitterLogo from '../static/images/twitter-logo.png';
-import linkedinLogo from '../static/images/linkedin-logo.png';
-import avatar from '../static/images/product.png';
+import facebookLogo from '../static/images/icon/facebook-logo.png';
+import twitterLogo from '../static/images/icon/twitter-logo.png';
+import linkedinLogo from '../static/images/icon/linkedin-logo.png';
+import avatar from '../static/images/product/product.png';
 
 const Home = lazy(() => import('./Home'));
 const News = lazy(() => import('./News'));

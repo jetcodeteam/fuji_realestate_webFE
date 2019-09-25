@@ -27,7 +27,12 @@ const CustomMenu = (props) => {
           <Menu.SubMenu
             key={item.link}
             title={(
-              <span>
+              <span
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
                 {
                   item.icon
                     ? <Icon component={item.icon} />
@@ -50,7 +55,12 @@ const CustomMenu = (props) => {
       return (
         // For normal menu item
         <Menu.Item key={item.link}>
-          <span>
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
             {
               item.icon
                 ? <Icon component={item.icon} />

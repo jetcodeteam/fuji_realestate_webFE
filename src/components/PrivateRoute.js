@@ -4,19 +4,40 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import AdminLayout from '../layouts/adminLayout';
 import { getAccessToken } from '../services/TokenServices';
 import { isEmpty } from '../utils/index';
 
+const useStyles = makeStyles(theme => ({
+  progress: {
+    margin: theme.spacing(2),
+  },
+  suspense: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '500px',
+  },
+}));
+
 function PrivateRoute({ component: Component, ...rest }) {
-  console.log(getAccessToken());
+  const classes = useStyles();
+
   return (
     <Route
       {...rest}
       render={props => (!isEmpty(getAccessToken()) ? (
         <AdminLayout>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={(
+            <div className={classes.suspense}>
+              <CircularProgress className={classes.progress} />
+            </div>
+          )}
+          >
             <Component {...props} />
           </Suspense>
         </AdminLayout>

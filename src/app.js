@@ -11,12 +11,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { RootProvider } from './store';
 import PrivateRoute from './components/PrivateRoute';
 
+import './assets/app.css';
+
 // const MasterLayout = lazy(() => import('./layouts/masterLayout'));
 const Home = lazy(() => import('./containers/Home'));
 const Product = lazy(() => import('./containers/Product'));
 const ProductDetail = lazy(() => import('./containers/ProductDetail'));
 const News = lazy(() => import('./containers/News'));
 const AdminEmails = lazy(() => import('./containers/AdminEmails'));
+const AdminProducts = lazy(() => import('./containers/AdminProducts'));
 const LoginPage = lazy(() => import('./containers/LoginPage'));
 
 const useStyles = makeStyles(theme => ({
@@ -54,7 +57,7 @@ const App = () => {
             <Route exact path="/admin" component={LoginPage} />
             <PrivateRoute exact path="/emails" component={AdminEmails} />
             {/* <PrivateRoute exact path="/admin/news" component={} /> */}
-            {/* <PrivateRoute exact path="/admin/products" component={} /> */}
+            <PrivateRoute exact path="/products" component={AdminProducts} />
             <Redirect to="/" />
           </Switch>
           {/* </MasterLayout> */}

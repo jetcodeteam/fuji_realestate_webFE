@@ -67,7 +67,15 @@ const AdminLayout = (props) => {
         </Button>
       </Sider>
       <Layout>
-        <Content>{children}</Content>
+        <Content
+          style={{
+            margin: '10px 5px',
+            padding: '111px 24px 24px 24px',
+            minHeight: 280,
+          }}
+        >
+          {children}
+        </Content>
       </Layout>
     </Layout>
   );

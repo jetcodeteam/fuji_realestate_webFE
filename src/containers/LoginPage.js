@@ -105,7 +105,7 @@ const LoginPage = (props) => {
             fullWidth
             error={isError}
             id="user-name"
-            label="User Name"
+            label={t('user_name')}
             value={userName}
             onChange={evt => setUserName(evt.currentTarget.value)}
             autoComplete="current-user"
@@ -115,7 +115,7 @@ const LoginPage = (props) => {
             error={isError}
             type="password"
             id="password"
-            label="Password"
+            label={t('password')}
             fullWidth
             value={password}
             onChange={evt => setPassword(evt.currentTarget.value)}
@@ -142,7 +142,7 @@ const LoginPage = (props) => {
               onChange={() => setShouldRememberUser(!shouldRememberUser)}
             />
           )}
-          label="Remember me"
+          label={t('remember_me')}
         />
       </form>
     </React.Fragment>

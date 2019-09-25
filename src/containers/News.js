@@ -3,7 +3,6 @@ import React,
   useEffect,
   useRef,
   useState,
-  lazy,
 } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
@@ -17,16 +16,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
-import facebookLogo from '../static/images/facebook-logo.png';
-import twitterLogo from '../static/images/twitter-logo.png';
-import linkedinLogo from '../static/images/linkedin-logo.png';
-import news from '../static/images/news.png';
-// import news1 from '../static/images/news1.png';
-// import news2 from '../static/images/news2.png';
-import news3 from '../static/images/news3.png';
-
-const Home = lazy(() => import('./Home'));
-const Product = lazy(() => import('./Product'));
+import facebookLogo from '../static/images/icon/facebook-logo.png';
+import twitterLogo from '../static/images/icon/twitter-logo.png';
+import linkedinLogo from '../static/images/icon/linkedin-logo.png';
+import news from '../static/images/news/news.png';
+import news3 from '../static/images/news/news3.png';
 
 function useHover() {
   const ref = useRef(null);
@@ -171,13 +165,13 @@ const ProductPage = (props) => {
       <header ref={Header} className={classes.pageHeader}>
         <div className={classes.companyLogo}>FUJIWARA</div>
         <div className={classes.headerMenu} ref={homeRef}>
-          <Link to="/" component={Home} className={classes.linkDecoration}>
+          <Link to="/" className={classes.linkDecoration}>
             {t('home')}
           </Link>
           {homeHovered && <div className={classes.line}>.</div>}
         </div>
         <div className={classes.headerMenu} ref={productRef}>
-          <Link to="/product" component={Product} className={classes.linkDecoration}>
+          <Link to="/product" className={classes.linkDecoration}>
             {t('product')}
           </Link>
           {productHovered && <div className={classes.line}>.</div>}

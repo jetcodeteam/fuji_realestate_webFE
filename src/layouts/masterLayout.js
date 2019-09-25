@@ -44,8 +44,8 @@ const styles = {
   translateButton: {
     zIndex: 10,
     position: 'absolute',
-    top: '2%',
-    left: '42%',
+    top: 3,
+    right: '3%',
   },
 };
 

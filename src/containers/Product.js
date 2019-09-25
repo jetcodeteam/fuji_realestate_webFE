@@ -63,8 +63,13 @@ const ProductPage = (props) => {
   }
   const useStyles = makeStyles(theme => ({
     root: {
+      maxWidth: 1500,
       marginTop: '30%',
       flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     pagination: {
       position: 'absolute',
@@ -234,26 +239,26 @@ const ProductPage = (props) => {
             ))}
           </Grid>
         </Grid>
+        <MobileStepper
+          variant="dots"
+          steps={6}
+          position="static"
+          activeStep={activeStep}
+          className={classes.pagination}
+          nextButton={(
+            <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
+              Next
+              {themes.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            </Button>
+          )}
+          backButton={(
+            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+              {themes.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+              Back
+            </Button>
+          )}
+        />
       </Grid>
-      <MobileStepper
-        variant="dots"
-        steps={6}
-        position="static"
-        activeStep={activeStep}
-        className={classes.pagination}
-        nextButton={(
-          <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
-            Next
-            {themes.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-          </Button>
-        )}
-        backButton={(
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {themes.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            Back
-          </Button>
-        )}
-      />
       {/* ---------------- FOOTER ---------------- */}
       <footer>
         <div className={classes.pageFooter}>

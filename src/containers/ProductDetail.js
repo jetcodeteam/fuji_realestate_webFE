@@ -21,10 +21,10 @@ import facebookLogo from '../static/images/icon/facebook-logo.png';
 import twitterLogo from '../static/images/icon/twitter-logo.png';
 import linkedinLogo from '../static/images/icon/linkedin-logo.png';
 import product from '../static/images/product/product.png';
-import product1 from '../static/images/product/product1.png';
-import product2 from '../static/images/product/product2.png';
-import product3 from '../static/images/product/product3.png';
-import product4 from '../static/images/product/pr.png';
+// import product1 from '../static/images/product/product1.png';
+// import product2 from '../static/images/product/product2.png';
+// import product3 from '../static/images/product/product3.png';
+// import product4 from '../static/images/product/pr.png';
 
 
 function useHover() {

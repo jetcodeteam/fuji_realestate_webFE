@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { RootProvider } from './store';
 import PrivateRoute from './components/PrivateRoute';
 
-// const MasterLayout = lazy(() => import('./layouts/masterLayout'));
+const MasterLayout = lazy(() => import('./layouts/masterLayout'));
 const Home = lazy(() => import('./containers/Home'));
 const Product = lazy(() => import('./containers/Product'));
 const ProductDetail = lazy(() => import('./containers/ProductDetail'));
@@ -44,20 +44,20 @@ const App = () => {
         )}
       >
         <BrowserRouter>
-          {/* <MasterLayout> */}
-          <Switch>
+          <MasterLayout>
+            <Switch>
 
-            <Route exact path="/" component={Home} />
-            <Route exact path="/product" component={Product} />
-            <Route exact path="/productdetail" component={ProductDetail} />
-            <Route exact path="/news" component={News} />
-            <Route exact path="/admin" component={LoginPage} />
-            <PrivateRoute exact path="/emails" component={AdminEmails} />
-            {/* <PrivateRoute exact path="/admin/news" component={} /> */}
-            {/* <PrivateRoute exact path="/admin/products" component={} /> */}
-            <Redirect to="/" />
-          </Switch>
-          {/* </MasterLayout> */}
+              <Route exact path="/" component={Home} />
+              <Route exact path="/product" component={Product} />
+              <Route exact path="/productdetail" component={ProductDetail} />
+              <Route exact path="/news" component={News} />
+              <Route exact path="/admin" component={LoginPage} />
+              <PrivateRoute exact path="/emails" component={AdminEmails} />
+              {/* <PrivateRoute exact path="/admin/news" component={} /> */}
+              {/* <PrivateRoute exact path="/admin/products" component={} /> */}
+              <Redirect to="/" />
+            </Switch>
+          </MasterLayout>
         </BrowserRouter>
       </Suspense>
     </RootProvider>

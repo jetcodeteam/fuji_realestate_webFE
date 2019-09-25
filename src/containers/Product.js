@@ -3,7 +3,6 @@ import React,
   useEffect,
   useRef,
   useState,
-  lazy,
 } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
@@ -16,20 +15,16 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
-import facebookLogo from '../static/images/facebook-logo.png';
-import twitterLogo from '../static/images/twitter-logo.png';
-import linkedinLogo from '../static/images/linkedin-logo.png';
-import avatar from '../static/images/product.png';
-
-const Home = lazy(() => import('./Home'));
-const News = lazy(() => import('./News'));
+import facebookLogo from '../static/images/icon/facebook-logo.png';
+import twitterLogo from '../static/images/icon/twitter-logo.png';
+import linkedinLogo from '../static/images/icon/linkedin-logo.png';
+import product from '../static/images/product/product.png';
 
 function useHover() {
   const ref = useRef(null);
@@ -63,9 +58,9 @@ const ProductPage = (props) => {
   }
   const useStyles = makeStyles(theme => ({
     root: {
-      maxWidth: 1500,
-      marginTop: '30%',
-      flexGrow: 1,
+      maxWidth: 1100,
+      marginTop: '20%',
+      flexGrow: 0.5,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -73,7 +68,7 @@ const ProductPage = (props) => {
     },
     pagination: {
       position: 'absolute',
-      bottom: '-57%',
+      bottom: '-27%',
     },
     card: {
       maxWidth: 345,
@@ -129,8 +124,9 @@ const ProductPage = (props) => {
       alignItems: 'center',
       alignContent: 'center',
       position: 'absolute',
-      top: '160%',
-      left: '0%',
+      top: '130%',
+      left: 0,
+      right: 0,
       width: '100%',
       height: '25%',
     },
@@ -152,7 +148,7 @@ const ProductPage = (props) => {
       <header ref={Header} className={classes.pageHeader}>
         <div className={classes.companyLogo}>FUJIWARA</div>
         <div className={classes.headerMenu} ref={homeRef}>
-          <Link to="/" component={Home} className={classes.linkDecoration}>
+          <Link to="/" className={classes.linkDecoration}>
             {t('home')}
           </Link>
           {homeHovered && <div className={classes.line}>.</div>}
@@ -164,7 +160,7 @@ const ProductPage = (props) => {
           <div className={classes.line}>.</div>
         </div>
         <div className={classes.headerMenu} ref={newsRef}>
-          <Link to="/news" component={News} className={classes.linkDecoration}>
+          <Link to="/news" className={classes.linkDecoration}>
             {t('news')}
           </Link>
           {newsHovered && <div className={classes.line}>.</div>}
@@ -203,39 +199,36 @@ const ProductPage = (props) => {
         <Grid item xs={12}>
           <Grid container justify="center" spacing={6}>
             {[0, 1, 2, 3, 4, 5].map(value => (
-              <Grid key={value} item>
-                <Card className={classes.card}>
-                  <CardActionArea>
-                    <CardMedia
-                      className={classes.media}
-                      image={avatar}
-                      title="Title"
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {t('title')}
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                        27 dien bien phu, HCM, Vietnam
-                      </Typography>
-                      <Typography variant="body3" color="textSecondary" component="p">
-                        2 寝室
-                      </Typography>
-                      <Typography variant="body4" color="textSecondary" component="p">
-                        ¥1,280
-                      </Typography>
-                      <Typography variant="body5" color="textSecondary" component="p">
-                        278,499 đ
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      {t('learn_more')}
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
+              <Link to="/productdetail" className={classes.linkDecoration}>
+                <Grid key={value} style={{ margin: 12 }} item>
+                  <Card className={classes.card}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={product}
+                        title="Title"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {t('title')}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                          27 dien bien phu, HCM, Vietnam
+                        </Typography>
+                        <Typography variant="body3" color="textSecondary" component="p">
+                          2 寝室
+                        </Typography>
+                        <Typography variant="body4" color="textSecondary" component="p">
+                          ¥1,280
+                        </Typography>
+                        <Typography variant="body5" color="textSecondary" component="p">
+                          278,499 đ
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+              </Link>
             ))}
           </Grid>
         </Grid>

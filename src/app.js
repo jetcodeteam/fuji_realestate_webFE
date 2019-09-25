@@ -14,9 +14,11 @@ import PrivateRoute from './components/PrivateRoute';
 // const MasterLayout = lazy(() => import('./layouts/masterLayout'));
 const Home = lazy(() => import('./containers/Home'));
 const Product = lazy(() => import('./containers/Product'));
+const ProductDetail = lazy(() => import('./containers/ProductDetail'));
 const News = lazy(() => import('./containers/News'));
 const AdminEmails = lazy(() => import('./containers/AdminEmails'));
 const LoginPage = lazy(() => import('./containers/LoginPage'));
+
 const useStyles = makeStyles(theme => ({
   progress: {
     margin: theme.spacing(2),
@@ -47,6 +49,7 @@ const App = () => {
 
             <Route exact path="/" component={Home} />
             <Route exact path="/product" component={Product} />
+            <Route exact path="/productdetail" component={ProductDetail} />
             <Route exact path="/news" component={News} />
             <Route exact path="/admin" component={LoginPage} />
             <PrivateRoute exact path="/emails" component={AdminEmails} />

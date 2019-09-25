@@ -15,14 +15,14 @@ import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 
 import { RootContext } from '../store';
-import facebookLogo from '../static/images/facebook-logo.png';
-import twitterLogo from '../static/images/twitter-logo.png';
-import linkedinLogo from '../static/images/linkedin-logo.png';
-import homeIcon from '../static/images/home-icon.png';
-import rentIcon from '../static/images/rent-icon.png';
-import visaIcon from '../static/images/visa-icon.png';
-import avatar1 from '../static/images/avatar-1.jpeg';
-import avatar2 from '../static/images/avatar-2.jpg';
+import facebookLogo from '../static/images/icon/facebook-logo.png';
+import twitterLogo from '../static/images/icon/twitter-logo.png';
+import linkedinLogo from '../static/images/icon/linkedin-logo.png';
+import homeIcon from '../static/images/icon/home-icon.png';
+import rentIcon from '../static/images/icon/rent-icon.png';
+import visaIcon from '../static/images/icon/visa-icon.png';
+import avatar1 from '../static/images/avatar/avatar-1.jpeg';
+import avatar2 from '../static/images/avatar/avatar-2.jpg';
 
 function useHover() {
   const ref = useRef(null);
@@ -113,7 +113,8 @@ const HomePage = (props) => {
       alignContent: 'center',
       position: 'absolute',
       top: '230%',
-      left: '0%',
+      left: 0,
+      right: 0,
       width: '100%',
       height: '25%',
     },

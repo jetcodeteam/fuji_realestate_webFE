@@ -46,6 +46,7 @@ function useHover() {
 const ProductDetail = (props) => {
   const useStyles = makeStyles(theme => ({
     root: {
+      marginTop: 10,
       maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
@@ -144,13 +145,13 @@ const ProductDetail = (props) => {
           <Link to="/product" className={classes.linkDecoration}>
             {t('product')}
           </Link>
-          <div className={classes.line} />
+          {productHovered && <div className={classes.line} />}
         </div>
         <div className={classes.headerMenu} ref={productRef}>
           <Link to="/news" className={classes.linkDecoration}>
             {t('news')}
           </Link>
-          {productHovered && <div className={classes.line} />}
+          <div className={classes.line} />
         </div>
         <div className={classes.headerMenu} ref={contactRef}>
           <Link to="/" className={classes.linkDecoration}>
@@ -159,6 +160,18 @@ const ProductDetail = (props) => {
           {contactHovered && <div className={classes.line} />}
         </div>
       </header>
+      <div
+        style={{
+          height: '1px',
+          backgroundColor: 'gray',
+          width: '100%',
+          position: 'absolute',
+          top: '10%',
+          opacity: 0.2,
+        }}
+      >
+        .
+      </div>
       {/* ----------------- NEWS ------------------------- */}
       <div
         style={{
@@ -181,7 +194,7 @@ const ProductDetail = (props) => {
             flexDirection: 'column',
           }}
         >
-          <h1>新しい研究は成功について最も安っぽいクリシェを確認します</h1>
+          <h1 style={{ fontSize: 40 }}>新しい研究は成功について最も安っぽいクリシェを確認します</h1>
           <div
             style={{
               display: 'flex',
@@ -222,7 +235,7 @@ const ProductDetail = (props) => {
           style={{
             width: '80%',
             position: 'absolute',
-            top: '100%',
+            top: '110%',
             alignSelf: 'center',
             display: 'flex',
             justifyContent: 'center',
@@ -231,17 +244,23 @@ const ProductDetail = (props) => {
             flexGrow: 1,
           }}
         >
-          <div style={{ flexGrow: 1 }}>
-            <h3>{t('more')}</h3>
+          <div
+            style={{
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
+            <h1 style={{ flexGrow: 1, fontSize: 18 }}>{t('more')}</h1>
             <div
               style={{
-                width: '125%',
+                width: '100%',
                 height: '1px',
                 backgroundColor: 'gray',
                 opacity: 0.2,
                 marginLeft: 5,
                 marginRight: 5,
-                flexGrow: 1,
                 marginBottom: 10,
               }}
             >

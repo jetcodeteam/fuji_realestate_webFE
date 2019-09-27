@@ -146,6 +146,7 @@ const ProductPage = (props) => {
       textDecoration: 'none',
     },
     newsroot: {
+      width: '90%',
       position: 'absolute',
       display: 'flex',
       left: '5%',

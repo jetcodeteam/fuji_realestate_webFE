@@ -181,6 +181,7 @@ const ProductDetail = (props) => {
           position: 'absolute',
           top: '15%',
           left: '10%',
+          fontSize: 20,
         }}
       >
         <h2>ホーチミン中心の１区、日本食も多く</h2>
@@ -201,8 +202,8 @@ const ProductDetail = (props) => {
         style={{
           color: 'rgb(40,208,55)',
           position: 'absolute',
-          top: '45%',
-          left: '43%',
+          top: '40%',
+          left: '45%',
           fontSize: 60,
         }}
       >
@@ -213,7 +214,7 @@ const ProductDetail = (props) => {
           width: 40,
           position: 'absolute',
           top: '40%',
-          left: '52%',
+          left: '54%',
           textAlign: 'center',
           verticalAlign: 'center',
         }}
@@ -229,6 +230,8 @@ const ProductDetail = (props) => {
           left: '3%',
           textAlign: 'center',
           verticalAlign: 'center',
+          fontSize: 22,
+          fontWeight: 700,
         }}
       >
         <h2 style={{ color: 'white' }}>ワンルーム</h2>
@@ -238,7 +241,7 @@ const ProductDetail = (props) => {
           display: 'flex',
           flexDirection: 'column',
           position: 'absolute',
-          top: '55%',
+          top: '60%',
           left: '5%',
         }}
       >
@@ -258,14 +261,14 @@ const ProductDetail = (props) => {
       >
         <img
           style={{
-            width: 300,
+            width: 320,
             height: 200,
             marginRight: '40px',
           }}
           src={product3}
           alt="product3"
         />
-        <img src={product4} alt="product4" style={{ width: 300, height: 200 }} />
+        <img src={product4} alt="product4" style={{ width: 320, height: 200 }} />
       </div>
       <div
         style={{
@@ -273,7 +276,7 @@ const ProductDetail = (props) => {
           flexDirection: 'column',
           position: 'absolute',
           top: '35%',
-          left: '73%',
+          right: '0%',
         }}
       >
         <img

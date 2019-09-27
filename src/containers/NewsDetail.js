@@ -46,6 +46,7 @@ function useHover() {
 const ProductDetail = (props) => {
   const useStyles = makeStyles(theme => ({
     root: {
+      marginTop: 10,
       maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
@@ -115,7 +116,7 @@ const ProductDetail = (props) => {
       left: 0,
       right: 0,
       width: '100%',
-      height: '25%',
+      height: '20%',
     },
     linkDecoration: {
       color: 'inherit',
@@ -144,13 +145,13 @@ const ProductDetail = (props) => {
           <Link to="/product" className={classes.linkDecoration}>
             {t('product')}
           </Link>
-          <div className={classes.line} />
+          {productHovered && <div className={classes.line} />}
         </div>
         <div className={classes.headerMenu} ref={productRef}>
           <Link to="/news" className={classes.linkDecoration}>
             {t('news')}
           </Link>
-          {productHovered && <div className={classes.line} />}
+          <div className={classes.line} />
         </div>
         <div className={classes.headerMenu} ref={contactRef}>
           <Link to="/" className={classes.linkDecoration}>
@@ -159,6 +160,18 @@ const ProductDetail = (props) => {
           {contactHovered && <div className={classes.line} />}
         </div>
       </header>
+      <div
+        style={{
+          height: '1px',
+          backgroundColor: 'gray',
+          width: '100%',
+          position: 'absolute',
+          top: '10%',
+          opacity: 0.2,
+        }}
+      >
+        .
+      </div>
       {/* ----------------- NEWS ------------------------- */}
       <div
         style={{
@@ -181,7 +194,7 @@ const ProductDetail = (props) => {
             flexDirection: 'column',
           }}
         >
-          <h1>新しい研究は成功について最も安っぽいクリシェを確認します</h1>
+          <h1 style={{ fontSize: 40 }}>新しい研究は成功について最も安っぽいクリシェを確認します</h1>
           <div
             style={{
               display: 'flex',
@@ -222,7 +235,7 @@ const ProductDetail = (props) => {
           style={{
             width: '80%',
             position: 'absolute',
-            top: '100%',
+            top: '110%',
             alignSelf: 'center',
             display: 'flex',
             justifyContent: 'center',
@@ -231,17 +244,23 @@ const ProductDetail = (props) => {
             flexGrow: 1,
           }}
         >
-          <div style={{ flexGrow: 1 }}>
-            <h3>{t('more')}</h3>
+          <div
+            style={{
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
+            <h1 style={{ flexGrow: 1, fontSize: 18 }}>{t('more')}</h1>
             <div
               style={{
-                width: '125%',
+                width: '100%',
                 height: '1px',
                 backgroundColor: 'gray',
                 opacity: 0.2,
                 marginLeft: 5,
                 marginRight: 5,
-                flexGrow: 1,
                 marginBottom: 10,
               }}
             >
@@ -285,89 +304,103 @@ const ProductDetail = (props) => {
       {/* ---------------- FOOTER ---------------- */}
       <footer>
         <div className={classes.pageFooter}>
-          <h2 style={{ paddingLeft: '5px' }}>FUJIWARA</h2>
+          <h2 style={{ fontSize: 25, fontWeight: 700, flexGrow: 1 }}>FUJIWARA</h2>
           <div
             style={{
               display: 'flex',
-              flexDirection: 'row',
-              width: '13%',
+              justifyContent: 'center',
+              width: '100%',
               flexGrow: 1,
-              marginBottom: '10px',
             }}
           >
             <div
               style={{
-                width: '25px',
-                height: '25px',
-                flexGrow: '1',
+                display: 'flex',
+                width: '15%',
+                justifyContent: 'center',
               }}
             >
-              <img
-                src={facebookLogo}
-                alt="facebook-logo"
-              />
-            </div>
-            <div
-              style={{
-                width: '25px',
-                height: '25px',
-                flexGrow: '1',
-              }}
-            >
-              <img
-                src={twitterLogo}
-                alt="twitter-logo"
-              />
-            </div>
-            <div
-              style={{
-                width: '25px',
-                height: '25px',
-              }}
-            >
-              <img
-                src={linkedinLogo}
-                alt="linkedin-logo"
-              />
+              <div
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  flexGrow: 1,
+                }}
+              >
+                <img
+                  src={facebookLogo}
+                  alt="facebook-logo"
+                />
+              </div>
+              <div
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  flexGrow: 1,
+                }}
+              >
+                <img
+                  src={twitterLogo}
+                  alt="twitter-logo"
+                />
+              </div>
+              <div
+                style={{
+                  width: '25px',
+                  height: '25px',
+                }}
+              >
+                <img
+                  src={linkedinLogo}
+                  alt="linkedin-logo"
+                />
+              </div>
             </div>
           </div>
           <div
             style={{
-              paddingRight: '3%',
               display: 'flex',
-              width: '30%',
+              width: '100%',
               justifyContent: 'center',
               flexGrow: 1,
             }}
           >
             <div
               style={{
-                height: '53%',
-                textAlign: 'center',
-                flexGrow: 1,
-                borderRight: '2px solid gray',
+                display: 'flex',
+                justifyContent: 'center',
+                width: '25%',
               }}
             >
-              {t('news')}
-            </div>
-            <div
-              style={{
-                textAlign: 'center',
-                height: '53%',
-                flexGrow: 1,
-                borderRight: '2px solid gray',
-              }}
-            >
-              {t('product')}
-            </div>
-            <div
-              style={{
-                textAlign: 'center',
-                marginLeft: '10%',
-                height: '53%',
-              }}
-            >
-              {t('contact_us')}
+              <div
+                style={{
+                  height: '53%',
+                  textAlign: 'center',
+                  flexGrow: 1,
+                  borderRight: '2px solid gray',
+                }}
+              >
+                {t('news')}
+              </div>
+              <div
+                style={{
+                  textAlign: 'center',
+                  height: '53%',
+                  flexGrow: 1,
+                  borderRight: '2px solid gray',
+                }}
+              >
+                {t('product')}
+              </div>
+              <div
+                style={{
+                  textAlign: 'center',
+                  height: '53%',
+                  flexGrow: 1,
+                }}
+              >
+                {t('contact_us')}
+              </div>
             </div>
           </div>
           <div

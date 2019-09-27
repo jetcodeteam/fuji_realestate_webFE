@@ -139,7 +139,7 @@ const ProductPage = (props) => {
       top: '140%',
       left: '0%',
       width: '100%',
-      height: '25%',
+      height: '20%',
     },
     linkDecoration: {
       color: 'inherit',
@@ -283,89 +283,103 @@ const ProductPage = (props) => {
       {/* ---------------- FOOTER ---------------- */}
       <footer>
         <div className={classes.pageFooter}>
-          <h2 style={{ paddingLeft: '5px' }}>FUJIWARA</h2>
+          <h2 style={{ fontSize: 25, fontWeight: 700, flexGrow: 1 }}>FUJIWARA</h2>
           <div
             style={{
               display: 'flex',
-              flexDirection: 'row',
-              width: '13%',
+              justifyContent: 'center',
+              width: '100%',
               flexGrow: 1,
-              marginBottom: '10px',
             }}
           >
             <div
               style={{
-                width: '25px',
-                height: '25px',
-                flexGrow: '1',
+                display: 'flex',
+                width: '15%',
+                justifyContent: 'center',
               }}
             >
-              <img
-                src={facebookLogo}
-                alt="facebook-logo"
-              />
-            </div>
-            <div
-              style={{
-                width: '25px',
-                height: '25px',
-                flexGrow: '1',
-              }}
-            >
-              <img
-                src={twitterLogo}
-                alt="twitter-logo"
-              />
-            </div>
-            <div
-              style={{
-                width: '25px',
-                height: '25px',
-              }}
-            >
-              <img
-                src={linkedinLogo}
-                alt="linkedin-logo"
-              />
+              <div
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  flexGrow: 1,
+                }}
+              >
+                <img
+                  src={facebookLogo}
+                  alt="facebook-logo"
+                />
+              </div>
+              <div
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  flexGrow: 1,
+                }}
+              >
+                <img
+                  src={twitterLogo}
+                  alt="twitter-logo"
+                />
+              </div>
+              <div
+                style={{
+                  width: '25px',
+                  height: '25px',
+                }}
+              >
+                <img
+                  src={linkedinLogo}
+                  alt="linkedin-logo"
+                />
+              </div>
             </div>
           </div>
           <div
             style={{
-              paddingRight: '3%',
               display: 'flex',
-              width: '30%',
+              width: '100%',
               justifyContent: 'center',
               flexGrow: 1,
             }}
           >
             <div
               style={{
-                height: '53%',
-                textAlign: 'center',
-                flexGrow: 1,
-                borderRight: '2px solid gray',
+                display: 'flex',
+                justifyContent: 'center',
+                width: '25%',
               }}
             >
-              {t('news')}
-            </div>
-            <div
-              style={{
-                textAlign: 'center',
-                height: '53%',
-                flexGrow: 1,
-                borderRight: '2px solid gray',
-              }}
-            >
-              {t('product')}
-            </div>
-            <div
-              style={{
-                textAlign: 'center',
-                marginLeft: '10%',
-                height: '53%',
-              }}
-            >
-              {t('contact_us')}
+              <div
+                style={{
+                  height: '53%',
+                  textAlign: 'center',
+                  flexGrow: 1,
+                  borderRight: '2px solid gray',
+                }}
+              >
+                {t('news')}
+              </div>
+              <div
+                style={{
+                  textAlign: 'center',
+                  height: '53%',
+                  flexGrow: 1,
+                  borderRight: '2px solid gray',
+                }}
+              >
+                {t('product')}
+              </div>
+              <div
+                style={{
+                  textAlign: 'center',
+                  height: '53%',
+                  flexGrow: 1,
+                }}
+              >
+                {t('contact_us')}
+              </div>
             </div>
           </div>
           <div

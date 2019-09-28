@@ -7,6 +7,7 @@ import {
   Modal,
 } from 'antd';
 import AdornedButton from '../components/AdornedButton';
+import ProductCreateForm from '../components/AdminProductCreate';
 import {
   pagination,
 } from '../configs/constants';
@@ -42,6 +43,10 @@ const AdminEmails = (props) => {
   const [detailVisible, setDetailVisible] = useState(false);
   const [detailRecord, setDetailRecord] = useState({});
   const [confirmLoading, setConfirmLoading] = useState(false);
+
+  // create form states
+  const [isFormVisible, setFormVisible] = useState(false);
+
 
   const emailColumns = [
     {
@@ -193,7 +198,7 @@ const AdminEmails = (props) => {
         variant="contained"
         color="primary"
         id="submit-login"
-        onClick={console.log('haha')}
+        onClick={() => setFormVisible(true)}
       >
         {t('add_product')}
       </AdornedButton>
@@ -226,6 +231,11 @@ const AdminEmails = (props) => {
       >
         <p>TODO</p>
       </Modal>
+      <ProductCreateForm
+        isFormVisible={isFormVisible}
+        setFormVisible={setFormVisible}
+        reloadTable={() => onPageChange(1)}
+      />
     </React.Fragment>
   );
 };

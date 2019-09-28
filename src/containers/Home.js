@@ -1,20 +1,11 @@
-import React,
-{
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import anime from 'animejs';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 
-import { RootContext } from '../store';
 import facebookLogo from '../static/images/icon/facebook-logo.png';
 import twitterLogo from '../static/images/icon/twitter-logo.png';
 import linkedinLogo from '../static/images/icon/linkedin-logo.png';
@@ -24,25 +15,6 @@ import visaIcon from '../static/images/icon/visa-icon.png';
 import avatar1 from '../static/images/avatar/avatar-1.jpeg';
 import avatar2 from '../static/images/avatar/avatar-2.jpg';
 
-function useHover() {
-  const ref = useRef(null);
-  const [hovered, setHovered] = useState(false);
-
-  const enter = () => setHovered(true);
-  const leave = () => setHovered(false);
-
-  useEffect(() => {
-    ref.current.addEventListener('mouseenter', enter);
-    ref.current.addEventListener('mouseleave', leave);
-    return () => {
-      ref.current.removeEventListener('mouseenter', enter);
-      ref.current.removeEventListener('mouseleave', leave);
-    };
-  }, [ref.current]);
-
-  return [ref, hovered];
-}
-
 const HomePage = (props) => {
   const useStyles = makeStyles({
     bigAvatar: {
@@ -51,29 +23,12 @@ const HomePage = (props) => {
       height: 90,
       alignSelf: 'center',
     },
-    pageHeader: {
-      display: 'flex',
-      flexDirection: 'row',
-      position: 'absolute',
-      top: '2.5%',
-      left: '3%',
-      fontFamily: 'Roboto',
-    },
     carouselImg: {
       position: 'absolute',
       zIndex: 1,
       width: '52%',
       height: '70%',
       right: '0%',
-    },
-    companyLogo: {
-      marginRight: '40px',
-      fontWeight: '900',
-      fontSize: '15px',
-    },
-    headerMenu: {
-      marginRight: '40px',
-      fontSize: '15px',
     },
     behindCarousel: {
       position: 'absolute',
@@ -83,11 +38,6 @@ const HomePage = (props) => {
       height: '98%',
       backgroundColor: 'rgb(105, 192, 255)',
       zIndex: -1,
-    },
-    line: {
-      width: 'inherit',
-      height: '3px',
-      backgroundColor: 'rgb(105, 192, 255)',
     },
     carouselText: {
       position: 'absolute',
@@ -138,10 +88,6 @@ const HomePage = (props) => {
       fontWeight: '700',
       marginBottom: '100px',
     },
-    linkDecoration: {
-      color: 'inherit',
-      textDecoration: 'none',
-    },
     mainServices: {
       position: 'absolute',
       display: 'flex',
@@ -158,65 +104,10 @@ const HomePage = (props) => {
     },
   });
   const { t } = props;
-  const { state } = useContext(RootContext);
-  const Header = useRef();
-  const counterRef = useRef();
-  const [productRef, productHovered] = useHover();
-  const [newsRef, newsHovered] = useHover();
-  const [contactRef, contactHovered] = useHover();
   const classes = useStyles();
-
-  useEffect(() => {
-    if (state.shouldHeaderShow) {
-      const tl = anime.timeline({
-        easing: 'easeOutExpo',
-      });
-
-      tl.add({
-        targets: Header.current,
-        opacity: 1,
-        duration: 1000,
-      });
-
-      tl.add({
-        targets: counterRef.current,
-        opacity: 1,
-        duration: 250,
-      });
-    }
-  }, [state.shouldHeaderShow]);
 
   return (
     <React.Fragment>
-      {/* -------- HEADER ---------- */}
-      <header ref={Header} className={classes.pageHeader}>
-        <div className={classes.companyLogo}>FUJIWARA</div>
-        <div className={classes.headerMenu}>
-          <Link to="/" className={classes.linkDecoration}>
-            {t('home')}
-          </Link>
-          <div className={classes.line} />
-        </div>
-        <div className={classes.headerMenu} ref={productRef}>
-          <Link to="/product" className={classes.linkDecoration}>
-            {t('product')}
-          </Link>
-          {productHovered && <div className={classes.line} />}
-        </div>
-        <div className={classes.headerMenu} ref={newsRef}>
-          <Link to="/news" className={classes.linkDecoration}>
-            {t('news')}
-          </Link>
-          {newsHovered && <div className={classes.line} />}
-        </div>
-        <div className={classes.headerMenu} ref={contactRef}>
-          <Link to="/" className={classes.linkDecoration}>
-            {t('contact_us')}
-          </Link>
-          {contactHovered && <div className={classes.line} />}
-        </div>
-      </header>
-      {/* ------------------- CAROUSEL -------------------- */}
       <div className={classes.behindCarousel}>.</div>
       <img
         src="https://cdn10.bostonmagazine.com/wp-content/uploads/sites/2/2018/01/mitchell-gold-bob-williams-e1515009249915.jpg"

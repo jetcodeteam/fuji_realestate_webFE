@@ -1,18 +1,15 @@
 import React,
 {
-  useContext,
   useRef,
   createRef,
-  useEffect,
 } from 'react';
-import anime from 'animejs';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import TranslateButton from '../components/TranslateButton';
+import PageHeader from '../components/PageHeader';
 
-import { RootContext } from '../store';
 
 const styles = {
   root: {
@@ -52,31 +49,7 @@ const styles = {
 const MasterLayout = (props) => {
   const { children, classes } = props;
 
-  const { dispatch } = useContext(RootContext);
   const elRef = useRef([...Array(12)].map(() => createRef()));
-
-  useEffect(() => {
-    setTimeout(() => {
-      const tl = anime.timeline({
-        easing: 'easeOutExpo',
-        duration: 1000,
-        complete: () => {
-          dispatch({ type: 'showHeader' });
-        },
-      });
-
-      tl.add({
-        targets: elRef.current.map(el => el.current),
-        backgroundColor: 'white',
-        delay: anime.stagger(200),
-      });
-
-      tl.add({
-        targets: elRef.current.map(el => el.current),
-        opacity: 0.2,
-      });
-    }, 500);
-  }, []);
 
   return (
     <Container className={classes.root} maxWidth="xl">
@@ -87,6 +60,7 @@ const MasterLayout = (props) => {
       </Grid>
       <Container className={classes.childrenContainer} maxWidth="xl">
         {children}
+        <PageHeader />
         <TranslateButton className={classes.translateButton} />
       </Container>
     </Container>

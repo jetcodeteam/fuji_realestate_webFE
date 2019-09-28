@@ -1,9 +1,4 @@
-import React,
-{
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -25,26 +20,6 @@ import product1 from '../static/images/product/product1.png';
 import product2 from '../static/images/product/product2.png';
 import product3 from '../static/images/product/product3.png';
 import product4 from '../static/images/product/pr.png';
-
-
-function useHover() {
-  const ref = useRef(null);
-  const [hovered, setHovered] = useState(false);
-
-  const enter = () => setHovered(true);
-  const leave = () => setHovered(false);
-
-  useEffect(() => {
-    ref.current.addEventListener('mouseenter', enter);
-    ref.current.addEventListener('mouseleave', leave);
-    return () => {
-      ref.current.removeEventListener('mouseenter', enter);
-      ref.current.removeEventListener('mouseleave', leave);
-    };
-  }, []);
-
-  return [ref, hovered];
-}
 
 const ProductDetail = (props) => {
   const useStyles = makeStyles(theme => ({
@@ -84,28 +59,6 @@ const ProductDetail = (props) => {
     menu: {
       width: 200,
     },
-    pageHeader: {
-      display: 'flex',
-      flexDirection: 'row',
-      position: 'absolute',
-      top: '2.5%',
-      left: '3%',
-      fontFamily: 'Roboto',
-    },
-    companyLogo: {
-      marginRight: '40px',
-      fontWeight: '900',
-      fontSize: '15px',
-    },
-    headerMenu: {
-      marginRight: '40px',
-      fontSize: '15px',
-    },
-    line: {
-      width: 'inherit',
-      height: '3px',
-      backgroundColor: 'rgb(105, 192, 255)',
-    },
     pageFooter: {
       marginTop: 30,
       backgroundColor: 'rgb(186,231,255)',
@@ -126,43 +79,10 @@ const ProductDetail = (props) => {
     },
   }));
   const { t } = props;
-  const Header = useRef();
-  const [homeRef, homeHovered] = useHover();
-  const [newsRef, newsHovered] = useHover();
-  const [contactRef, contactHovered] = useHover();
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      {/* -------- HEADER ---------- */}
-      <header ref={Header} className={classes.pageHeader}>
-        <div className={classes.companyLogo}>FUJIWARA</div>
-        <div className={classes.headerMenu} ref={homeRef}>
-          <Link to="/" className={classes.linkDecoration}>
-            {t('home')}
-          </Link>
-          {homeHovered && <div className={classes.line} />}
-        </div>
-        <div className={classes.headerMenu}>
-          <Link to="/product" className={classes.linkDecoration}>
-            {t('product')}
-          </Link>
-          <div className={classes.line} />
-        </div>
-        <div className={classes.headerMenu} ref={newsRef}>
-          <Link to="/news" className={classes.linkDecoration}>
-            {t('news')}
-          </Link>
-          {newsHovered && <div className={classes.line} />}
-        </div>
-        <div className={classes.headerMenu} ref={contactRef}>
-          <Link to="/" className={classes.linkDecoration}>
-            {t('contact_us')}
-          </Link>
-          {contactHovered && <div className={classes.line} />}
-        </div>
-      </header>
-      {/* ----------------- PRODUCTS ------------------------- */}
       <div
         style={{
           width: '100%',

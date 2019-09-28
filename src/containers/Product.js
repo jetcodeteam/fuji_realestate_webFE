@@ -1,9 +1,4 @@
-import React,
-{
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -19,31 +14,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 
 import facebookLogo from '../static/images/icon/facebook-logo.png';
 import twitterLogo from '../static/images/icon/twitter-logo.png';
 import linkedinLogo from '../static/images/icon/linkedin-logo.png';
 import product from '../static/images/product/product.png';
-
-function useHover() {
-  const ref = useRef(null);
-  const [hovered, setHovered] = useState(false);
-
-  const enter = () => setHovered(true);
-  const leave = () => setHovered(false);
-
-  useEffect(() => {
-    ref.current.addEventListener('mouseenter', enter);
-    ref.current.addEventListener('mouseleave', leave);
-    return () => {
-      ref.current.removeEventListener('mouseenter', enter);
-      ref.current.removeEventListener('mouseleave', leave);
-    };
-  }, []);
-
-  return [ref, hovered];
-}
 
 const ProductPage = (props) => {
   const themes = useTheme();
@@ -95,27 +70,9 @@ const ProductPage = (props) => {
     menu: {
       width: 200,
     },
-    pageHeader: {
-      display: 'flex',
-      flexDirection: 'row',
-      position: 'absolute',
-      top: '2.5%',
-      left: '3%',
-      fontFamily: 'Roboto',
-    },
-    companyLogo: {
-      marginRight: '40px',
-      fontWeight: '900',
-      fontSize: '15px',
-    },
     headerMenu: {
       marginRight: '40px',
       fontSize: '15px',
-    },
-    line: {
-      width: 'inherit',
-      height: '3px',
-      backgroundColor: 'rgb(105, 192, 255)',
     },
     pageFooter: {
       backgroundColor: 'rgb(186,231,255)',
@@ -136,49 +93,10 @@ const ProductPage = (props) => {
     },
   }));
   const { t } = props;
-  const Header = useRef();
-  const [homeRef, homeHovered] = useHover();
-  const [newsRef, newsHovered] = useHover();
-  const [contactRef, contactHovered] = useHover();
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      {/* -------- HEADER ---------- */}
-      <header ref={Header} className={classes.pageHeader}>
-        <div className={classes.companyLogo}>FUJIWARA</div>
-        <div className={classes.headerMenu} ref={homeRef}>
-          <Link to="/" className={classes.linkDecoration}>
-            {t('home')}
-          </Link>
-          {homeHovered && <div className={classes.line} />}
-        </div>
-        <div className={classes.headerMenu}>
-          <Link to="/product" className={classes.linkDecoration}>
-            {t('product')}
-          </Link>
-          <div className={classes.line} />
-        </div>
-        <div className={classes.headerMenu} ref={newsRef}>
-          <Link to="/news" className={classes.linkDecoration}>
-            {t('news')}
-          </Link>
-          {newsHovered && <div className={classes.line} />}
-        </div>
-        <div className={classes.headerMenu} ref={contactRef}>
-          <Link to="/" className={classes.linkDecoration}>
-            {t('contact_us')}
-          </Link>
-          {contactHovered && <div className={classes.line} />}
-        </div>
-      </header>
-      <TextField
-        id="standard-bare"
-        className={classes.textField}
-        placeholder="Enter your search here"
-        margin="normal"
-        inputProps={{ 'aria-label': 'bare' }}
-      />
       <div
         style={{
           width: '80%',
@@ -194,7 +112,6 @@ const ProductPage = (props) => {
       >
         .
       </div>
-      {/* ----------------- PRODUCTS ------------------------- */}
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
           <Grid container justify="center" spacing={6}>

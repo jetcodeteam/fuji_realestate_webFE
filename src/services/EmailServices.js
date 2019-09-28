@@ -1,4 +1,4 @@
-import { publicRequest, privateRequest } from './HttpServices';
+import { privateRequest } from './HttpServices';
 
 const emailPrefixURL = '/requests';
 /*
@@ -6,7 +6,7 @@ const emailPrefixURL = '/requests';
 | ------------------------------------------------------
 | GET /requests
 */
-export const getAllRequests = params => publicRequest(emailPrefixURL, {
+export const getAllRequests = params => privateRequest(emailPrefixURL, {
   method: 'GET',
   params,
 });

@@ -84,6 +84,7 @@ const ProductCreateForm = (props) => {
                       Authorization: `Bearer ${getAccessToken()}`,
                     }}
                     name="upload"
+                    multiple
                     action="https://api-fujiwara-v2.herokuapp.com/uploads"
                   >
                     <p className="ant-upload-drag-icon">

@@ -12,6 +12,7 @@ import {
   Row,
   Col,
 } from 'antd';
+import { getAccessToken } from '../services/TokenServices';
 
 const ProductCreateForm = (props) => {
   const {
@@ -78,7 +79,13 @@ const ProductCreateForm = (props) => {
                   valuePropName: 'fileList',
                   getValueFromEvent: normFile,
                 })(
-                  <Upload.Dragger name="files" action="https://api-fujiwara-v2.herokuapp.com/uploads">
+                  <Upload.Dragger
+                    headers={{
+                      Authorization: `Bearer ${getAccessToken()}`,
+                    }}
+                    name="upload"
+                    action="https://api-fujiwara-v2.herokuapp.com/uploads"
+                  >
                     <p className="ant-upload-drag-icon">
                       <Icon type="inbox" />
                     </p>

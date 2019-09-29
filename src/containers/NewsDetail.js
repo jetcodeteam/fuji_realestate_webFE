@@ -12,9 +12,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
-import facebookLogo from '../static/images/icon/facebook-logo.png';
-import twitterLogo from '../static/images/icon/twitter-logo.png';
-import linkedinLogo from '../static/images/icon/linkedin-logo.png';
 import article from '../static/images/news/article.png';
 import news from '../static/images/news/news2.png';
 
@@ -57,20 +54,6 @@ const ProductDetail = (props) => {
     menu: {
       width: 200,
     },
-    pageFooter: {
-      marginTop: 30,
-      backgroundColor: 'rgb(186,231,255)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      alignContent: 'center',
-      position: 'absolute',
-      top: '220%',
-      left: 0,
-      right: 0,
-      width: '100%',
-      height: '20%',
-    },
     linkDecoration: {
       color: 'inherit',
       textDecoration: 'none',
@@ -81,7 +64,6 @@ const ProductDetail = (props) => {
 
   return (
     <React.Fragment>
-      {/* ----------------- NEWS ------------------------- */}
       <div
         style={{
           width: '100%',
@@ -210,119 +192,6 @@ const ProductDetail = (props) => {
           </Grid>
         </div>
       </div>
-      {/* ---------------- FOOTER ---------------- */}
-      <footer>
-        <div className={classes.pageFooter}>
-          <h2 style={{ fontSize: 25, fontWeight: 700, flexGrow: 1 }}>FUJIWARA</h2>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              flexGrow: 1,
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                width: '15%',
-                justifyContent: 'center',
-              }}
-            >
-              <div
-                style={{
-                  width: '25px',
-                  height: '25px',
-                  flexGrow: 1,
-                }}
-              >
-                <img
-                  src={facebookLogo}
-                  alt="facebook-logo"
-                />
-              </div>
-              <div
-                style={{
-                  width: '25px',
-                  height: '25px',
-                  flexGrow: 1,
-                }}
-              >
-                <img
-                  src={twitterLogo}
-                  alt="twitter-logo"
-                />
-              </div>
-              <div
-                style={{
-                  width: '25px',
-                  height: '25px',
-                }}
-              >
-                <img
-                  src={linkedinLogo}
-                  alt="linkedin-logo"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'center',
-              flexGrow: 1,
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                width: '25%',
-              }}
-            >
-              <div
-                style={{
-                  height: '53%',
-                  textAlign: 'center',
-                  flexGrow: 1,
-                  borderRight: '2px solid gray',
-                }}
-              >
-                {t('news')}
-              </div>
-              <div
-                style={{
-                  textAlign: 'center',
-                  height: '53%',
-                  flexGrow: 1,
-                  borderRight: '2px solid gray',
-                }}
-              >
-                {t('product')}
-              </div>
-              <div
-                style={{
-                  textAlign: 'center',
-                  height: '53%',
-                  flexGrow: 1,
-                }}
-              >
-                {t('contact_us')}
-              </div>
-            </div>
-          </div>
-          <div
-            style={{
-              color: 'rbg(120, 116, 116)',
-              fontSize: '14px',
-              fontWeight: 'bold',
-            }}
-          >
-            Copyright © 2019 Fujiwara.
-          </div>
-        </div>
-      </footer>
     </React.Fragment>
   );
 };

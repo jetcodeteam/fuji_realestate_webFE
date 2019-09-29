@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import TranslateButton from '../components/TranslateButton';
 import PageHeader from '../components/PageHeader';
+import PageFooter from '../components/PageFooter';
 
 
 const styles = {
@@ -35,6 +36,7 @@ const styles = {
     height: '100vh',
     padding: '0',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -62,6 +64,7 @@ const MasterLayout = (props) => {
         {children}
         <PageHeader />
         <TranslateButton className={classes.translateButton} />
+        <PageFooter />
       </Container>
     </Container>
   );

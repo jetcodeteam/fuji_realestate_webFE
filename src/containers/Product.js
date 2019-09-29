@@ -15,9 +15,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import facebookLogo from '../static/images/icon/facebook-logo.png';
-import twitterLogo from '../static/images/icon/twitter-logo.png';
-import linkedinLogo from '../static/images/icon/linkedin-logo.png';
 import product from '../static/images/product/product.png';
 
 const ProductPage = (props) => {
@@ -73,19 +70,6 @@ const ProductPage = (props) => {
     headerMenu: {
       marginRight: '40px',
       fontSize: '15px',
-    },
-    pageFooter: {
-      backgroundColor: 'rgb(186,231,255)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      alignContent: 'center',
-      position: 'absolute',
-      top: '130%',
-      left: 0,
-      right: 0,
-      width: '100%',
-      height: '20%',
     },
     linkDecoration: {
       color: 'inherit',
@@ -169,119 +153,6 @@ const ProductPage = (props) => {
           )}
         />
       </Grid>
-      {/* ---------------- FOOTER ---------------- */}
-      <footer>
-        <div className={classes.pageFooter}>
-          <h2 style={{ fontSize: 25, fontWeight: 700, flexGrow: 1 }}>FUJIWARA</h2>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              flexGrow: 1,
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                width: '15%',
-                justifyContent: 'center',
-              }}
-            >
-              <div
-                style={{
-                  width: '25px',
-                  height: '25px',
-                  flexGrow: 1,
-                }}
-              >
-                <img
-                  src={facebookLogo}
-                  alt="facebook-logo"
-                />
-              </div>
-              <div
-                style={{
-                  width: '25px',
-                  height: '25px',
-                  flexGrow: 1,
-                }}
-              >
-                <img
-                  src={twitterLogo}
-                  alt="twitter-logo"
-                />
-              </div>
-              <div
-                style={{
-                  width: '25px',
-                  height: '25px',
-                }}
-              >
-                <img
-                  src={linkedinLogo}
-                  alt="linkedin-logo"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'center',
-              flexGrow: 1,
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                width: '25%',
-              }}
-            >
-              <div
-                style={{
-                  height: '53%',
-                  textAlign: 'center',
-                  flexGrow: 1,
-                  borderRight: '2px solid gray',
-                }}
-              >
-                {t('news')}
-              </div>
-              <div
-                style={{
-                  textAlign: 'center',
-                  height: '53%',
-                  flexGrow: 1,
-                  borderRight: '2px solid gray',
-                }}
-              >
-                {t('product')}
-              </div>
-              <div
-                style={{
-                  textAlign: 'center',
-                  height: '53%',
-                  flexGrow: 1,
-                }}
-              >
-                {t('contact_us')}
-              </div>
-            </div>
-          </div>
-          <div
-            style={{
-              color: 'rbg(120, 116, 116)',
-              fontSize: '14px',
-              fontWeight: 'bold',
-            }}
-          >
-            Copyright © 2019 Fujiwara.
-          </div>
-        </div>
-      </footer>
     </React.Fragment>
   );
 };

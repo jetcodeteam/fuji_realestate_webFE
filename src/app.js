@@ -18,6 +18,7 @@ import './assets/app.css';
 const MasterLayout = lazy(() => import('./layouts/masterLayout'));
 const Home = lazy(() => import('./containers/Home'));
 const Product = lazy(() => import('./containers/Product'));
+const Contact = lazy(() => import('./containers/Contact'));
 const ProductDetail = lazy(() => import('./containers/ProductDetail'));
 const News = lazy(() => import('./containers/News'));
 const NewsDetail = lazy(() => import('./containers/NewsDetail'));
@@ -78,6 +79,7 @@ const App = () => {
             <PublicRoute exact path="/productdetail" component={ProductDetail} />
             <PublicRoute exact path="/news" component={News} />
             <PublicRoute exact path="/newsdetail" component={NewsDetail} />
+            <PublicRoute exact path="/contact" component={Contact} />
             <Route exact path="/admin" component={LoginPage} />
             <PrivateRoute exact path="/emails" component={AdminEmails} />
             {/* <PrivateRoute exact path="/admin/news" component={} /> */}

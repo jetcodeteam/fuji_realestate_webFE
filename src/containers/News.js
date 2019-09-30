@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -14,7 +13,6 @@ import news from '../static/images/news/news.png';
 import news3 from '../static/images/news/news3.png';
 
 const NewsPage = () => {
-  // const { t } = props;
   const useStyles = makeStyles(theme => ({
     newsfeed: {
       marginTop: '30%',
@@ -181,9 +179,5 @@ const NewsPage = () => {
     </React.Fragment>
   );
 };
-
-// NewsPage.propTypes = {
-//   t: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-// };
 
 export default withI18n()(NewsPage);

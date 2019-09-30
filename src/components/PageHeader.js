@@ -86,7 +86,7 @@ const PageHeader = (props) => {
         {newsHovered && <div className={classes.line} />}
       </div>
       <div className={classes.headerMenu} ref={contactRef}>
-        <Link to="/" className={classes.linkDecoration}>
+        <Link to="/contact" className={classes.linkDecoration}>
           {t('contact_us')}
         </Link>
         {contactHovered && <div className={classes.line} />}

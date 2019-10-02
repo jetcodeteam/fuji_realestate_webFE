@@ -11,6 +11,17 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 const PageHeader = (props) => {
+  function displayLine(pageName) {
+    let displayed;
+    if (window.location.href.includes(pageName)) {
+      displayed = true;
+    } else {
+      displayed = false;
+    }
+
+    return displayed;
+  }
+
   function useHover() {
     const ref = useRef(null);
     const [hovered, setHovered] = useState(false);
@@ -30,9 +41,15 @@ const PageHeader = (props) => {
     return [ref, hovered];
   }
   const Header = useRef();
+  const [homeRef, homeHovered] = useHover();
   const [productRef, productHovered] = useHover();
   const [newsRef, newsHovered] = useHover();
   const [contactRef, contactHovered] = useHover();
+
+  const homeLine = displayLine('home') || homeHovered;
+  const productLine = displayLine('product') || productHovered;
+  const newsLine = displayLine('news') || newsHovered;
+  const contactLine = displayLine('contact') || contactHovered;
   const { t } = props;
   const useStyles = makeStyles({
     pageHeader: {
@@ -67,29 +84,29 @@ const PageHeader = (props) => {
   return (
     <header ref={Header} className={classes.pageHeader}>
       <div className={classes.companyLogo}>FUJIWARA</div>
-      <div className={classes.headerMenu}>
-        <Link to="/" className={classes.linkDecoration}>
+      <div className={classes.headerMenu} ref={homeRef}>
+        <Link to="/home" className={classes.linkDecoration}>
           {t('home')}
         </Link>
-        <div className={classes.line} />
+        {homeLine && <div className={classes.line} />}
       </div>
       <div className={classes.headerMenu} ref={productRef}>
         <Link to="/product" className={classes.linkDecoration}>
           {t('product')}
         </Link>
-        {productHovered && <div className={classes.line} />}
+        {productLine && <div className={classes.line} />}
       </div>
       <div className={classes.headerMenu} ref={newsRef}>
         <Link to="/news" className={classes.linkDecoration}>
           {t('news')}
         </Link>
-        {newsHovered && <div className={classes.line} />}
+        {newsLine && <div className={classes.line} />}
       </div>
       <div className={classes.headerMenu} ref={contactRef}>
         <Link to="/contact" className={classes.linkDecoration}>
           {t('contact_us')}
         </Link>
-        {contactHovered && <div className={classes.line} />}
+        {contactLine && <div className={classes.line} />}
       </div>
     </header>
   );

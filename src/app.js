@@ -74,7 +74,7 @@ const App = () => {
       >
         <BrowserRouter>
           <Switch>
-            <PublicRoute exact path="/" component={Home} />
+            <PublicRoute exact path="/home" component={Home} />
             <PublicRoute exact path="/product" component={Product} />
             <PublicRoute exact path="/productdetail" component={ProductDetail} />
             <PublicRoute exact path="/news" component={News} />
@@ -84,7 +84,7 @@ const App = () => {
             <PrivateRoute exact path="/emails" component={AdminEmails} />
             {/* <PrivateRoute exact path="/admin/news" component={} /> */}
             <PrivateRoute exact path="/products" component={AdminProducts} />
-            <Redirect to="/" />
+            <Redirect to="/home" />
           </Switch>
         </BrowserRouter>
       </Suspense>

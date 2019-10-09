@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './configs/theme';
+import 'antd/dist/antd.css';
 
-import App from './app';
+import App from './App';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
@@ -12,5 +13,5 @@ ReactDOM.render(
     <CssBaseline />
     <App />
   </ThemeProvider>,
-  document.querySelector('#app'),
+  document.querySelector('#root'),
 );

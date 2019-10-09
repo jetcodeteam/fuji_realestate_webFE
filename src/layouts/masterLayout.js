@@ -17,6 +17,7 @@ const styles = {
     background: 'white',
     color: 'black',
     height: '100vh',
+    width: '100vw',
     display: 'flex',
     zIndex: -1,
     padding: '0',

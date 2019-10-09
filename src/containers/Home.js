@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
+import AwesomeSlider from 'react-awesome-slider';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+
+// import { Carousel } from 'antd';
 
 import homeIcon from '../static/images/icon/home-icon.png';
 import rentIcon from '../static/images/icon/rent-icon.png';
@@ -12,6 +15,8 @@ import visaIcon from '../static/images/icon/visa-icon.png';
 import otherIcon from '../static/images/icon/other-icon.png';
 import avatar1 from '../static/images/avatar/avatar-1.jpeg';
 import avatar2 from '../static/images/avatar/avatar-2.jpg';
+import carouselImg from '../static/images/news/article.png';
+import 'react-awesome-slider/dist/styles.css';
 
 const HomePage = (props) => {
   const useStyles = makeStyles({
@@ -25,7 +30,7 @@ const HomePage = (props) => {
       position: 'absolute',
       zIndex: 1,
       width: '52%',
-      height: '70%',
+      height: 'inherit',
       right: '0%',
     },
     behindCarousel: {
@@ -38,9 +43,9 @@ const HomePage = (props) => {
       zIndex: -1,
     },
     carouselText: {
-      position: 'absolute',
-      top: '27%',
-      left: '10%',
+      // flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
     },
     carouselHeader: {
       width: '20%',
@@ -49,7 +54,7 @@ const HomePage = (props) => {
       marginBottom: '20px',
     },
     carouselContent: {
-      width: '40%',
+      width: '35%',
       fontSize: '18px',
       opacity: '0.5',
     },
@@ -114,13 +119,40 @@ const HomePage = (props) => {
       justifyContent: 'center',
       flexGrow: 1,
     },
+    slickSlide: {
+      textAlign: 'center',
+      height: '70%',
+      lineHeight: '160px',
+      width: '100%',
+      background: '#364d79',
+      overflow: 'hidden',
+    },
+    carText: {
+      color: '#fff',
+    },
   });
   const { t } = props;
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      <div className={classes.behindCarousel}>.</div>
+      <div className={classes.behindCarousel} />
+      <AwesomeSlider className={classes.slickSlide}>
+        <div style={{ backgroundColor: 'white', display: 'flex' }}>
+          <img
+            src={carouselImg}
+            alt="new"
+            style={{
+              right: '0%',
+              width: '30%',
+              height: '40%',
+            }}
+          />
+        </div>
+        <div data-src="https://cdn10.bostonmagazine.com/wp-content/uploads/sites/2/2018/01/mitchell-gold-bob-williams-e1515009249915.jpg" />
+        <div data-src="../static/images/news/news1.png" />
+      </AwesomeSlider>
+      {/* <div className={classes.behindCarousel}>.</div>
       <img
         src="https://cdn10.bostonmagazine.com/wp-content/uploads/sites/2/2018/01/mitchell-gold-bob-williams-e1515009249915.jpg"
         alt="new"
@@ -136,7 +168,7 @@ const HomePage = (props) => {
           未稿dolor座amet,consectetur adipiscing elit.
           Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム...
         </div>
-      </div>
+      </div> */}
       {/* ---------------- MAIN SERVICES ----------------- */}
       <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <div className={classes.mainServices}>

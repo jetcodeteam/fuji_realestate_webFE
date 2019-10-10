@@ -17,8 +17,13 @@ import product1 from '../static/images/product/product1.png';
 import product2 from '../static/images/product/product2.png';
 import product3 from '../static/images/product/product3.png';
 import product4 from '../static/images/product/pr.png';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 const ProductDetail = (props) => {
+  const shouldWrap = useMediaQuery('(min-width:991px)');
+
+
   const useStyles = makeStyles(theme => ({
     root: {
       maxWidth: '100%',
@@ -26,10 +31,6 @@ const ProductDetail = (props) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    pagination: {
-      position: 'absolute',
-      bottom: '-57%',
     },
     card: {
       maxWidth: 300,
@@ -46,9 +47,6 @@ const ProductDetail = (props) => {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
       width: 200,
-      position: 'absolute',
-      top: '7%',
-      left: '5%',
     },
     dense: {
       marginTop: 19,
@@ -68,160 +66,177 @@ const ProductDetail = (props) => {
     <React.Fragment>
       <div
         style={{
+          maxWidth: '400px',
+          fontSize: '1.5em',
+          margin: '50px 0 150px 15%',
+        }}
+      >
+        <p>ホーチミン中心の１区、日本食も多く日本人が多く住んでいるエリア内です</p>
+      </div>
+      <div
+        style={{
           width: '100%',
-          position: 'absolute',
-          top: '40%',
           backgroundColor: 'rgb(232,232,232)',
-          height: 400,
-        }}
-      >
-        .
-      </div>
-      <div
-        style={{
+          height: '40vw',
+          // maxHeight: 550,
+          position: 'relative',
           display: 'flex',
-          flexDirection: 'column',
-          position: 'absolute',
-          top: '15%',
-          left: '10%',
-          fontSize: 20,
+          marginBottom: 100,
+          flexWrap: 'wrap',
         }}
       >
-        <h2>ホーチミン中心の１区、日本食も多く</h2>
-        <h2>日本人が多く住んでいるエリア内です</h2>
-      </div>
-      <h1
-        style={{
-          color: 'rgb(214,137,67)',
-          position: 'absolute',
-          top: '45%',
-          left: '8%',
-          fontSize: 40,
-        }}
-      >
-        約40㎡
-      </h1>
-      <h1
-        style={{
-          color: 'rgb(40,208,55)',
-          position: 'absolute',
-          top: '40%',
-          left: '45%',
-          fontSize: 60,
-        }}
-      >
-        400
-      </h1>
-      <div
-        style={{
-          width: 40,
-          position: 'absolute',
-          top: '40%',
-          left: '54%',
-          textAlign: 'center',
-          verticalAlign: 'center',
-        }}
-      >
-        <h2 style={{ color: 'rgb(40,208,55)', fontSize: 50 }}>ドル～</h2>
-      </div>
-      <div
-        style={{
-          width: 40,
-          backgroundColor: 'rgb(105,192,255)',
-          position: 'absolute',
-          top: '27%',
-          left: '3%',
-          textAlign: 'center',
-          verticalAlign: 'center',
-          fontSize: 22,
-          fontWeight: 700,
-        }}
-      >
-        <h2 style={{ color: 'white' }}>ワンルーム</h2>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'absolute',
-          top: '60%',
-          left: '5%',
-        }}
-      >
-        <h4>所在地：ホーチミン１区の日本人街</h4>
-        <h4>階数：</h4>
-        <h4>キッチン：　あり</h4>
-        <h4>バルコニー：　あり</h4>
-        <h4>物件設備：　テレビ/ソファー/テーブル</h4>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          position: 'absolute',
-          top: '80%',
-          left: '5%',
-        }}
-      >
-        <img
+        <div
           style={{
-            width: 320,
-            height: 200,
-            marginRight: '40px',
+            position: 'relative',
+            width: '65%',
+            minWidth: '639.59px'
           }}
-          src={product3}
-          alt="product3"
-        />
-        <img src={product4} alt="product4" style={{ width: 320, height: 200 }} />
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'absolute',
-          top: '35%',
-          right: '0%',
-        }}
-      >
-        <img
-          src={product1}
-          alt="product1"
-          style={{
-            width: 500,
-            height: 220,
-            marginBottom: '25px',
-          }}
-        />
-        <img src={product2} alt="product2" style={{ width: 500, height: 220 }} />
-      </div>
-      <div
-        style={{
-          width: '80%',
-          position: 'absolute',
-          top: '120%',
-          alignSelf: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          height: 350,
-          flexGrow: 1,
-        }}
-      >
-        <div style={{ flexGrow: 1 }}>
-          <h3>{t('more')}</h3>
+        >        
           <div
             style={{
-              width: '100%',
-              height: '1px',
-              backgroundColor: 'gray',
-              opacity: 0.2,
-              marginLeft: 5,
-              marginRight: 5,
+              width: shouldWrap ? '40px' : '4vw',
+              backgroundColor: 'rgb(105,192,255)',
+              textAlign: 'center',
+              verticalAlign: 'center',
+              fontSize: shouldWrap ? '22px' : '2.5vw',
+              fontWeight: 700,
+              position: 'absolute',
+              top: '-7%',
+              left: '5%',
+            }}
+          >
+            <h2 style={{ color: 'white' }}>ワンルーム</h2>
+          </div>
+          <h1
+            style={{
+              color: 'rgb(214,137,67)',
+              fontSize: '3em',
+              position: 'absolute',
+              top: '30%',
+              left: '12%',
+            }}
+          >
+            約40㎡
+          </h1>
+          <h1
+            style={{
+              color: 'rgb(40,208,55)',
+              fontSize: '4em',
+              position: 'absolute',
+              top: '28%',
+              left: '75%'
+            }}
+          >
+            400
+          </h1>
+          <div
+            style={{
+              width: 40,
+              textAlign: 'center',
+              verticalAlign: 'center',
+              position: 'absolute',
+              top: '0',
+              left: '88%',
+            }}
+          >
+            <h2 style={{ color: 'rgb(40,208,55)', fontSize: 50 }}>ドル～</h2>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'absolute',
+              top: shouldWrap ? '47%' : '100%',
+              left: '9%'
+            }}
+          >
+            <h4>所在地：ホーチミン１区の日本人街</h4>
+            <h4>階数：</h4>
+            <h4>キッチン：　あり</h4>
+            <h4>バルコニー：　あり</h4>
+            <h4>物件設備：　テレビ/ソファー/テーブル</h4>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              bottom: '-20%',
+              left: '12%'
+            }}
+          >
+            <img
+              style={{
+                width: '25vw', height: 'auto',
+                marginRight: '40px',
+              }}
+              src={product3}
+              alt="product3"
+            />
+            <img src={product4} alt="product4" style={{ width: '25vw', height: 'auto' }} />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+          </div>
+        </div>
+
+        <div style={{ width: '35%', position: 'relative' }}>
+          <div
+            style={{
+              position: 'absolute',
+              top: '-5%',
+            }}
+          >
+            <img
+              src={product1}
+              alt="product1"
+              style={{
+                width: '40vw',
+                height: 'auto',
+                marginBottom: '25px',
+              }}
+            />
+          </div>
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '-5%'
+            }}
+          >
+            <img src={product2} alt="product2" style={{ width: '40vw', height: 'auto' }} />
+          </div>
+        </div>
+          {/* <div
+            style={{
+              width: '80%',
+              alignSelf: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              height: 350,
               flexGrow: 1,
             }}
           >
-            .
-          </div>
-        </div>
+            <div style={{ flexGrow: 1 }}>
+              <h3>{t('more')}</h3>
+              <div
+                style={{
+                  width: '100%',
+                  height: '1px',
+                  backgroundColor: 'gray',
+                  opacity: 0.2,
+                  marginLeft: 5,
+                  marginRight: 5,
+                  flexGrow: 1,
+                }}
+              >
+                .
+              </div>
+          </div>     
+      </div>
         <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={6}>
@@ -259,7 +274,7 @@ const ProductDetail = (props) => {
               ))}
             </Grid>
           </Grid>
-        </Grid>
+        </Grid> */}
       </div>
     </React.Fragment>
   );

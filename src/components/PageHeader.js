@@ -65,7 +65,7 @@ const PageHeader = (props) => {
       marginRight: '40px',
       fontWeight: '900',
       fontSize: '1.5em',
-      marginLeft: '8%',
+      marginLeft: '35px',
     },
     headerMenu: {
       marginRight: '40px',

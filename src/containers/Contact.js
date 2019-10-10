@@ -9,33 +9,41 @@ import email from '../static/images/contact/email.png';
 import phoneCall from '../static/images/contact/phone-call.png';
 import schedule from '../static/images/contact/schedule.png';
 import map from '../static/images/contact/map.png';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 const ContactPage = () => {
+  const shouldWrap = useMediaQuery('(min-width:555px)');
   const [values, setValues] = React.useState({
     multiline: '',
   });
   const handleChange = name => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
+
   const useStyles = makeStyles(theme => ({
     contactWrapper: {
-      position: 'absolute',
-      top: '15%',
+      margin: '55px 0 100px 0',
       width: '100%',
       display: 'flex',
-      flexDirection: 'column',
+      flexWrap: 'wrap',
       height: '160%',
       justifyContent: 'center',
       alignItems: 'center',
     },
     inputWrapper: {
-      width: '35%',
+      position: shouldWrap || 'relative',
+      width: shouldWrap ? '35%' : '80%',
+      minWidth: '304.141px',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       flexShrink: 1,
       marginRight: '5%',
+      border: shouldWrap || '1px solid #D9D9D9',
+      height: shouldWrap || 500,
+      padding: shouldWrap || 35,
+      borderRadius: shouldWrap || 5,
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -43,10 +51,13 @@ const ContactPage = () => {
     },
     infoWrapper: {
       display: 'flex',
-      height: '70%',
+      width: shouldWrap ? '15%' : '35%',
+      minWidth: '193.94px',
       flexDirection: 'column',
       flexShrink: 1,
       marginRight: '5%',
+      height: shouldWrap || 250,
+      marginTop: shouldWrap || 75,
     },
     subInfo: {
       display: 'flex',
@@ -57,6 +68,7 @@ const ContactPage = () => {
       fontSize: 15,
     },
     button: {
+      marginTop: 35,
       width: '30%',
       margin: theme.spacing(1),
       color: 'white',
@@ -72,11 +84,28 @@ const ContactPage = () => {
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
+            // alignItems: 'center',
             marginBottom: '5%',
+            flexWrap: 'wrap',
           }}
         >
           <div className={classes.inputWrapper}>
+            {
+              shouldWrap || (
+                <div
+                  style={{
+                    fontWeight: 700,
+                    fontSize: '1.5em',
+                    position: 'absolute',
+                    top: -15,
+                    left: '25%',
+                    backgroundColor: '#fff',
+                  }}
+                >
+                  Contact Information
+                </div>
+              )
+            }
             <TextField
               id="outlined-name-input"
               label="Name"
@@ -155,7 +184,7 @@ const ContactPage = () => {
             </div>
           </div>
         </div>
-        <img src={map} alt="example map" />
+        <img src={map} alt="example map" width={shouldWrap ? '85%' : '100%'} height="auto" />
       </div>
     </React.Fragment>
   );

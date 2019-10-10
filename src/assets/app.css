@@ -92,6 +92,20 @@ table {
 	background-color: #fdfcff;
 }
 
+.ant-layout {
+	background: white;
+}
+
+.ant-layout-header {
+	line-height: 32px;
+	padding: 0;
+}
+
+.ant-layout-footer {
+	padding: 0;
+	
+}
+
 .subtitle-news {
 	overflow: hidden;
 	text-overflow: ellipsis;

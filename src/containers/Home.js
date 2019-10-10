@@ -5,6 +5,7 @@ import AwesomeSlider from 'react-awesome-slider';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import homeIcon from '../static/images/icon/home-icon.png';
@@ -14,9 +15,12 @@ import otherIcon from '../static/images/icon/other-icon.png';
 import avatar1 from '../static/images/avatar/avatar-1.jpeg';
 import avatar2 from '../static/images/avatar/avatar-2.jpg';
 import carouselImg from '../static/images/product/product.png';
-import 'react-awesome-slider/dist/styles.css';
+import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const HomePage = (props) => {
+  const adjustServices = useMediaQuery('(min-width:690px)');
+
   const useStyles = makeStyles({
     bigAvatar: {
       marginBottom: '10px',
@@ -25,52 +29,36 @@ const HomePage = (props) => {
       alignSelf: 'center',
     },
     carouselImg: {
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      width: '50%',
+      width: '100%',
       height: 450,
-    },
-    behindCarousel: {
-      position: 'absolute',
-      top: '0%',
-      right: '3%',
-      width: '25%',
-      height: '98%',
-      backgroundColor: 'rgb(105, 192, 255)',
-      zIndex: -1,
     },
     carouselText: {
       display: 'flex',
       flexDirection: 'column',
     },
     carouselHeader: {
-      fontSize: '40px',
-      backgroundColor: 'white',
-      width: '40%',
+      fontSize: '3.5vw',
       textAlign: 'left',
     },
     carouselContent: {
-      fontSize: '18px',
+      fontSize: '1.5vw',
       opacity: 0.5,
-      height: '20%',
       lineHeight: 'normal',
       zIndex: 3,
       textAlign: 'left',
-      width: '50%',
     },
     about: {
       display: 'flex',
-      position: 'absolute',
       flexDirection: 'column',
       width: '100%',
       height: '40%',
-      top: '170%',
       alignItems: 'center',
+      marginBottom: '100px'
     },
     aboutHeader: {
-      flexGrow: 1,
+      fontSize: '1.5em',
       fontWeight: '700',
+      marginBottom: '25px',
     },
     aboutContent: {
       flexGrow: 1,
@@ -80,21 +68,21 @@ const HomePage = (props) => {
       marginBottom: '100px',
     },
     mainServices: {
-      position: 'absolute',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       alignSelf: 'center',
+      flexWrap: 'wrap',
       width: '80%',
       height: '60%',
-      top: '100%',
+      marginBottom: '100px'
     },
     serviceContent: {
       display: 'flex',
       width: '100%',
       justifyContent: 'center',
-      alignItems: 'center',
+      flexWrap: adjustServices ? 'nowrap' : 'wrap'
     },
     serviceIcon: {
       width: '50px',
@@ -102,10 +90,17 @@ const HomePage = (props) => {
       marginBottom: '20px',
     },
     serviceWrapper: {
-      paddingLeft: '7%',
+      paddingLeft: adjustServices && '7%',
       display: 'flex',
       flexDirection: 'column',
-      flexGrow: 1,
+      width: '250px',
+      justifyContent: adjustServices || 'center',
+      alignItems: adjustServices || 'center',
+      textAlign: adjustServices || 'center',
+      border: adjustServices || '1px solid #69C0FF',
+      borderRadius: adjustServices || '5px',
+      padding: adjustServices || '25px 15px 25px 15px',
+      margin: adjustServices || '0 25px 20px 25px',
     },
     serviceDescription: {
       width: '100%',
@@ -121,12 +116,8 @@ const HomePage = (props) => {
       flexGrow: 1,
     },
     slickSlide: {
-      textAlign: 'center',
-      height: '70%',
-      lineHeight: '160px',
-      width: '100%',
-      background: 'white',
-      overflow: 'hidden',
+      marginTop: '50px',
+      height: '30vw',
     },
     slide: {
       backgroundColor: 'white',
@@ -138,79 +129,202 @@ const HomePage = (props) => {
     carText: {
       color: '#fff',
     },
+    carouselBackdrop: {
+      position: 'absolute',
+      zIndex: '0',
+      width: '25vw',
+      height: '43vw',
+      backgroundColor: '#69C0FF',
+      top: 0,
+      right: '75px',
+    },
+    button: {
+      display: 'flex',
+      justifyContent: adjustServices && 'flex-start',
+      padding: adjustServices && 0,
+      width: adjustServices && '25px',
+      backgroundColor: adjustServices || '#54D5FE',
+    }
   });
   const { t } = props;
   const classes = useStyles();
+  const matches = useMediaQuery('(min-width:1000px)');
 
   return (
     <React.Fragment>
-      <div className={classes.behindCarousel} />
-      <AwesomeSlider className={classes.slickSlide}>
-        <div style={{ backgroundColor: 'white' }}>
-          <div style={{ position: 'absolute', left: '10%', top: '10%' }}>
-            <div className={classes.carouselHeader}>
-              何か
-              しています。
+      {
+        matches && (
+          <div className={classes.carouselBackdrop}></div>
+        )
+      }
+      <AwesomeSlider
+        bullets={false}
+        cssModule={AwesomeSliderStyles}
+        className={classes.slickSlide}
+        organicArrows
+      >
+        <div 
+          style={{
+            backgroundColor: 'white',
+            position: 'relative',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '30vw',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                paddingRight: '25px',
+                width: '50%',
+                paddingLeft: '8vw'
+              }}
+            >
+              <div className={classes.carouselHeader}>
+                何か
+                しています。
+              </div>
+              <p className={classes.carouselContent}>
+                未稿dolor座amet,consectetur adipiscing elit.
+                Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム
+              </p>
             </div>
-            <p className={classes.carouselContent}>
-              未稿dolor座amet,consectetur adipiscing elit.
-              Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム...
-            </p>
+            <div
+              style={{
+                width: '50%',
+              }}
+            >
+              <img src={carouselImg} alt="new" height="100%" />
+            </div>
           </div>
-          <img src={carouselImg} alt="new" className={classes.carouselImg} />
         </div>
-        <div style={{ backgroundColor: 'white' }}>
-          <div style={{ position: 'absolute', left: '10%', top: '10%' }}>
-            <div className={classes.carouselHeader}>
-              何か
-              しています。
+        <div 
+          style={{
+            backgroundColor: 'white',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '30vw',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                paddingRight: '20px',
+                width: '50%',
+                paddingLeft: '8vw'
+              }}
+            >
+              <div className={classes.carouselHeader}>
+                何か
+                しています。
+              </div>
+              <p className={classes.carouselContent}>
+                未稿dolor座amet,consectetur adipiscing elit.
+                Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム
+              </p>
             </div>
-            <p className={classes.carouselContent}>
-              未稿dolor座amet,consectetur adipiscing elit.
-              Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム...
-            </p>
+            <div
+              style={{
+                width: '50%',
+              }}
+            >
+              <img src={carouselImg} alt="new" height="100%" />
+            </div>
           </div>
-          <img src={carouselImg} alt="new" className={classes.carouselImg} />
         </div>
-        <div style={{ backgroundColor: 'white' }}>
-          <div style={{ position: 'absolute', left: '10%', top: '10%' }}>
-            <div className={classes.carouselHeader}>
-              何か
-              しています。
+        <div 
+          style={{
+            backgroundColor: 'white',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '30vw',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                paddingRight: '20px',
+                width: '50%',
+                paddingLeft: '8vw'
+              }}
+            >
+              <div className={classes.carouselHeader}>
+                何か
+                しています。
+              </div>
+              <p className={classes.carouselContent}>
+                未稿dolor座amet,consectetur adipiscing elit.
+                Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム
+              </p>
             </div>
-            <p className={classes.carouselContent}>
-              未稿dolor座amet,consectetur adipiscing elit.
-              Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム...
-            </p>
+            <div
+              style={{
+                width: '50%',
+              }}
+            >
+              <img src={carouselImg} alt="new" height="100%" />
+            </div>
           </div>
-          <img src={carouselImg} alt="new" className={classes.carouselImg} />
         </div>
       </AwesomeSlider>
       {/* ---------------- MAIN SERVICES ----------------- */}
-      <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <div style={{ flexWrap: 'wrap', display: 'flex', justifyContent: 'center', width: '100%', marginTop: '100px' }}>
         <div className={classes.mainServices}>
-          <h2 style={{ flexGrow: 0.5 }}>{t('main_service')}</h2>
+          <h2 style={{ fontSize: '1.5em', marginBottom: '25px' }}>{t('main_service')}</h2>
           <div className={classes.serviceContent}>
             {/* home sales */}
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
               <h3 style={{ marginBottom: '7%' }}>{t('home_sales')}</h3>
               <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-              <h4>{t('details')}</h4>
+              <Button variant={adjustServices || "contained"} color="primary" className={classes.button}>
+                {t('details')}
+              </Button>
             </div>
             {/* visa consulting */}
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={visaIcon} alt="Visa" />
               <h3 style={{ marginBottom: '7%' }}>{t('visa_consulting')}</h3>
               <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-              <h4>{t('details')}</h4>
+              <Button variant={adjustServices || "contained"} color="primary" className={classes.button}>
+                {t('details')}
+              </Button>
             </div>
             {/* employment consultation */}
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={rentIcon} alt="Rent" />
               <h3 style={{ marginBottom: '7%' }}>{t('employment_consultation')}</h3>
               <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-              <h4>{t('details')}</h4>
+              <Button variant={adjustServices || "contained"} color="primary" className={classes.button}>
+                {t('details')}
+              </Button>
             </div>
             {/* other */}
             <div className={classes.serviceWrapper}>

@@ -10,6 +10,9 @@ import Container from '@material-ui/core/Container';
 import TranslateButton from '../components/TranslateButton';
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
+import MobileHeader from '../components/MobileHeader';
+
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { Layout } from 'antd';
 
@@ -54,10 +57,19 @@ const styles = {
 
 const MasterLayout = (props) => {
   const { children, classes } = props;
+  const matches = useMediaQuery('(min-width:690px)');
 
   return (
-    <Layout>
-      <Header style={{backgroundColor: 'unset'}}><PageHeader /></Header>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Header style={{backgroundColor: 'unset'}}>
+        {
+          matches ? (
+            <PageHeader />
+          ) : (
+            <MobileHeader />
+          )
+        }
+      </Header>
       <Content>{children}</Content>
       <Footer><PageFooter /></Footer>
     </Layout>

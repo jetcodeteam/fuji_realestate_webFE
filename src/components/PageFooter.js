@@ -1,11 +1,10 @@
 import React from 'react';
 import { withNamespaces } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import {Icon} from 'antd';
 
 import { makeStyles } from '@material-ui/core/styles';
-import facebookLogo from '../static/images/icon/facebook-logo.png';
-import twitterLogo from '../static/images/icon/twitter-logo.png';
-import linkedinLogo from '../static/images/icon/linkedin-logo.png';
 
 const PageFooter = (props) => {
   const { t } = props;
@@ -15,98 +14,69 @@ const PageFooter = (props) => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      alignContent: 'center',
-      position: 'absolute',
-      top: '230%',
-      left: 0,
-      right: 0,
+      justifyContent: 'space-between',
       width: '100%',
-      height: '20%',
+      height: '175px',
     },
-    companyLogo: {
-      fontSize: 25,
+    title: {
       fontWeight: 700,
-      flexGrow: 1,
+      fontSize: '2em',
     },
-    logoWrapper: {
-      display: 'flex',
-      justifyContent: 'center',
-      width: '100%',
-      flexGrow: 1,
-    },
-    innerLogoWrapper: {
-      display: 'flex',
-      width: '15%',
-      justifyContent: 'center',
-    },
-    logoSize: {
-      width: '25px',
-      height: '25px',
-    },
-    serviceWrapper: {
-      display: 'flex',
-      width: '100%',
-      justifyContent: 'center',
-      flexGrow: 1,
-    },
-    innerServiceWrapper: {
-      display: 'flex',
-      justifyContent: 'center',
-      width: '25%',
-    },
-    serviceContent: {
-      height: '53%',
+    icon: {
+      width: '75px',
       textAlign: 'center',
-      flexGrow: 1,
+      color: '#585858'
     },
-    copyright: {
-      color: 'rbg(120, 116, 116)',
-      fontSize: '14px',
-      fontWeight: 'bold',
+    link: {
+      width: '120px',
+      textAlign: 'center',
     },
+    innerLink: {
+      textDecoration: 'none',
+      color: '#000'
+    }
   });
   const classes = useStyles();
 
   return (
     <footer>
       <div className={classes.pageFooter}>
-        <h2 className={classes.companyLogo}>FUJIWARA</h2>
-        <div className={classes.logoWrapper}>
-          <div className={classes.innerLogoWrapper}>
-            <div className={classes.logoSize} style={{ flexGrow: 1 }}>
-              <img
-                src={facebookLogo}
-                alt="facebook-logo"
-              />
-            </div>
-            <div className={classes.logoSize} style={{ flexGrow: 1 }}>
-              <img
-                src={twitterLogo}
-                alt="twitter-logo"
-              />
-            </div>
-            <div className={classes.logoSize}>
-              <img
-                src={linkedinLogo}
-                alt="linkedin-logo"
-              />
-            </div>
+        <h1 className={classes.title}>FUJIWARA</h1>
+        <div style={{ display: 'flex' }}>
+          <div className={classes.icon}>
+            <Icon type="facebook" style={{ fontSize: '25px' }} />
+          </div>
+          <div className={classes.icon}>
+            <Icon type="twitter" style={{ fontSize: '25px' }} />
+          </div>
+          <div className={classes.icon}>
+            <Icon type="linkedin" style={{ fontSize: '25px' }} />
           </div>
         </div>
-        <div className={classes.serviceWrapper}>
-          <div className={classes.innerServiceWrapper}>
-            <div className={classes.serviceContent} style={{ borderRight: '2px solid gray' }}>
+        <div style={{ display: 'flex' }}>
+          <div className={classes.link}>
+            <Link to="/news" className={classes.innerLink}>
               {t('news')}
-            </div>
-            <div className={classes.serviceContent} style={{ borderRight: '2px solid gray' }}>
+            </Link>
+          </div>
+          <div style={{ color: '#787474' }}>
+            |
+          </div>
+          <div className={classes.link}>
+            <Link to="/product" className={classes.innerLink}>
               {t('product')}
-            </div>
-            <div className={classes.serviceContent}>
+            </Link>
+          </div>
+          <div style={{ color: '#787474' }}>
+            |
+          </div>
+          <div className={classes.link}>
+            <Link to="/contact" className={classes.innerLink}>
               {t('contact_us')}
-            </div>
+            </Link>
           </div>
         </div>
-        <div className={classes.copyright}>Copyright © 2019 Fujiwara.</div>
+        <div style={{ fontSize: '1em', color: '#949393' }}>Copyright © 2019 Fujiwara.</div>
       </div>
     </footer>
   );

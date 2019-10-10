@@ -9,11 +9,22 @@ import Hidden from '@material-ui/core/Hidden';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 import news from '../static/images/news/news.png';
 import news3 from '../static/images/news/news3.png';
 
 const NewsPage = () => {
+  const matches = useMediaQuery('(min-width:613px)');
+  const shouldWrap = useMediaQuery('(min-width:961px)');
+
   const useStyles = makeStyles(theme => ({
     newsfeed: {
       marginTop: '30%',
@@ -27,18 +38,13 @@ const NewsPage = () => {
       flexDirection: 'column',
     },
     subContent: {
-      flex: '1 0 auto',
     },
     subCover: {
       width: 200,
       margin: '10px',
     },
     root: {
-      flexGrow: 1,
-    },
-    pagination: {
-      position: 'absolute',
-      bottom: '-57%',
+      display: 'flex',
     },
     card: {
       display: 'flex',
@@ -47,9 +53,6 @@ const NewsPage = () => {
     details: {
       display: 'flex',
       flexDirection: 'column',
-    },
-    content: {
-      flex: '1 0 auto',
     },
     media: {
       height: 140,
@@ -62,21 +65,11 @@ const NewsPage = () => {
     },
     container: {
       display: 'flex',
-      flexWrap: 'wrap',
     },
     subtitle: {
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       maxWidth: 500,
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: 200,
-      position: 'absolute',
-      top: '7%',
-      left: '5%',
-      zIndex: 2,
     },
     dense: {
       marginTop: 19,
@@ -89,35 +82,73 @@ const NewsPage = () => {
       textDecoration: 'none',
     },
     newsroot: {
-      position: 'absolute',
-      top: '210px',
       width: '90%',
       display: 'flex',
-      flexWrap: 'wrap',
-      zIndex: 1,
     },
+    filter: {
+      width: '80%',
+      height: '100px',
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      margin: matches ? '35px 10% 0px 10%' : '35px 10% 35px 10%',
+      flexWrap: 'wrap',
+    },
+    input: {
+      display: 'flex',
+      alignItems: 'center',
+      width: 320,
+      height: 35,
+      margin: '15px',
+      borderRadius: 30,
+      backgroundColor: 'rgba(105, 192, 255, 0.27)',
+    },
+    filterInput: {
+      display: 'flex',
+      alignItems: 'center',
+      width: 110,
+      height: 35,
+      margin: '15px',
+      borderRadius: 30,
+      backgroundColor: '#69C0FF',
+    },
+    divider: {
+      marginBottom: matches ? '50px' : '60px',
+      width: '90%',
+      margin: 'auto',
+    }
   }));
   const classes = useStyles();
 
+  function openFilterModal() {
+    console.log('oh ye');
+  }
+
   return (
     <React.Fragment>
-      <div
-        style={{
-          width: '90%',
-          marginTop: '15px',
-          height: '1px',
-          backgroundColor: 'gray',
-          opacity: 0.2,
-          marginLeft: 5,
-          marginRight: 5,
-          position: 'absolute',
-          top: '150px',
-        }}
-      >
+       <div className={classes.filter}>
+        <Paper className={classes.input}>
+          <IconButton aria-label="search">
+            <SearchIcon />
+          </IconButton>
+          <InputBase
+            placeholder="目的地を入力してください"
+            inputProps={{ 'aria-label': 'search real estates' }}
+            style={{ width: '80%' }}
+          />
+        </Paper>
+        <Button variant="contained" className={classes.filterInput} onClick={openFilterModal}>
+          + フィルタ
+        </Button>
       </div>
+      <Divider variant="middle" className={classes.divider} />
+
+    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 100 }}>
       <div className={classes.newsroot}>
-        <Grid container className={classes.root} spacing={2}>
+        <Grid container className={classes.root}>
           <Grid item sm={12} md={8}>
+            <p style={{ marginLeft: '12px', fontWeight: 700, fontSize: '2em' }}>Recent News</p>
+            <div style={{ marginBottom: '10px' }}></div>
               {[0, 1, 2].map(value => (
                 <Link to="/newsdetail" className={classes.linkDecoration}>
                   <Grid key={value} style={{ marginBottom: 20 }} item>
@@ -149,6 +180,8 @@ const NewsPage = () => {
           </Grid>
           <Hidden smDown>
             <Grid item sm={4}>
+              <span style={{ marginLeft: '60px', fontWeight: 700, fontSize: '1.5em' }}>Most Viewed</span>
+              <div style={{ marginBottom: '10px' }}></div>
               <Grid container justify="center" spacing={2}>
                 {[0, 1, 2, 3].map(value => (
                   <Grid key={value} item>
@@ -181,6 +214,7 @@ const NewsPage = () => {
           </Hidden>
         </Grid>
       </div>
+    </div>
     </React.Fragment>
   );
 };

@@ -14,20 +14,19 @@ import Typography from '@material-ui/core/Typography';
 
 import article from '../static/images/news/article.png';
 import news from '../static/images/news/news2.png';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 const ProductDetail = (props) => {
+  const shouldWrap = useMediaQuery('(min-width:690px)');
+
   const useStyles = makeStyles(theme => ({
     root: {
       marginTop: 10,
       maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    pagination: {
-      position: 'absolute',
-      bottom: '-57%',
+      marginBottom: '100px',
     },
     card: {
       maxWidth: 300,
@@ -44,9 +43,6 @@ const ProductDetail = (props) => {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
       width: 200,
-      position: 'absolute',
-      top: '7%',
-      left: '5%',
     },
     dense: {
       marginTop: 19,
@@ -67,31 +63,29 @@ const ProductDetail = (props) => {
       <div
         style={{
           width: '100%',
-          position: 'absolute',
-          top: '15%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          marginTop: '50px'
         }}
       >
         <div
           style={{
             display: 'flex',
-            width: '60%',
+            width: shouldWrap ? '60%' : '90%',
             alignSelf: 'center',
-            justifyContent: 'center',
             WebkitJustifyContent: 'center',
             flexDirection: 'column',
           }}
         >
-          <h1 style={{ fontSize: 40 }}>新しい研究は成功について最も安っぽいクリシェを確認します</h1>
+          <h1 style={{ fontSize: 40, marginBottom: 35 }}>新しい研究は成功について最も安っぽいクリシェを確認します</h1>
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              marginBottom: 20,
+              marginBottom: 35,
             }}
           >
             <img src={article} alt="article" style={{ height: 400, marginBottom: 5 }} />
@@ -124,26 +118,21 @@ const ProductDetail = (props) => {
         </div>
         <div
           style={{
+            marginTop: 55,
             width: '80%',
-            position: 'absolute',
-            top: '110%',
             alignSelf: 'center',
             display: 'flex',
-            justifyContent: 'center',
             flexDirection: 'column',
-            height: 350,
-            flexGrow: 1,
           }}
         >
           <div
             style={{
-              flexGrow: 1,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
             }}
           >
-            <h1 style={{ flexGrow: 1, fontSize: 18 }}>{t('more')}</h1>
+            <h1 style={{ marginLeft: 7, fontSize: 25, fontWeight: 700 }}>{t('more')}</h1>
             <div
               style={{
                 width: '100%',
@@ -152,10 +141,9 @@ const ProductDetail = (props) => {
                 opacity: 0.2,
                 marginLeft: 5,
                 marginRight: 5,
-                marginBottom: 10,
+                marginBottom: 25,
               }}
             >
-              .
             </div>
           </div>
           <Grid container className={classes.root} spacing={2}>

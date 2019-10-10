@@ -1,19 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withI18n } from 'react-i18next';
+import { withI18n, translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import MobileStepper from '@material-ui/core/MobileStepper';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import { Pagination } from 'antd';
+
+import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 import product from '../static/images/product/product.png';
 
@@ -21,26 +27,23 @@ const ProductPage = (props) => {
   const themes = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  function handleNext() {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  function handlePageChange(page, pageSize) {
+    console.log(page);
   }
 
-  function handleBack() {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  function openFilterModal() {
+    console.log('oh ye');
   }
+  const matches = useMediaQuery('(min-width:613px)');
   const useStyles = makeStyles(theme => ({
     root: {
-      maxWidth: 1100,
-      marginTop: '20%',
-      flexGrow: 0.5,
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
     },
     pagination: {
-      position: 'absolute',
-      bottom: '-27%',
     },
     card: {
       maxWidth: 345,
@@ -57,9 +60,6 @@ const ProductPage = (props) => {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
       width: 200,
-      position: 'absolute',
-      top: '7%',
-      left: '5%',
     },
     dense: {
       marginTop: 19,
@@ -75,32 +75,66 @@ const ProductPage = (props) => {
       color: 'inherit',
       textDecoration: 'none',
     },
+    filter: {
+      width: '80%',
+      height: '100px',
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      margin: matches ? '35px 10% 0px 10%' : '35px 10% 35px 10%',
+      flexWrap: 'wrap',
+    },
+    input: {
+      display: 'flex',
+      alignItems: 'center',
+      width: 320,
+      height: 35,
+      margin: '15px',
+      borderRadius: 30,
+      backgroundColor: 'rgba(105, 192, 255, 0.27)',
+    },
+    filterInput: {
+      display: 'flex',
+      alignItems: 'center',
+      width: 110,
+      height: 35,
+      margin: '15px',
+      borderRadius: 30,
+      backgroundColor: '#69C0FF',
+    },
+    divider: {
+      marginBottom: matches ? '100px' : '60px',
+      width: '90%',
+      margin: 'auto',
+    }
   }));
   const { t } = props;
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      <div
-        style={{
-          width: '80%',
-          marginTop: '15px',
-          height: '1px',
-          backgroundColor: 'gray',
-          opacity: 0.2,
-          marginLeft: 5,
-          marginRight: 5,
-          position: 'absolute',
-          top: '15%',
-        }}
-      >
-        .
+      <div className={classes.filter}>
+        <Paper className={classes.input}>
+          <IconButton aria-label="search">
+            <SearchIcon />
+          </IconButton>
+          <InputBase
+            placeholder="目的地を入力してください"
+            inputProps={{ 'aria-label': 'search real estates' }}
+            style={{ width: '80%' }}
+          />
+        </Paper>
+        <Button variant="contained" className={classes.filterInput} onClick={openFilterModal}>
+          + フィルタ
+        </Button>
       </div>
+      <Divider variant="middle" className={classes.divider} />
+
       <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={6}>
+        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
+          <Grid container spacing={6} style={{ width: '85%', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
             {[0, 1, 2, 3, 4, 5].map(value => (
-              <Link to="/productdetail" className={classes.linkDecoration}>
+              <Link key={value} to="/productdetail" className={classes.linkDecoration}>
                 <Grid key={value} style={{ margin: 12 }} item>
                   <Card className={classes.card}>
                     <CardActionArea>
@@ -116,13 +150,13 @@ const ProductPage = (props) => {
                         <Typography variant="body2" color="textSecondary" component="p">
                           27 dien bien phu, HCM, Vietnam
                         </Typography>
-                        <Typography variant="body3" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p">
                           2 寝室
                         </Typography>
-                        <Typography variant="body4" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p">
                           ¥1,280
                         </Typography>
-                        <Typography variant="body5" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p">
                           278,499 đ
                         </Typography>
                       </CardContent>
@@ -133,26 +167,15 @@ const ProductPage = (props) => {
             ))}
           </Grid>
         </Grid>
-        <MobileStepper
-          variant="dots"
-          steps={6}
-          position="static"
-          activeStep={activeStep}
-          className={classes.pagination}
-          nextButton={(
-            <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
-              Next
-              {themes.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-            </Button>
-          )}
-          backButton={(
-            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-              {themes.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Back
-            </Button>
-          )}
-        />
       </Grid>
+      <div style={{ margin: '50px 0 75px 0', display: 'flex', justifyContent: 'center' }}>
+        <Pagination
+          defaultCurrent={6}
+          total={500}
+          onChange={handlePageChange}
+          hideOnSinglePage
+        />
+      </div>
     </React.Fragment>
   );
 };

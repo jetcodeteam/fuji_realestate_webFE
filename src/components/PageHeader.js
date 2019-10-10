@@ -7,6 +7,7 @@ import React,
 import { withNamespaces } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -55,15 +56,16 @@ const PageHeader = (props) => {
     pageHeader: {
       display: 'flex',
       flexDirection: 'row',
-      position: 'absolute',
-      top: '2.5%',
-      left: '3%',
+      height: '64px',
+      alignItems: 'center',
       fontFamily: 'Roboto',
+      backgroundColor: 'rgba(0, 0, 0, 0)'
     },
     companyLogo: {
       marginRight: '40px',
       fontWeight: '900',
-      fontSize: '15px',
+      fontSize: '1.5em',
+      marginLeft: '8%',
     },
     headerMenu: {
       marginRight: '40px',
@@ -83,7 +85,9 @@ const PageHeader = (props) => {
 
   return (
     <header ref={Header} className={classes.pageHeader}>
-      <div className={classes.companyLogo}>FUJIWARA</div>
+      <Button style={{ backgroundColor: 'transparent' }} component={Link} to="/home">
+        <div className={classes.companyLogo}>FUJIWARA</div>
+      </Button>
       <div className={classes.headerMenu} ref={homeRef}>
         <Link to="/home" className={classes.linkDecoration}>
           {t('home')}

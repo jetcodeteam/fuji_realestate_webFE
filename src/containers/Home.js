@@ -7,15 +7,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 
-// import { Carousel } from 'antd';
-
 import homeIcon from '../static/images/icon/home-icon.png';
 import rentIcon from '../static/images/icon/rent-icon.png';
 import visaIcon from '../static/images/icon/visa-icon.png';
 import otherIcon from '../static/images/icon/other-icon.png';
 import avatar1 from '../static/images/avatar/avatar-1.jpeg';
 import avatar2 from '../static/images/avatar/avatar-2.jpg';
-import carouselImg from '../static/images/news/article.png';
+import carouselImg from '../static/images/product/product.png';
 import 'react-awesome-slider/dist/styles.css';
 
 const HomePage = (props) => {
@@ -28,10 +26,10 @@ const HomePage = (props) => {
     },
     carouselImg: {
       position: 'absolute',
-      zIndex: 1,
-      width: '52%',
-      height: 'inherit',
-      right: '0%',
+      top: 0,
+      right: 0,
+      width: '50%',
+      height: 450,
     },
     behindCarousel: {
       position: 'absolute',
@@ -43,20 +41,23 @@ const HomePage = (props) => {
       zIndex: -1,
     },
     carouselText: {
-      // flexGrow: 1,
       display: 'flex',
       flexDirection: 'column',
     },
     carouselHeader: {
-      width: '20%',
       fontSize: '40px',
-      lineHeight: '54px',
-      marginBottom: '20px',
+      backgroundColor: 'white',
+      width: '40%',
+      textAlign: 'left',
     },
     carouselContent: {
-      width: '35%',
       fontSize: '18px',
-      opacity: '0.5',
+      opacity: 0.5,
+      height: '20%',
+      lineHeight: 'normal',
+      zIndex: 3,
+      textAlign: 'left',
+      width: '50%',
     },
     about: {
       display: 'flex',
@@ -124,8 +125,15 @@ const HomePage = (props) => {
       height: '70%',
       lineHeight: '160px',
       width: '100%',
-      background: '#364d79',
+      background: 'white',
       overflow: 'hidden',
+    },
+    slide: {
+      backgroundColor: 'white',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     carText: {
       color: '#fff',
@@ -138,37 +146,46 @@ const HomePage = (props) => {
     <React.Fragment>
       <div className={classes.behindCarousel} />
       <AwesomeSlider className={classes.slickSlide}>
-        <div style={{ backgroundColor: 'white', display: 'flex' }}>
-          <img
-            src={carouselImg}
-            alt="new"
-            style={{
-              right: '0%',
-              width: '30%',
-              height: '40%',
-            }}
-          />
+        <div style={{ backgroundColor: 'white' }}>
+          <div style={{ position: 'absolute', left: '10%', top: '10%' }}>
+            <div className={classes.carouselHeader}>
+              何か
+              しています。
+            </div>
+            <p className={classes.carouselContent}>
+              未稿dolor座amet,consectetur adipiscing elit.
+              Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム...
+            </p>
+          </div>
+          <img src={carouselImg} alt="new" className={classes.carouselImg} />
         </div>
-        <div data-src="https://cdn10.bostonmagazine.com/wp-content/uploads/sites/2/2018/01/mitchell-gold-bob-williams-e1515009249915.jpg" />
-        <div data-src="../static/images/news/news1.png" />
+        <div style={{ backgroundColor: 'white' }}>
+          <div style={{ position: 'absolute', left: '10%', top: '10%' }}>
+            <div className={classes.carouselHeader}>
+              何か
+              しています。
+            </div>
+            <p className={classes.carouselContent}>
+              未稿dolor座amet,consectetur adipiscing elit.
+              Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム...
+            </p>
+          </div>
+          <img src={carouselImg} alt="new" className={classes.carouselImg} />
+        </div>
+        <div style={{ backgroundColor: 'white' }}>
+          <div style={{ position: 'absolute', left: '10%', top: '10%' }}>
+            <div className={classes.carouselHeader}>
+              何か
+              しています。
+            </div>
+            <p className={classes.carouselContent}>
+              未稿dolor座amet,consectetur adipiscing elit.
+              Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム...
+            </p>
+          </div>
+          <img src={carouselImg} alt="new" className={classes.carouselImg} />
+        </div>
       </AwesomeSlider>
-      {/* <div className={classes.behindCarousel}>.</div>
-      <img
-        src="https://cdn10.bostonmagazine.com/wp-content/uploads/sites/2/2018/01/mitchell-gold-bob-williams-e1515009249915.jpg"
-        alt="new"
-        className={classes.carouselImg}
-      />
-      <div className={classes.carouselText}>
-        <div className={classes.carouselHeader}>
-          何か
-          {'\n'}
-          しています。
-        </div>
-        <div className={classes.carouselContent}>
-          未稿dolor座amet,consectetur adipiscing elit.
-          Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム...
-        </div>
-      </div> */}
       {/* ---------------- MAIN SERVICES ----------------- */}
       <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <div className={classes.mainServices}>
@@ -200,7 +217,6 @@ const HomePage = (props) => {
               <img className={classes.serviceIcon} src={otherIcon} alt="Other" />
               <h3 style={{ marginBottom: '7%' }}>{t('other')}</h3>
               <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-              <h4>{t('details')}</h4>
             </div>
           </div>
         </div>

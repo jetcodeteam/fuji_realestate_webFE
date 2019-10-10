@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './configs/theme';
-import 'antd/dist/antd.css';
 
-import App from './App';
+import App from './app';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

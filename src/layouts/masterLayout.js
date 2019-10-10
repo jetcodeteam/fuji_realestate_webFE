@@ -11,6 +11,9 @@ import TranslateButton from '../components/TranslateButton';
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
 
+import { Layout } from 'antd';
+
+const { Header, Footer, Content } = Layout;
 
 const styles = {
   root: {
@@ -52,22 +55,12 @@ const styles = {
 const MasterLayout = (props) => {
   const { children, classes } = props;
 
-  const elRef = useRef([...Array(12)].map(() => createRef()));
-
   return (
-    <Container className={classes.root} maxWidth="xl">
-      <Grid className={classes.grid} container>
-        {elRef.current.map(element => (
-          <Grid className={classes.gridChild} ref={element} item xs={1} />
-        ))}
-      </Grid>
-      <Container className={classes.childrenContainer} maxWidth="xl">
-        {children}
-        <PageHeader />
-        <TranslateButton className={classes.translateButton} />
-        <PageFooter />
-      </Container>
-    </Container>
+    <Layout>
+      <Header style={{backgroundColor: 'unset'}}><PageHeader /></Header>
+      <Content>{children}</Content>
+      <Footer><PageFooter /></Footer>
+    </Layout>
   );
 };
 

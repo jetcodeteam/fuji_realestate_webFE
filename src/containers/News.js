@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import Hidden from '@material-ui/core/Hidden';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -33,7 +34,6 @@ const NewsPage = () => {
       margin: '10px',
     },
     root: {
-      marginTop: '30%',
       flexGrow: 1,
     },
     pagination: {
@@ -42,7 +42,7 @@ const NewsPage = () => {
     },
     card: {
       display: 'flex',
-      width: 800,
+      width: '100%',
     },
     details: {
       display: 'flex',
@@ -55,12 +55,19 @@ const NewsPage = () => {
       height: 140,
     },
     cover: {
-      width: 500,
+      width: '30vw',
+      minWidth: 200,
+      height: 'auto',
       margin: '10px',
     },
     container: {
       display: 'flex',
       flexWrap: 'wrap',
+    },
+    subtitle: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      maxWidth: 500,
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -82,10 +89,11 @@ const NewsPage = () => {
       textDecoration: 'none',
     },
     newsroot: {
-      width: '90%',
       position: 'absolute',
+      top: '210px',
+      width: '90%',
       display: 'flex',
-      left: '5%',
+      flexWrap: 'wrap',
       zIndex: 1,
     },
   }));
@@ -95,7 +103,7 @@ const NewsPage = () => {
     <React.Fragment>
       <div
         style={{
-          width: '80%',
+          width: '90%',
           marginTop: '15px',
           height: '1px',
           backgroundColor: 'gray',
@@ -103,15 +111,13 @@ const NewsPage = () => {
           marginLeft: 5,
           marginRight: 5,
           position: 'absolute',
-          top: '15%',
+          top: '150px',
         }}
       >
-        .
       </div>
       <div className={classes.newsroot}>
         <Grid container className={classes.root} spacing={2}>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={6}>
+          <Grid item sm={12} md={8}>
               {[0, 1, 2].map(value => (
                 <Link to="/newsdetail" className={classes.linkDecoration}>
                   <Grid key={value} style={{ marginBottom: 20 }} item>
@@ -123,13 +129,13 @@ const NewsPage = () => {
                       />
                       <div className={classes.details}>
                         <CardContent className={classes.content}>
-                          <Typography component="h5" variant="h5" style={{ marginBottom: '10%' }}>
+                          <Typography className="subtitle-news" variant="h6" style={{ marginBottom: '10px' }}>
                             意味のない大きなタイトル、意味のない大きなタイトル、意味のない大きなタイトル
                           </Typography>
                           <Typography
-                            variant="subtitle1"
+                            variant="caption"
                             color="textSecondary"
-                            style={{ fontSize: '12px' }}
+                            className="subtitle-news"
                           >
                             オバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶして
                             最も人気のある家のタイトルを主張しました
@@ -140,40 +146,39 @@ const NewsPage = () => {
                   </Grid>
                 </Link>
               ))}
-            </Grid>
           </Grid>
-        </Grid>
-
-        <Grid container className={classes.newsfeed} spacing={2}>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={3}>
-              {[0, 1, 2, 3].map(value => (
-                <Grid key={value} item>
-                  <Card className={classes.subCard}>
-                    <CardMedia
-                      className={classes.subCover}
-                      image={news3}
-                      title="Title"
-                    />
-                    <div className={classes.subDetails}>
-                      <CardContent className={classes.subContent}>
-                        <Typography component="h8" variant="h8" style={{ marginBottom: '20%' }}>
-                          ニュースのタイトル、ただ長くします
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          color="textSecondary"
-                          style={{ fontSize: '9px' }}
-                        >
-                          5時間前
-                        </Typography>
-                      </CardContent>
-                    </div>
-                  </Card>
-                </Grid>
-              ))}
+          <Hidden smDown>
+            <Grid item sm={4}>
+              <Grid container justify="center" spacing={2}>
+                {[0, 1, 2, 3].map(value => (
+                  <Grid key={value} item>
+                    <Card className={classes.subCard}>
+                      <CardMedia
+                        className={classes.subCover}
+                        image={news3}
+                        title="Title"
+                      />
+                      <div className={classes.subDetails}>
+                        <CardContent className={classes.subContent}>
+                          <Typography className="subtitle-news" component="h8" variant="h8" style={{ marginBottom: '20%' }}>
+                            ニュースのタイトル、ただ長くします
+                          </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="textSecondary"
+                            style={{ fontSize: '9px' }}
+                            className="subtitle-news"
+                          >
+                            5時間前
+                          </Typography>
+                        </CardContent>
+                      </div>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
-          </Grid>
+          </Hidden>
         </Grid>
       </div>
     </React.Fragment>

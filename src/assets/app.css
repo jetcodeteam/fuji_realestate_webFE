@@ -91,3 +91,12 @@ table {
 .ant-table-thead {
 	background-color: #fdfcff;
 }
+
+.subtitle-news {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	line-height: 16px;     /* fallback */
+	-webkit-line-clamp: 2; /* number of lines to show */
+	-webkit-box-orient: vertical;
+ }

@@ -11,13 +11,14 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import product from '../static/images/product/product.png';
 import product1 from '../static/images/product/product1.png';
 import product2 from '../static/images/product/product2.png';
 import product3 from '../static/images/product/product3.png';
 import product4 from '../static/images/product/pr.png';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import MobileProductDetail from '../components/MobileProductDetail';
 
 
 const ProductDetail = (props) => {
@@ -124,46 +125,52 @@ const ProductDetail = (props) => {
 
   return (
     <React.Fragment>
-      <div style={{ margin: '50px 0 150px 0' }}>
-        <div className={classes.productAddress}>
-          <p>ホーチミン中心の１区、日本食も多く日本人が多く住んでいるエリア内です</p>
-        </div>
-        <div style={{ height: '80vh', backgroundColor: 'lightgray' }}>
-          <div className={classes.productBanner}>
-            <h2 style={{ color: 'white' }}>ワンルーム</h2>
-          </div>
-          <h1 className={classes.houseSize}>約40㎡</h1>
-          <div className={classes.productProps}>
-            <h4>所在地：ホーチミン１区の日本人街</h4>
-            <h4>階数：</h4>
-            <h4>キッチン：　あり</h4>
-            <h4>バルコニー：　あり</h4>
-          </div>
-          <h1 className={classes.price}>400ドル～</h1>
-          <div className={classes.verticalProducts}>
-            <div>
-              <img
-                src={product1}
-                alt="product1"
-                className={classes.verticalProductStyle}
-                style={{ marginBottom: '50px' }}
-              />
+      {
+        shouldWrap ? (
+          <div style={{ margin: '50px 0 150px 0' }}>
+            <div className={classes.productAddress}>
+              <p>ホーチミン中心の１区、日本食も多く日本人が多く住んでいるエリア内です</p>
             </div>
-            <div>
-              <img src={product2} alt="product2" className={classes.verticalProductStyle} />
+            <div style={{ height: '80vh', backgroundColor: 'lightgray' }}>
+              <div className={classes.productBanner}>
+                <h2 style={{ color: 'white' }}>ワンルーム</h2>
+              </div>
+              <h1 className={classes.houseSize}>約40㎡</h1>
+              <div className={classes.productProps}>
+                <h4>所在地： 街</h4>
+                <h4>階数：</h4>
+                <h4>キッチン：　あり</h4>
+                <h4>バルコニー：　あり</h4>
+              </div>
+              <h1 className={classes.price}>400ドル～</h1>
+              <div className={classes.verticalProducts}>
+                <div>
+                  <img
+                    src={product1}
+                    alt="product1"
+                    className={classes.verticalProductStyle}
+                    style={{ marginBottom: '50px' }}
+                  />
+                </div>
+                <div>
+                  <img src={product2} alt="product2" className={classes.verticalProductStyle} />
+                </div>
+              </div>
+              <div className={classes.horizontalProducts}>
+                <img
+                  className={classes.horizontalProductStyle}
+                  style={{ marginRight: '40px' }}
+                  src={product3}
+                  alt="product3"
+                />
+                <img src={product4} alt="product4" className={classes.horizontalProductStyle} />
+              </div>
             </div>
           </div>
-          <div className={classes.horizontalProducts}>
-            <img
-              className={classes.horizontalProductStyle}
-              style={{ marginRight: '40px' }}
-              src={product3}
-              alt="product3"
-            />
-            <img src={product4} alt="product4" className={classes.horizontalProductStyle} />
-          </div>
-        </div>
-      </div>
+        ) : (
+          <MobileProductDetail />
+        )
+      }
       <div style={{ marginBottom: '100px' }}>
         <div
           style={{

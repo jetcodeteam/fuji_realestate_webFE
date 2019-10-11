@@ -31,6 +31,7 @@ const ProductDetail = (props) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
+      width: '100%'
     },
     card: {
       maxWidth: 300,
@@ -58,190 +59,139 @@ const ProductDetail = (props) => {
       color: 'inherit',
       textDecoration: 'none',
     },
+    productAddress: {
+      maxWidth: '400px',
+      fontSize: '1.5em',
+      margin: '0 0 100px 15%',
+    },
+    productBanner: {
+      width: shouldWrap ? '40px' : '4vw',
+      backgroundColor: 'rgb(105,192,255)',
+      textAlign: 'center',
+      verticalAlign: 'center',
+      fontSize: shouldWrap ? '22px' : '2.5vw',
+      fontWeight: 700,
+      position: 'relative',
+      top: '-5%',
+      left: '7%',
+    },
+    houseSize: {
+      color: 'rgb(214,137,67)',
+      fontSize: '3em',
+      position: 'relative',
+      top: '-14%  ',
+      left: '13%',
+    },
+    productProps: {
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+      top: '-12%',
+      left: '7%',
+      width: '50%',
+      height: '20%',
+    },
+    verticalProducts: {
+      width: '35%',
+      position: 'relative',
+      top: '-80%',
+      left: '60%',
+    },
+    verticalProductStyle: {
+      width: '40vw',
+      height: 'auto',
+    },
+    horizontalProducts: {
+      display: 'flex',
+      position: 'relative',
+      bottom: '130%',
+      left: '4%'
+    },
+    horizontalProductStyle: {
+      width: '25vw',
+      height: 'auto',
+    },
+    price: {
+      color: 'rgb(40,208,55)',
+      fontSize: '4em',
+      position: 'relative',
+      top: '-81%',
+      left: '61%'
+    },
   }));
   const { t } = props;
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      <div
-        style={{
-          maxWidth: '400px',
-          fontSize: '1.5em',
-          margin: '50px 0 150px 15%',
-        }}
-      >
-        <p>ホーチミン中心の１区、日本食も多く日本人が多く住んでいるエリア内です</p>
-      </div>
-      <div
-        style={{
-          width: '100%',
-          backgroundColor: 'rgb(232,232,232)',
-          height: '40vw',
-          // maxHeight: 550,
-          position: 'relative',
-          display: 'flex',
-          marginBottom: 100,
-          flexWrap: 'wrap',
-        }}
-      >
-        <div
-          style={{
-            position: 'relative',
-            width: '65%',
-            minWidth: '639.59px'
-          }}
-        >        
-          <div
-            style={{
-              width: shouldWrap ? '40px' : '4vw',
-              backgroundColor: 'rgb(105,192,255)',
-              textAlign: 'center',
-              verticalAlign: 'center',
-              fontSize: shouldWrap ? '22px' : '2.5vw',
-              fontWeight: 700,
-              position: 'absolute',
-              top: '-7%',
-              left: '5%',
-            }}
-          >
+      <div style={{ margin: '50px 0 150px 0' }}>
+        <div className={classes.productAddress}>
+          <p>ホーチミン中心の１区、日本食も多く日本人が多く住んでいるエリア内です</p>
+        </div>
+        <div style={{ height: '80vh', backgroundColor: 'lightgray' }}>
+          <div className={classes.productBanner}>
             <h2 style={{ color: 'white' }}>ワンルーム</h2>
           </div>
-          <h1
-            style={{
-              color: 'rgb(214,137,67)',
-              fontSize: '3em',
-              position: 'absolute',
-              top: '30%',
-              left: '12%',
-            }}
-          >
-            約40㎡
-          </h1>
-          <h1
-            style={{
-              color: 'rgb(40,208,55)',
-              fontSize: '4em',
-              position: 'absolute',
-              top: '28%',
-              left: '75%'
-            }}
-          >
-            400
-          </h1>
-          <div
-            style={{
-              width: 40,
-              textAlign: 'center',
-              verticalAlign: 'center',
-              position: 'absolute',
-              top: '0',
-              left: '88%',
-            }}
-          >
-            <h2 style={{ color: 'rgb(40,208,55)', fontSize: 50 }}>ドル～</h2>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              position: 'absolute',
-              top: shouldWrap ? '47%' : '100%',
-              left: '9%'
-            }}
-          >
+          <h1 className={classes.houseSize}>約40㎡</h1>
+          <div className={classes.productProps}>
             <h4>所在地：ホーチミン１区の日本人街</h4>
             <h4>階数：</h4>
             <h4>キッチン：　あり</h4>
             <h4>バルコニー：　あり</h4>
-            <h4>物件設備：　テレビ/ソファー/テーブル</h4>
           </div>
-          <div
-            style={{
-              display: 'flex',
-              position: 'absolute',
-              bottom: '-20%',
-              left: '12%'
-            }}
-          >
+          <h1 className={classes.price}>400ドル～</h1>
+          <div className={classes.verticalProducts}>
+            <div>
+              <img
+                src={product1}
+                alt="product1"
+                className={classes.verticalProductStyle}
+                style={{ marginBottom: '50px' }}
+              />
+            </div>
+            <div>
+              <img src={product2} alt="product2" className={classes.verticalProductStyle} />
+            </div>
+          </div>
+          <div className={classes.horizontalProducts}>
             <img
-              style={{
-                width: '25vw', height: 'auto',
-                marginRight: '40px',
-              }}
+              className={classes.horizontalProductStyle}
+              style={{ marginRight: '40px' }}
               src={product3}
               alt="product3"
             />
-            <img src={product4} alt="product4" style={{ width: '25vw', height: 'auto' }} />
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
+            <img src={product4} alt="product4" className={classes.horizontalProductStyle} />
           </div>
         </div>
-
-        <div style={{ width: '35%', position: 'relative' }}>
-          <div
-            style={{
-              position: 'absolute',
-              top: '-5%',
-            }}
-          >
-            <img
-              src={product1}
-              alt="product1"
-              style={{
-                width: '40vw',
-                height: 'auto',
-                marginBottom: '25px',
-              }}
-            />
-          </div>
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '-5%'
-            }}
-          >
-            <img src={product2} alt="product2" style={{ width: '40vw', height: 'auto' }} />
-          </div>
-        </div>
-          {/* <div
-            style={{
-              width: '80%',
-              alignSelf: 'center',
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              height: 350,
-              flexGrow: 1,
-            }}
-          >
-            <div style={{ flexGrow: 1 }}>
-              <h3>{t('more')}</h3>
-              <div
-                style={{
-                  width: '100%',
-                  height: '1px',
-                  backgroundColor: 'gray',
-                  opacity: 0.2,
-                  marginLeft: 5,
-                  marginRight: 5,
-                  flexGrow: 1,
-                }}
-              >
-                .
-              </div>
-          </div>     
       </div>
+      <div style={{ marginBottom: '100px' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            margin: '0 30px 0 30px',
+            width: '100%',
+          }}
+        >
+          <h1 style={{ marginLeft: 7, fontSize: 25, fontWeight: 700 }}>{t('more')}</h1>
+          <div
+            style={{
+              width: '100%',
+              height: '1px',
+              backgroundColor: 'gray',
+              opacity: 0.2,
+              marginLeft: 5,
+              marginRight: 5,
+              marginBottom: 25,
+            }}
+          />
+        </div>
         <Grid container className={classes.root} spacing={2}>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={6}>
+          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <Grid container spacing={4} style={{ width: '100%', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
               {[0, 1, 2].map(value => (
-                <Link to="/productdetail" className={classes.linkDecoration}>
+                <Link key={value} to="/productdetail" className={classes.linkDecoration}>
                   <Grid key={value} style={{ margin: 12 }} item>
                     <Card className={classes.card}>
                       <CardActionArea>
@@ -257,13 +207,13 @@ const ProductDetail = (props) => {
                           <Typography variant="body2" color="textSecondary" component="p">
                             27 dien bien phu, HCM, Vietnam
                           </Typography>
-                          <Typography variant="body3" color="textSecondary" component="p">
+                          <Typography variant="body2" color="textSecondary" component="p">
                             2 寝室
                           </Typography>
-                          <Typography variant="body4" color="textSecondary" component="p">
+                          <Typography variant="body2" color="textSecondary" component="p">
                             ¥1,280
                           </Typography>
-                          <Typography variant="body5" color="textSecondary" component="p">
+                          <Typography variant="body2" color="textSecondary" component="p">
                             278,499 đ
                           </Typography>
                         </CardContent>
@@ -274,7 +224,7 @@ const ProductDetail = (props) => {
               ))}
             </Grid>
           </Grid>
-        </Grid> */}
+        </Grid>
       </div>
     </React.Fragment>
   );

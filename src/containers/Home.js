@@ -330,7 +330,7 @@ const HomePage = (props) => {
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={otherIcon} alt="Other" />
               <h3 style={{ marginBottom: '7%' }}>{t('other')}</h3>
-              <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
+              <p className={classes.serviceDescription}>{t('other_des')}</p>
             </div>
           </div>
         </div>

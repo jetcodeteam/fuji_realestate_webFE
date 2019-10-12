@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { withI18n, translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { Pagination } from 'antd';
+import { Pagination, Modal } from 'antd';
+
+import ProductFilter from '../components/ProductFilterForm';
 
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,14 +27,24 @@ import product from '../static/images/product/product.png';
 
 const ProductPage = (props) => {
   const themes = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const [isFilterOpen, setFilterOpen] = useState(false);
 
   function handlePageChange(page, pageSize) {
     console.log(page);
   }
 
   function openFilterModal() {
-    console.log('oh ye');
+    setFilterOpen(true);
+  }
+
+  function onFilterClose() {
+    setFilterOpen(false);
+  }
+
+  function handleFilter(states) {
+    console.log('filtering...', states);
+    onFilterClose();
   }
   const matches = useMediaQuery('(min-width:613px)');
   const useStyles = makeStyles(theme => ({
@@ -176,6 +188,11 @@ const ProductPage = (props) => {
           hideOnSinglePage
         />
       </div>
+      <ProductFilter
+        visible={isFilterOpen}
+        onFilterClose={onFilterClose}
+        handleFilter={handleFilter}
+      />
     </React.Fragment>
   );
 };

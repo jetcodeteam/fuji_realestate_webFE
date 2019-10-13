@@ -87,7 +87,7 @@ const MobileHeader = (props) => {
             <ListItemIcon><HomeIcon /></ListItemIcon>
             <ListItemText primary={t('home_menu')} />
           </ListItem>
-          <ListItem button component={Link} to="/product">
+          <ListItem button component={Link} to="/products">
             <ListItemIcon><SubtitlesIcon /></ListItemIcon>
             <ListItemText primary={t('product_menu')} />
           </ListItem>

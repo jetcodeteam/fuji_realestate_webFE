@@ -95,7 +95,7 @@ const PageHeader = (props) => {
         {homeLine && <div className={classes.line} />}
       </div>
       <div className={classes.headerMenu} ref={productRef}>
-        <Link to="/product" className={classes.linkDecoration}>
+        <Link to="/products" className={classes.linkDecoration}>
           {t('product')}
         </Link>
         {productLine && <div className={classes.line} />}

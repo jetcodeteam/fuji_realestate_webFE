@@ -1,12 +1,19 @@
-import React from 'react';
+import React,
+{
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import AwesomeSlider from 'react-awesome-slider';
+import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import homeIcon from '../static/images/icon/home-icon.png';
 import rentIcon from '../static/images/icon/rent-icon.png';
@@ -14,12 +21,36 @@ import visaIcon from '../static/images/icon/visa-icon.png';
 import otherIcon from '../static/images/icon/other-icon.png';
 import avatar1 from '../static/images/avatar/avatar-1.jpeg';
 import avatar2 from '../static/images/avatar/avatar-2.jpg';
-import carouselImg from '../static/images/product/product.png';
-import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { getProducts } from '../services/ProductServices';
+
 
 const HomePage = (props) => {
   const adjustServices = useMediaQuery('(min-width:690px)');
+  const [productLoading, setProductLoading] = useState(false);
+  const [productList, setProductList] = useState([]);
+
+  const isMounted = useRef(true);
+
+  useEffect(() => () => {
+    isMounted.current = false;
+  }, []);
+
+  useEffect(() => {
+    setProductLoading(true);
+    getProducts(0, 3, 'createdAt', 'ASC')
+      .then((res) => {
+        if (isMounted.current) {
+          const data = res.data.data;
+          setProductLoading(false);
+          setProductList(data);
+        }
+      })
+      .catch(() => {
+        if (isMounted.current) {
+          setProductLoading(false);
+        }
+      });
+  }, []);
 
   const useStyles = makeStyles({
     bigAvatar: {
@@ -116,18 +147,20 @@ const HomePage = (props) => {
       flexGrow: 1,
     },
     slickSlide: {
-      marginTop: '50px',
-      height: '30vw',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      paddingRight: '25px',
+      width: '50%',
+      paddingLeft: '8vw'
     },
     slide: {
-      backgroundColor: 'white',
       display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    carText: {
-      color: '#fff',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '30vw',
     },
     carouselBackdrop: {
       position: 'absolute',
@@ -154,7 +187,7 @@ const HomePage = (props) => {
     <React.Fragment>
       {
         matches && (
-          <div className={classes.carouselBackdrop}></div>
+          <div className={classes.carouselBackdrop} />
         )
       }
       <AwesomeSlider
@@ -163,136 +196,21 @@ const HomePage = (props) => {
         className={classes.slickSlide}
         organicArrows
       >
-        <div 
-          style={{
-            backgroundColor: 'white',
-            position: 'relative',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100vw',
-              height: '30vw',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                paddingRight: '25px',
-                width: '50%',
-                paddingLeft: '8vw'
-              }}
-            >
-              <div className={classes.carouselHeader}>
-                何か
-                しています。
+        {productList.map(product => (
+          <div style={{ backgroundColor: 'white', position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <div className={classes.slide}>
+              <div className={classes.slickSlide}>
+                <div className={classes.carouselHeader}>{product.name}</div>
+                <p className={classes.carouselContent}>
+                  {product.street}, {product.district}, {product.ward}, {product.city}
+                </p>
               </div>
-              <p className={classes.carouselContent}>
-                未稿dolor座amet,consectetur adipiscing elit.
-                Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム
-              </p>
-            </div>
-            <div
-              style={{
-                width: '50%',
-              }}
-            >
-              <img src={carouselImg} alt="new" height="100%" />
+              <div style={{ width: '50%' }}>
+                <img src={product.images[0]} alt={product.name} height="100%" />
+              </div>
             </div>
           </div>
-        </div>
-        <div 
-          style={{
-            backgroundColor: 'white',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100vw',
-              height: '30vw',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                paddingRight: '20px',
-                width: '50%',
-                paddingLeft: '8vw'
-              }}
-            >
-              <div className={classes.carouselHeader}>
-                何か
-                しています。
-              </div>
-              <p className={classes.carouselContent}>
-                未稿dolor座amet,consectetur adipiscing elit.
-                Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム
-              </p>
-            </div>
-            <div
-              style={{
-                width: '50%',
-              }}
-            >
-              <img src={carouselImg} alt="new" height="100%" />
-            </div>
-          </div>
-        </div>
-        <div 
-          style={{
-            backgroundColor: 'white',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100vw',
-              height: '30vw',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                paddingRight: '20px',
-                width: '50%',
-                paddingLeft: '8vw'
-              }}
-            >
-              <div className={classes.carouselHeader}>
-                何か
-                しています。
-              </div>
-              <p className={classes.carouselContent}>
-                未稿dolor座amet,consectetur adipiscing elit.
-                Amet scelerisque imperdiet座suspendisse faucibus auctor. Nibhマッサ,イプサム
-              </p>
-            </div>
-            <div
-              style={{
-                width: '50%',
-              }}
-            >
-              <img src={carouselImg} alt="new" height="100%" />
-            </div>
-          </div>
-        </div>
+        ))}
       </AwesomeSlider>
       {/* ---------------- MAIN SERVICES ----------------- */}
       <div style={{ flexWrap: 'wrap', display: 'flex', justifyContent: 'center', width: '100%', marginTop: '100px' }}>

@@ -129,6 +129,21 @@ const ProductFilterForm = (props) => {
                 </Select>
               </Form.Item>
             </Col>
+            <Col span={12}>
+              <Form.Item label="Address">
+                <Select
+                  placeholder="Select the district you want"
+                  onChange={value => onValueChange(kinds.district, value)}
+                  value={state.district}
+                >
+                  <Option key="all" value={undefined}>All</Option>
+                  <Option key="1" value="1">District 1</Option>
+                  <Option key="2" value="2">District 8</Option>
+                  <Option key="3" value="3">District 12</Option>
+                  <Option key="4" value="4">District 4</Option>
+                </Select>
+              </Form.Item>
+            </Col>
           </Row>
         </Form>
         

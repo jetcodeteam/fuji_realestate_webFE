@@ -14,7 +14,6 @@ import PrivateRoute from './components/PrivateRoute';
 
 import './assets/app.css';
 
-// const MasterLayout = lazy(() => import('./layouts/masterLayout'));
 const MasterLayout = lazy(() => import('./layouts/masterLayout'));
 const Home = lazy(() => import('./containers/Home'));
 const Product = lazy(() => import('./containers/Product'));
@@ -75,7 +74,7 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <PublicRoute exact path="/home" component={Home} />
-            <PublicRoute exact path="/product" component={Product} />
+            <PublicRoute exact path="/products" component={Product} />
             <PublicRoute exact path="/productdetail" component={ProductDetail} />
             <PublicRoute exact path="/news" component={News} />
             <PublicRoute exact path="/newsdetail" component={NewsDetail} />

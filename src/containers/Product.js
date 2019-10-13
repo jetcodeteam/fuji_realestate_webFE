@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n, translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -11,9 +11,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { Pagination, Modal } from 'antd';
 
 import ProductFilter from '../components/ProductFilterForm';
+import { getProducts } from '../services/ProductServices';
 
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,16 +24,49 @@ import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-
-import product from '../static/images/product/product.png';
-
 const ProductPage = (props) => {
   const themes = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [isFilterOpen, setFilterOpen] = useState(false);
+  const [productLoading, setProductLoading] = useState(false);
+  const [productList, setProductList] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
+  const isMounted = useRef(true);
+
+  useEffect(() => () => {
+    isMounted.current = false;
+  }, []);
+
+  useEffect(() => {
+    setProductLoading(true);
+    getProducts(0, 6, 'createdAt', 'ASC')
+      .then((res) => {
+        if (isMounted.current) {
+          const data = res.data.data;
+          setProductLoading(false);
+          setProductList(data);
+          // setTotalPage(Math.ceil(data.length / 6)*10);
+          setTotalPage(40);
+        }
+      })
+      .catch(() => {
+        if (isMounted.current) {
+          setProductLoading(false);
+        }
+      });
+  }, []);
+
+  console.log(productList);
 
   function handlePageChange(page, pageSize) {
-    console.log(page);
+    let offset = (page - 1) * 6
+    setProductLoading(true);
+    getProducts(offset, 6, 'createdAt', 'ASC')
+      .then((res) => {
+        const data = res.data.data;
+        setProductLoading(false);
+        setProductList(data);
+      });
   }
 
   function openFilterModal() {
@@ -48,6 +83,9 @@ const ProductPage = (props) => {
   }
   const matches = useMediaQuery('(min-width:613px)');
   const useStyles = makeStyles(theme => ({
+    progress: {
+      margin: theme.spacing(2),
+    },
     root: {
       maxWidth: '100%',
       display: 'flex',
@@ -118,7 +156,15 @@ const ProductPage = (props) => {
       marginBottom: matches ? '100px' : '60px',
       width: '90%',
       margin: 'auto',
-    }
+    },
+    productDetails: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    detailTitle: {
+      fontSize: '1em',
+      fontWeight: 'bold',
+    },
   }));
   const { t } = props;
   const classes = useStyles();
@@ -140,36 +186,49 @@ const ProductPage = (props) => {
           + フィルタ
         </Button>
       </div>
-      <Divider variant="middle" className={classes.divider} />
+      {
+        productLoading ? (
+          <LinearProgress className={classes.divider} />          
+        ) : (
+          <Divider variant="middle" className={classes.divider} />
+        )
+      }  
 
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
           <Grid container spacing={6} style={{ width: '85%', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
-            {[0, 1, 2, 3, 4, 5].map(value => (
+            {productList.map(value => (
               <Link key={value} to="/productdetail" className={classes.linkDecoration}>
                 <Grid key={value} style={{ margin: 12 }} item>
                   <Card className={classes.card}>
                     <CardActionArea>
                       <CardMedia
                         className={classes.media}
-                        image={product}
-                        title="Title"
+                        image={value.images[0]}
+                        title={value.name}
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                          {t('title')}
+                          {value.name}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                          27 dien bien phu, HCM, Vietnam
+                          {value.street}, {value.district}, {value.ward}, {value.city}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          2 寝室
+                        <Typography className={classes.productDetails} variant="body2" color="textSecondary">
+                          <span className={classes.detailTitle}>{t('area')}</span>
+                          <span>{value.square}</span>
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          ¥1,280
+                        <Typography className={classes.productDetails} variant="body2" color="textSecondary">
+                          <span className={classes.detailTitle}>{t('floor')}</span>
+                          <span>{value.floor}</span>
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          278,499 đ
+                        <Typography className={classes.productDetails} variant="body2" color="textSecondary">
+                          <span className={classes.detailTitle}>{t('price')}</span>
+                          <span>¥1,280</span>
+                        </Typography>
+                        <Typography className={classes.productDetails} variant="body2" color="textSecondary">
+                          <span className={classes.detailTitle}>{t('house_type')}</span>
+                          <span>Apartment</span>
                         </Typography>
                       </CardContent>
                     </CardActionArea>
@@ -183,7 +242,7 @@ const ProductPage = (props) => {
       <div style={{ margin: '50px 0 75px 0', display: 'flex', justifyContent: 'center' }}>
         <Pagination
           defaultCurrent={6}
-          total={500}
+          total={totalPage}
           onChange={handlePageChange}
           hideOnSinglePage
         />

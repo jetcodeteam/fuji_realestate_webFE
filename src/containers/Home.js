@@ -155,7 +155,7 @@ const HomePage = (props) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      paddingRight: '10px',
+      paddingRight: '3vw',
       marginTop: '20px',
       height: '30vw',
       width: '50%',

@@ -22,7 +22,7 @@ import MobileProductDetail from '../components/MobileProductDetail';
 
 
 const ProductDetail = (props) => {
-  const shouldWrap = useMediaQuery('(min-width:991px)');
+  const shouldWrap = useMediaQuery('(min-width:1150px)');
 
 
   const useStyles = makeStyles(theme => ({
@@ -88,6 +88,7 @@ const ProductDetail = (props) => {
       flexDirection: 'column',
       position: 'relative',
       top: '-12%',
+      fontSize: '1.5em',
       left: '7%',
       width: '50%',
       height: '20%',
@@ -95,7 +96,7 @@ const ProductDetail = (props) => {
     verticalProducts: {
       width: '35%',
       position: 'relative',
-      top: '-80%',
+      top: '-60%',
       left: '60%',
     },
     verticalProductStyle: {
@@ -105,7 +106,7 @@ const ProductDetail = (props) => {
     horizontalProducts: {
       display: 'flex',
       position: 'relative',
-      bottom: '130%',
+      bottom: '100%',
       left: '4%'
     },
     horizontalProductStyle: {
@@ -116,8 +117,8 @@ const ProductDetail = (props) => {
       color: 'rgb(40,208,55)',
       fontSize: '4em',
       position: 'relative',
-      top: '-81%',
-      left: '61%'
+      top: '-41%',
+      left: '38%'
     },
   }));
   const { t } = props;

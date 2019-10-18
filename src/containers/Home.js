@@ -14,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import homeIcon from '../static/images/icon/home-icon.png';
 import rentIcon from '../static/images/icon/rent-icon.png';
@@ -52,7 +53,10 @@ const HomePage = (props) => {
       });
   }, []);
 
-  const useStyles = makeStyles({
+  const useStyles = makeStyles(theme => ({
+    progress: {
+      margin: theme.spacing(2),
+    },
     bigAvatar: {
       marginBottom: '10px',
       width: 90,
@@ -68,11 +72,12 @@ const HomePage = (props) => {
       flexDirection: 'column',
     },
     carouselHeader: {
-      fontSize: '3.5vw',
+      fontSize: adjustServices ? '3.5vw' : '25px',
       textAlign: 'left',
+      marginBottom: '10px',
     },
     carouselContent: {
-      fontSize: '1.5vw',
+      fontSize: adjustServices ? '1.5vw': '10px',
       opacity: 0.5,
       lineHeight: 'normal',
       zIndex: 3,
@@ -150,16 +155,9 @@ const HomePage = (props) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
+      marginTop: '20px',
+      height: '30vw',
       width: '50%',
-      marginTop: '25px',
-    },
-    textSlide: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      paddingRight: '25px',
-      width: '50%',
-      paddingLeft: '8vw'
     },
     slide: {
       display: 'flex',
@@ -172,7 +170,7 @@ const HomePage = (props) => {
       position: 'absolute',
       zIndex: '0',
       width: '25vw',
-      height: '43vw',
+      height: '40vw',
       backgroundColor: '#69C0FF',
       top: 0,
       right: '75px',
@@ -184,12 +182,14 @@ const HomePage = (props) => {
       width: adjustServices && '25px',
       backgroundColor: adjustServices || '#54D5FE',
     },
-    carousel: {
+    carouselDes: {
+      width: '50%',
       display: 'flex',
-      alignItems: 'center',
+      flexDirection: 'column',
       justifyContent: 'center',
-    }
-  });
+      paddingLeft: '7vw',
+    },
+  }));
   const { t } = props;
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:1000px)');
@@ -201,28 +201,36 @@ const HomePage = (props) => {
           <div className={classes.carouselBackdrop} />
         )
       }
-      <AwesomeSlider
-        bullets={false}
-        cssModule={AwesomeSliderStyles}
-        className={classes.slickSlide}
-        organicArrows
-      >
-        {productList.map(product => (
-          <div className={classes.carousel} style={{ backgroundColor: 'white', position: 'relative', display: 'flex', alignItems: 'center' }}>
-            <div className={classes.slide}>
-              <div className={classes.textSlide}>
-                <div className={classes.carouselHeader}>{product.name}</div>
-                <p className={classes.carouselContent}>
-                  {product.street}, {product.district}, {product.ward}, {product.city}
-                </p>
-              </div>
-              <div style={{ width: '50%' }}>
-                <img src={product.images[0]} alt={product.name} height="100%" />
-              </div>
-            </div>
+      {
+        productLoading ? (
+          <div className={classes.slickSlide} style={{ alignItems: 'center' }}>
+            <CircularProgress className={classes.progress} />
           </div>
-        ))}
-      </AwesomeSlider>
+        ) : (
+          <AwesomeSlider
+            bullets={false}
+            cssModule={AwesomeSliderStyles}
+            className={classes.slickSlide}
+            organicArrows
+          >    
+            {productList.map(product => (
+              <div style={{ backgroundColor: 'white', position: 'relative' }}>
+                <div className={classes.slide}>
+                  <div className={classes.carouselDes}>
+                    <div className={classes.carouselHeader}>{product.name}</div>
+                    <p className={classes.carouselContent}>
+                      {product.street}, {product.district}, {product.ward}, {product.city}
+                    </p>
+                  </div>
+                  <div style={{ width: '50%' }}>
+                    <img src={product.images[0]} alt={product.name} height="100%" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </AwesomeSlider>
+        )
+      }
       {/* ---------------- MAIN SERVICES ----------------- */}
       <div style={{ flexWrap: 'wrap', display: 'flex', justifyContent: 'center', width: '100%', marginTop: '100px' }}>
         <div className={classes.mainServices}>

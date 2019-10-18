@@ -72,12 +72,12 @@ const HomePage = (props) => {
       flexDirection: 'column',
     },
     carouselHeader: {
-      fontSize: adjustServices ? '3.5vw' : '25px',
+      fontSize: adjustServices ? '3.5vw' : '5vw',
       textAlign: 'left',
       marginBottom: '10px',
     },
     carouselContent: {
-      fontSize: adjustServices ? '1.5vw': '10px',
+      fontSize: adjustServices ? '1.5vw': '2vw',
       opacity: 0.5,
       lineHeight: 'normal',
       zIndex: 3,

@@ -63,7 +63,7 @@ const PageFooter = (props) => {
             |
           </div>
           <div className={classes.link}>
-            <Link to="/product" className={classes.innerLink}>
+            <Link to="/products" className={classes.innerLink}>
               {t('product')}
             </Link>
           </div>

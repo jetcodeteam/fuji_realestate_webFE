@@ -23,6 +23,8 @@ const News = lazy(() => import('./containers/News'));
 const NewsDetail = lazy(() => import('./containers/NewsDetail'));
 const AdminEmails = lazy(() => import('./containers/AdminEmails'));
 const AdminProducts = lazy(() => import('./containers/AdminProducts'));
+const AdminNews = lazy(() => import('./containers/AdminNews'));
+const AdminNewsForm = lazy(() => import('./containers/AdminNewsForm'));
 const LoginPage = lazy(() => import('./containers/LoginPage'));
 
 const useStyles = makeStyles(theme => ({
@@ -73,16 +75,33 @@ const App = () => {
       >
         <BrowserRouter>
           <Switch>
-            <PublicRoute exact path="/home" component={Home} />
-            <PublicRoute exact path="/products" component={Product} />
-            <PublicRoute exact path="/productdetail" component={ProductDetail} />
-            <PublicRoute exact path="/news" component={News} />
-            <PublicRoute exact path="/newsdetail" component={NewsDetail} />
-            <PublicRoute exact path="/contact" component={Contact} />
-            <Route exact path="/admin" component={LoginPage} />
-            <PrivateRoute exact path="/emails" component={AdminEmails} />
+            <Route
+              exact
+              path="/"
+              render={() => (<Redirect to="/home" />)}
+             /> 
+            <PublicRoute path="/home" component={Home} />
+            <PublicRoute path="/products" component={Product} />
+            <PublicRoute path="/productdetail" component={ProductDetail} />
+            <PublicRoute path="/news" component={News} />
+            <PublicRoute path="/newsdetail" component={NewsDetail} />
+            <PublicRoute path="/contact" component={Contact} />
+            {/* <Route exact path="/admin" component={LoginPage} /> */}
+            <Route
+              path="/admin"
+              render={({ match: { url } }) => (
+                <>
+                  <Route path={`${url}/`} component={LoginPage} exact />
+                  <PrivateRoute path={`${url}/emails`} component={AdminEmails} />
+                  <PrivateRoute path={`${url}/products`} component={AdminProducts} />
+                  <PrivateRoute exact path={`${url}/news`} component={AdminNews} />
+                  <PrivateRoute path={`${url}/news/:news_id`} component={AdminNewsForm} />
+                </>
+              )}
+            />
+            {/* <PrivateRoute exact path="/emails" component={AdminEmails} /> */}
             {/* <PrivateRoute exact path="/admin/news" component={} /> */}
-            <PrivateRoute exact path="/products" component={AdminProducts} />
+            {/* <PrivateRoute exact path="/products" component={AdminProducts} /> */}
             <Redirect to="/home" />
           </Switch>
         </BrowserRouter>

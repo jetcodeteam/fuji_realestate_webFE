@@ -41,6 +41,7 @@
     "content": "Content",
     "status": "Status",
     "edit": "Edit",
+    "product_col": "Product",
     "delete": "Delete",
     "email_detail": "Email Detail",
     "email_complete": "Complete",
@@ -48,8 +49,17 @@
 
     "products_nav": "Products",
     "add_product": "Add Product",
+    "create_product": "Create Product",
     "name": "Name",
     "square": "Square",
     "floor": "Floor",
-    "street": "Street"
+    "street": "Street",
+
+    "news_nav": "News",
+    "add_news": "Add",
+    "create_news": "Create News",
+    "edit_news": "Edit News",
+    "news_title": "Title",
+    "news_body": "Body",
+    "back": "Back"
 }

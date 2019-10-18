@@ -150,13 +150,19 @@ const HomePage = (props) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
+      width: '50%',
+      marginTop: '25px',
+    },
+    textSlide: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
       paddingRight: '25px',
       width: '50%',
       paddingLeft: '8vw'
     },
     slide: {
       display: 'flex',
-      position: 'absolute',
       top: 0,
       left: 0,
       width: '100vw',
@@ -177,6 +183,11 @@ const HomePage = (props) => {
       padding: adjustServices && 0,
       width: adjustServices && '25px',
       backgroundColor: adjustServices || '#54D5FE',
+    },
+    carousel: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     }
   });
   const { t } = props;
@@ -197,9 +208,9 @@ const HomePage = (props) => {
         organicArrows
       >
         {productList.map(product => (
-          <div style={{ backgroundColor: 'white', position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <div className={classes.carousel} style={{ backgroundColor: 'white', position: 'relative', display: 'flex', alignItems: 'center' }}>
             <div className={classes.slide}>
-              <div className={classes.slickSlide}>
+              <div className={classes.textSlide}>
                 <div className={classes.carouselHeader}>{product.name}</div>
                 <p className={classes.carouselContent}>
                   {product.street}, {product.district}, {product.ward}, {product.city}

@@ -84,7 +84,7 @@ const LoginPage = (props) => {
           console.log(res);
           setFormLoading(false);
           setAccessToken(_.get(res, 'data.token'));
-          history.push('/emails');
+          history.push('/admin/emails');
         })
         .catch((err) => {
           console.log(err.response);

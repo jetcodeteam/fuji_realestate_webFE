@@ -114,3 +114,7 @@ table {
 	-webkit-line-clamp: 2; /* number of lines to show */
 	-webkit-box-orient: vertical;
  }
+
+ .aws-sld__container {
+	 padding-bottom: 30vw !important;
+ }

@@ -1,32 +1,33 @@
 import { publicRequest, privateRequest } from './HttpServices';
 
-const prefixProductURL = '/products'
+const prefixProductURL = '/articles'
 /*
 | Get products
 | ------------------------------------------------------
 | GET /products?offset={offset}&limit={limit}&sort={sort}&order={ASC || DESC}
 */
-export const getProducts = (offset, limit, sort, order) => publicRequest(`${prefixProductURL}?offset=${offset}&limit=${limit}&sort=${sort}&order=${order}`, {
+export const getNews = (data) => privateRequest(`${prefixProductURL}`, {
   method: 'GET',
+  params: data,
 });
 /*
 | Get product's detail
 | ------------------------------------------------------
 | GET /products/{id}
 */
-export const getProductDetails = (id) => publicRequest(`${prefixProductURL}/${id}`, {
+export const getNewsDetails = (id) => publicRequest(`${prefixProductURL}/${id}`, {
   method: 'GET',
 });
 /*
 | Delete Product
 */
-export const deleteProduct = (id) => privateRequest(`${prefixProductURL}/${id}`, {
+export const deleteNews = (id) => privateRequest(`${prefixProductURL}/${id}`, {
   method: 'DELETE',
 });
 /*
 | Create product
 */
-export const createProduct = (data) => privateRequest(`${prefixProductURL}/`, {
+export const createNews = (data) => privateRequest(`${prefixProductURL}/`, {
   method: 'POST',
   data: data,
 });

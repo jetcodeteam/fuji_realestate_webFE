@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
+import _ from 'lodash';
 import {
   Table,
   Button,
   Modal,
+  Tag,
+  message
 } from 'antd';
 import AdornedButton from '../components/AdornedButton';
 import ProductCreateForm from '../components/AdminProductCreate';
@@ -13,8 +16,9 @@ import {
 } from '../configs/constants';
 
 import {
-  getAllRequests,
-} from '../services/EmailServices';
+  getProducts,
+  deleteProduct,
+} from '../services/ProductServices';
 
 const { confirm } = Modal;
 
@@ -24,18 +28,23 @@ const AdminEmails = (props) => {
     t,
   } = props;
 
-  const showDeleteConfirm = () => {
+  const showDeleteConfirm = (record) => {
     confirm({
       title: t('delete_email'),
       okText: t('confirm'),
       okType: 'danger',
       cancelText: t('no'),
       onOk() {
-        console.log('OK');
+        deleteProduct(record._id)
+          .then((res) => {
+            onPageChange(1);
+            message.success(`Delete ${record.name} successful`);
+          })
+          .catch((res) => {
+            message.error(`Could not delete ${record.name}. Please try again later`);
+          })
       },
-      onCancel() {
-        console.log('Cancel');
-      },
+      onCancel() {},
     });
   };
 
@@ -84,6 +93,13 @@ const AdminEmails = (props) => {
       dataIndex: 'status',
       key: 'status',
       width: 50,
+      render: (text, record) => (
+        (!text) ? (
+          <Tag color="#87d068">Pending</Tag>
+        ) : (
+          <Tag color="#108ee9">Sold</Tag>
+        )
+      )
     },
     {
       key: 'actions',
@@ -102,7 +118,7 @@ const AdminEmails = (props) => {
           </Button>
           <Button
             type="link"
-            onClick={() => showDeleteConfirm()}
+            onClick={() => showDeleteConfirm(record)}
           >
             {t('delete')}
           </Button>
@@ -119,19 +135,22 @@ const AdminEmails = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
 
-  const getEmailList = (params) => {
+  const getProductList = (params) => {
     const data = {
       offset: 0,
       limit: pagination.limit,
       order: 'ASC',
+      sort: 'id',
       ...params,
     };
     setTableLoading(true);
-    getAllRequests(data)
+    getProducts(data.offset, data.limit, data.sort, data.order)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        console.log(res.headers['content-range'])
+        setTableData(_.get(res, 'data.data'));
         setTableLoading(false);
-        setTotalPage(0);
+        setTotalPage(parseInt(_.get(res, "headers['content-range']", "0/0").split("/")[1]) / data.limit);
       })
       .catch(() => {
         setTableLoading(false);
@@ -140,21 +159,7 @@ const AdminEmails = (props) => {
 
   useEffect(() => {
     // get table Data
-    getEmailList();
-    setTableData([{
-      id: '5d5fa766f54a623d45807adb',
-      name: 'This is name of products',
-      images: [
-        'string',
-      ],
-      square: 100,
-      floor: 2.5,
-      street: 'Nguyen Thi Minh Khai',
-      ward: 'Pham Ngu Lao',
-      district: 'District 1',
-      city: 'HCM City',
-      status: 'Available',
-    }]);
+    getProductList();
 
     return Modal.destroyAll();
   }, []);
@@ -169,7 +174,7 @@ const AdminEmails = (props) => {
     const offset = (page - 1) * pagination.limit;
     setDetailRecord({});
     setCurrentPage(page);
-    getEmailList({ offset });
+    getProductList({ offset });
   };
 
   const preHandleShowData = (data = []) => data.map((dta, index) => (
@@ -191,9 +196,7 @@ const AdminEmails = (props) => {
           color: '#fff',
           textTransform: 'none',
           width: '160px',
-          position: 'absolute',
-          top: '56px',
-          left: '230px',
+          marginTop: '-80px',
         }}
         variant="contained"
         color="primary"
@@ -203,6 +206,7 @@ const AdminEmails = (props) => {
         {t('add_product')}
       </AdornedButton>
       <Table
+        rowKey="_id"
         dataSource={preHandleShowData(tableData)}
         columns={translatedTableColumn(emailColumns)}
         loading={isTableLoading}
@@ -214,27 +218,11 @@ const AdminEmails = (props) => {
           style: { margin: '16px' },
         }}
       />
-      <Modal
-        title={t('email_detail')}
-        visible={detailVisible}
-        onOk={() => completeHandler(detailRecord)}
-        okText={t('email_complete')}
-        cancelText={t('cancel')}
-        confirmLoading={confirmLoading}
-        onCancel={() => {
-          setDetailVisible(false);
-          setDetailRecord({});
-        }
-        }
-        destroyOnClose
-        closable
-      >
-        <p>TODO</p>
-      </Modal>
       <ProductCreateForm
-        isFormVisible={isFormVisible}
-        setFormVisible={setFormVisible}
+        isFormVisible={detailVisible || isFormVisible}
+        setFormVisible={isFormVisible ? setFormVisible : setDetailVisible}
         reloadTable={() => onPageChange(1)}
+        formData={detailVisible ? detailRecord : null}
       />
     </React.Fragment>
   );

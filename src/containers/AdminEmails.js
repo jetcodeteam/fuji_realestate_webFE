@@ -123,7 +123,8 @@ const AdminEmails = (props) => {
     const data = {
       offset: 0,
       limit: pagination.limit,
-      order: 'ASC',
+      order: 'desc',
+      sort: 'createdAt',
       ...params,
     };
     setTableLoading(true);

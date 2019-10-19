@@ -8,12 +8,17 @@ import {
 import _ from 'lodash';
 import { withI18n } from 'react-i18next';
 
-import { Input, Button } from 'antd';
+import { Input, Button, Upload, Icon, message } from 'antd';
 
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import { getAccessToken } from '../services/TokenServices';
+import {
+  getNewsDetails,
+  createNews,
+  updateNews,
+} from '../services/NewsServices';
 
 const AdminNews = (props) => {
   const {
@@ -23,16 +28,74 @@ const AdminNews = (props) => {
   const { news_id } = useParams();
   const [title, setTitle] = useState('');
   const [data, setData] = useState('');
+  const [initialData, setInitialData] = useState('');
+  const [fileList, setFileList] = useState([]);
 
   const submitNew = () => {
-    console.log(title);
-    console.log(data);
-    history.push('/admin/news');
+    if (title && data && fileList) {
+      const body = {
+        title: title,
+        thumbnail: _.get(fileList[0], 'response.filename'),
+        content: data,
+      }
+      if (news_id === 'create') {
+        createNews(body)
+          .then((res) => {
+            history.push('/admin/news');
+          })
+          .catch(() => {
+            message.error(`Couldn't create news`);
+          })
+      } else {
+        updateNews(news_id, body)
+          .then((res) => {
+            history.push('/admin/news');
+          })
+          .catch(() => {
+            message.error(`Couldn't update news`);
+          })
+      }
+    } else {
+      message.error(`All field is required`);
+    }
   }
 
   useEffect(() => {
-      console.log(news_id);
+      if (news_id !== 'create') {
+        getNewsDetails(news_id)
+          .then((res) => {
+            const data = _.get(res, 'data.data');
+            const title = _.get(data, 'title');
+            setTitle(title);
+            const content = _.get(data, 'content');
+            setInitialData(content)
+            const thumbnail = _.get(data, 'thumbnail');
+            setFileList([{
+              uid: '1',
+              url: 'https://api-fujiwara-v2.herokuapp.com/static/' + thumbnail,
+              name: 'thumbnail',
+              thumbnail: 'https://api-fujiwara-v2.herokuapp.com/static/' + thumbnail,
+            }]);
+          })
+      }
   }, []);
+
+  const uploadProps = {
+    name: 'upload',
+    action: 'https://api-fujiwara-v2.herokuapp.com/uploads',
+    headers: {
+      authorization: `Bearer ${getAccessToken()}`,
+    },
+    fileList: fileList,
+    onChange(info) {
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+      setFileList([...info.fileList].slice(-1));
+    },
+  };
 
   return (
     <React.Fragment>
@@ -57,10 +120,20 @@ const AdminNews = (props) => {
         />
         <br />
         <br />
+        <div>{t('news_thumbnail')}:</div>
+        <br />
+        <Upload {...uploadProps}>
+          <Button>
+            <Icon type="upload" /> Click to Upload
+          </Button>
+        </Upload>
+        <br />
+        <br />
         <div>{t('news_body')}:</div>
         <br />
         <CKEditor
           editor={ ClassicEditor }
+          data={initialData}
           config={{
             simpleUpload: {
               // The URL the images are uploaded to.
@@ -74,13 +147,12 @@ const AdminNews = (props) => {
           }}
           onChange={ ( event, editor ) => {
               setData(editor.getData());
-              console.log(editor.getData());
           } }
         />
       </div>
       <br />
       <br />
-      <div>
+      <div style={{ marginBottom: '50px' }}>
         <Button
           style={{
             width: 120,

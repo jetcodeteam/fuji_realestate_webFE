@@ -139,15 +139,13 @@ const AdminEmails = (props) => {
     const data = {
       offset: 0,
       limit: pagination.limit,
-      order: 'ASC',
-      sort: 'id',
+      order: 'desc',
+      sort: 'createdAt',
       ...params,
     };
     setTableLoading(true);
     getProducts(data.offset, data.limit, data.sort, data.order)
       .then((res) => {
-        console.log(res.data);
-        console.log(res.headers['content-range'])
         setTableData(_.get(res, 'data.data'));
         setTableLoading(false);
         setTotalPage(parseInt(_.get(res, "headers['content-range']", "0/0").split("/")[1]) / data.limit);

@@ -15,7 +15,7 @@ export const getNews = (data) => privateRequest(`${prefixProductURL}`, {
 | ------------------------------------------------------
 | GET /products/{id}
 */
-export const getNewsDetails = (id) => publicRequest(`${prefixProductURL}/${id}`, {
+export const getNewsDetails = (id) => privateRequest(`${prefixProductURL}/${id}`, {
   method: 'GET',
 });
 /*
@@ -29,5 +29,12 @@ export const deleteNews = (id) => privateRequest(`${prefixProductURL}/${id}`, {
 */
 export const createNews = (data) => privateRequest(`${prefixProductURL}/`, {
   method: 'POST',
+  data: data,
+});
+/*
+| Create product
+*/
+export const updateNews = (id, data) => privateRequest(`${prefixProductURL}/${id}`, {
+  method: 'PUT',
   data: data,
 });

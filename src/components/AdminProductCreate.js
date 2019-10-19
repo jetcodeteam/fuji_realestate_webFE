@@ -20,6 +20,10 @@ import {
   getDistricts,
   getWards,
 } from '../services/LocationServices';
+import {
+  createProduct,
+  updateProduct,
+} from '../services/ProductServices';
 
 const { Option } = Select;
 
@@ -32,7 +36,6 @@ const ProductCreateForm = (props) => {
     form,
     formData,
   } = props;
-  console.log(formData);
 
   const statuses = [
     {
@@ -61,11 +64,37 @@ const ProductCreateForm = (props) => {
 
   const handleSubmit = () => {
     setFormLoading(true);
-    setTimeout(() => {
-      setFormLoading(false);
-      setFormVisible(false);
-      reloadTable();
-    }, 1000);
+    form.validateFields((err, values) => {
+      if (!err) {
+        values = {
+          ...values,
+          images: values.images.map((item) => _.get(item, 'response.url', 'url')),
+        }
+        if (formData) {
+          updateProduct(formData._id, values)
+            .then((res) => {
+              setFormLoading(false);
+              setFormVisible(false);
+              reloadTable();
+            })
+            .catch(() => {
+              setFormLoading(false);
+            })
+        } else {
+          createProduct(values)
+            .then((res) => {
+              setFormLoading(false);
+              setFormVisible(false);
+              reloadTable();
+            })
+            .catch(() => {
+              setFormLoading(false);
+            })
+        }
+      } else {
+        setFormLoading(false);
+      }
+    });
   };
 
   const handleCancel = () => {
@@ -76,7 +105,6 @@ const ProductCreateForm = (props) => {
     if (Array.isArray(e)) {
       return e;
     }
-    console.log(e.fileList);
     return e && e.fileList.slice(-4);
   };
 
@@ -94,7 +122,14 @@ const ProductCreateForm = (props) => {
       .then((res) => {
         setDistricts(_.get(res, 'data.data', []));
       })
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const district = _.get(formData, 'district', null);
+    if (district) {
+      handleWards(district);
+    };
+  }, [formData]);
 
   return (
     <div>
@@ -121,10 +156,19 @@ const ProductCreateForm = (props) => {
             </Col>
             <Col span={columnSpan}>
               <Form.Item label={t('Image')}>
-                {getFieldDecorator('image', {
-                  // initialValue: _.get(formData, 'images', []),
+                {getFieldDecorator('images', {
+                  initialValue: _.get(formData, 'images', []).map((item, index) => {
+                    return {
+                      uid: index,
+                      name: `${index + 1}.png`,
+                      url: item,
+                      status: 'done',
+                      thumbUrl: item,
+                    }
+                  }),
                   valuePropName: 'fileList',
                   getValueFromEvent: normFile,
+                  rules: [{ type: 'array', len: 4, message: 'Make sure you uploaded 4 images!' }]
                 })(
                   <Upload.Dragger
                     headers={{
@@ -132,6 +176,7 @@ const ProductCreateForm = (props) => {
                     }}
                     name="upload"
                     multiple
+                    listType="picture"
                     action="https://api-fujiwara-v2.herokuapp.com/uploads"
                   >
                     <p className="ant-upload-drag-icon">
@@ -145,7 +190,7 @@ const ProductCreateForm = (props) => {
             </Col>
             <Col span={columnSpan}>
               <Form.Item label={t('Square')}>
-                {getFieldDecorator('square ', {
+                {getFieldDecorator('square', {
                   initialValue: _.get(formData, 'square', ''),
                   rules: [{ required: true, message: 'Square is required!' }],
                 })(<Input />)}
@@ -161,8 +206,8 @@ const ProductCreateForm = (props) => {
             </Col>
             <Col span={columnSpan}>
               <Form.Item label={t('Street')}>
-                {getFieldDecorator('street', {
-                  initialValue: _.get(formData, 'street', ''),
+                {getFieldDecorator('address', {
+                  initialValue: _.get(formData, 'address', ''),
                   rules: [{ required: true, message: 'Street is required!' }],
                 })(<Input />)}
               </Form.Item>
@@ -178,6 +223,7 @@ const ProductCreateForm = (props) => {
             <Col span={columnSpan}>
               <Form.Item label={t('District')}>
                 {getFieldDecorator('district', {
+                  initialValue: _.get(formData, 'district', ''),
                   rules: [{ required: true, message: 'District is required!' }],
                 })(
                   <Select onChange={handleWards}>
@@ -193,6 +239,7 @@ const ProductCreateForm = (props) => {
             <Col span={columnSpan}>
               <Form.Item label={t('Ward')}>
                 {getFieldDecorator('ward', {
+                  initialValue: _.get(formData, 'ward', ''),
                   rules: [{ required: true, message: 'Ward is required!' }],
                 })(
                   <Select disabled={isWardsDisable}>

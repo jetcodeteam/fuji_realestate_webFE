@@ -30,3 +30,10 @@ export const createProduct = (data) => privateRequest(`${prefixProductURL}/`, {
   method: 'POST',
   data: data,
 });
+/*
+| Create product
+*/
+export const updateProduct = (id, data) => privateRequest(`${prefixProductURL}/${id}`, {
+  method: 'PUT',
+  data: data,
+});

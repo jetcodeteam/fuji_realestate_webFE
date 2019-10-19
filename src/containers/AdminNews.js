@@ -75,7 +75,7 @@ const AdminNews = (props) => {
       title: 'title',
       dataIndex: 'title',
       key: 'title',
-      width: 150,
+      width: 700,
     },
     {
       key: 'actions',
@@ -106,15 +106,13 @@ const AdminNews = (props) => {
     const data = {
       offset: 0,
       limit: pagination.limit,
-      order: 'ASC',
-      sort: 'id',
+      order: 'desc',
+      sort: 'createdAt',
       ...params,
     };
     setTableLoading(true);
     getNews(data)
       .then((res) => {
-        console.log(res.data);
-        console.log(res.headers['content-range'])
         setTableData(_.get(res, 'data.data'));
         setTableLoading(false);
         setTotalPage(parseInt(_.get(res, "headers['content-range']", "0/0").split("/")[1]) / data.limit);
@@ -162,6 +160,7 @@ const AdminNews = (props) => {
         {t('create_news')}
       </AdornedButton>
       <Table
+        rowKey="_id"
         dataSource={preHandleShowData(tableData)}
         columns={translatedTableColumn(newsColumns)}
         loading={isTableLoading}

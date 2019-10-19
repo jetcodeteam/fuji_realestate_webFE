@@ -81,13 +81,11 @@ const LoginPage = (props) => {
         password,
       })
         .then((res) => {
-          console.log(res);
           setFormLoading(false);
           setAccessToken(_.get(res, 'data.token'));
           history.push('/admin/emails');
         })
         .catch((err) => {
-          console.log(err.response);
           setFormLoading(false);
           setIsError(true);
           setError(_.get(err, 'response.data.message'));

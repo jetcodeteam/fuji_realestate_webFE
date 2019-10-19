@@ -6,9 +6,8 @@ const prefixProductURL = '/products'
 | ------------------------------------------------------
 | GET /products?offset={offset}&limit={limit}&sort={sort}&order={ASC || DESC}
 */
-export const getProducts = (data) => publicRequest(`${prefixProductURL}`, {
+export const getProducts = (offset, limit, sort, order) => publicRequest(`${prefixProductURL}?offset=${offset}&limit=${limit}&sort=${sort}&order=${order}`, {
   method: 'GET',
-  params: data,
 });
 /*
 | Get product's detail

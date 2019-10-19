@@ -144,7 +144,7 @@ const AdminEmails = (props) => {
       ...params,
     };
     setTableLoading(true);
-    getProducts(data.offset, data.limit, data.sort, data.order)
+    getProducts(data)
       .then((res) => {
         setTableData(_.get(res, 'data.data'));
         setTableLoading(false);

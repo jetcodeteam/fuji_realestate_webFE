@@ -82,7 +82,7 @@ const App = () => {
              /> 
             <PublicRoute path="/home" component={Home} />
             <PublicRoute path="/products" component={Product} />
-            <PublicRoute path="/productdetail" component={ProductDetail} />
+            <PublicRoute path="/products/:product_id" component={ProductDetail} />
             <PublicRoute path="/news" component={News} />
             <PublicRoute path="/newsdetail" component={NewsDetail} />
             <PublicRoute path="/contact" component={Contact} />

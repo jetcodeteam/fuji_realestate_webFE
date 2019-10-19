@@ -27,6 +27,9 @@
     "no": "No",
     "yes": "Yes",
     "more": "More",
+    "house_type": "House Type",
+    "area": "Area",
+    "price": "Price",
 
     "user_name": "User Name",
     "password": "Password",

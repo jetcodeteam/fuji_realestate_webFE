@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -13,6 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import { getProductDetails } from '../services/ProductServices';
 import product from '../static/images/product/product.png';
 import product1 from '../static/images/product/product1.png';
 import product2 from '../static/images/product/product2.png';
@@ -23,7 +24,23 @@ import MobileProductDetail from '../components/MobileProductDetail';
 
 const ProductDetail = (props) => {
   const shouldWrap = useMediaQuery('(min-width:1150px)');
+  // const { product_id } = useParams();
 
+  // useEffect(() => {
+  //   getProductDetails(product_id)
+  //     .then((res) => {
+  //       const data = _.get(res, 'data.data');
+  //       const name = _.get(data, 'title');
+  //       setTitle(title);
+  //       const thumbnail = _.get(data, 'thumbnail');
+  //       setFileList([{
+  //         uid: '1',
+  //         url: 'https://api-fujiwara-v2.herokuapp.com/static/' + thumbnail,
+  //         name: 'thumbnail',
+  //         thumbnail: 'https://api-fujiwara-v2.herokuapp.com/static/' + thumbnail,
+  //       }]);
+  //     })
+  // }, []);
 
   const useStyles = makeStyles(theme => ({
     root: {

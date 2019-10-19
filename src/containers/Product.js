@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n, translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -25,7 +26,6 @@ import Button from '@material-ui/core/Button';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const ProductPage = (props) => {
-  const themes = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [productLoading, setProductLoading] = useState(false);
@@ -33,20 +33,22 @@ const ProductPage = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const isMounted = useRef(true);
 
-  useEffect(() => () => {
-    isMounted.current = false;
-  }, []);
-
-  useEffect(() => {
+  const getProductList = (offset) => {
+    const data = {
+      offset: offset,
+      limit: 6,
+      order: 'desc',
+      sort: 'createdAt',
+    };
     setProductLoading(true);
-    getProducts(0, 6, 'createdAt', 'ASC')
+    getProducts(data.offset, data.limit, data.sort, data.order)
       .then((res) => {
+        console.log(res)
         if (isMounted.current) {
-          const data = res.data.data;
+          const products = res.data.data;
           setProductLoading(false);
-          setProductList(data);
-          // setTotalPage(Math.ceil(data.length / 6)*10);
-          setTotalPage(40);
+          setProductList(products);
+          setTotalPage(Math.ceil(parseInt(_.get(res, "headers['content-range']", "0/0").split("/")[1]) / data.limit)*10);
         }
       })
       .catch(() => {
@@ -54,19 +56,21 @@ const ProductPage = (props) => {
           setProductLoading(false);
         }
       });
+  }
+
+  useEffect(() => () => {
+    isMounted.current = false;
   }, []);
 
-  console.log(productList);
+  useEffect(() => {
+    getProductList(0);
+  }, []);
 
   function handlePageChange(page, pageSize) {
+    console.log('changePage')
     let offset = (page - 1) * 6
-    setProductLoading(true);
-    getProducts(offset, 6, 'createdAt', 'ASC')
-      .then((res) => {
-        const data = res.data.data;
-        setProductLoading(false);
-        setProductList(data);
-      });
+    getProductList(offset);
+    console.log(productList);
   }
 
   function openFilterModal() {
@@ -198,7 +202,7 @@ const ProductPage = (props) => {
         <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
           <Grid container spacing={6} style={{ width: '85%', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
             {productList.map(value => (
-              <Link key={value} to="/productdetail" className={classes.linkDecoration}>
+              <Link key={value} to={`/products/${value._id}`} className={classes.linkDecoration}>
                 <Grid key={value} style={{ margin: 12 }} item>
                   <Card className={classes.card}>
                     <CardActionArea>
@@ -224,11 +228,11 @@ const ProductPage = (props) => {
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('price')}</span>
-                          <span>¥1,280</span>
+                          <span>¥{value.price}</span>
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('house_type')}</span>
-                          <span>Apartment</span>
+                          <span>{value.houseType}</span>
                         </Typography>
                       </CardContent>
                     </CardActionArea>

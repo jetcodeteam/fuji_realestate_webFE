@@ -143,6 +143,7 @@ const AdminEmails = (props) => {
       sort: 'createdAt',
       ...params,
     };
+    console.log(data);
     setTableLoading(true);
     getProducts(data)
       .then((res) => {

@@ -86,7 +86,7 @@ const ProductDetail = (props) => {
       width: shouldWrap ? '40px' : '4vw',
       backgroundColor: 'rgb(105,192,255)',
       textAlign: 'center',
-      verticalAlign: 'center',
+      verticalAlign: 'middle',
       fontSize: shouldWrap ? '22px' : '2.5vw',
       fontWeight: 700,
       position: 'relative',

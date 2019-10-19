@@ -30,6 +30,12 @@
     "house_type": "House Type",
     "area": "Area",
     "price": "Price",
+    "visa": "Visa",
+    "jobs": "Jobs",
+    "translating": "Translating",
+    "repair_furniture": "Repair Furniture",
+    "mobile_sim": "Mobile Sim",
+    "wifi": "Wifi",
 
     "user_name": "User Name",
     "password": "Password",

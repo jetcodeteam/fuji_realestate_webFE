@@ -1,4 +1,5 @@
-import React, {
+import React,
+{
   useState,
   useRef,
   useEffect,
@@ -78,12 +79,12 @@ const HomePage = (props) => {
       flexDirection: 'column',
     },
     carouselHeader: {
-      fontSize: adjustServices ? '3.5vw' : '5vw',
+      fontSize: adjustServices ? '3.5vw' : '25px',
       textAlign: 'left',
       marginBottom: '10px',
     },
     carouselContent: {
-      fontSize: adjustServices ? '1.5vw': '2vw',
+      fontSize: adjustServices ? '1.5vw': '10px',
       opacity: 0.5,
       lineHeight: 'normal',
       zIndex: 3,
@@ -269,32 +270,32 @@ const HomePage = (props) => {
                 adjustServices ? (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Chip
-                      label="Visa"
+                      label={t('visa')}
                       icon={<Icon className="fas fa-money-check" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />}
                       style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
                     />
                     <Chip
-                      label="Jobs"
+                      label={t('jobs')}
                       icon={<Icon className="fas fa-briefcase" style={{ margin: '10px 0 10px 10px' }} />}
                       style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
                     />
                     <Chip
-                      label="Translating"
+                      label={t('translating')}
                       icon={<Icon className="fas fa-globe-americas" style={{ margin: '10px 0 10px 10px' }} />}
                       style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
                     />
                     <Chip
-                      label="Repair Furniture"
+                      label={t('repair_furniture')}
                       icon={<Icon className="fas fa-wrench" style={{ margin: '10px 0 10px 10px' }} />}
                       style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
                     />
                     <Chip
-                      label="Mobile Sim"
+                      label={t('mobile_sim')}
                       icon={<Icon className="fas fa-mobile" style={{ margin: '10px 0 10px 10px' }} />}
                       style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
                     />
                     <Chip
-                      label="Wifi"
+                      label={t('wifi')}
                       icon={<Icon className="fas fa-wifi" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />}
                       style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
                     />

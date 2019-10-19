@@ -81,7 +81,7 @@ const App = () => {
               render={() => (<Redirect to="/home" />)}
              /> 
             <PublicRoute path="/home" component={Home} />
-            <PublicRoute path="/products" component={Product} />
+            <PublicRoute exact path="/products" component={Product} />
             <PublicRoute path="/products/:product_id" component={ProductDetail} />
             <PublicRoute path="/news" component={News} />
             <PublicRoute path="/newsdetail" component={NewsDetail} />

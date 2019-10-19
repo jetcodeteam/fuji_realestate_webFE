@@ -41,7 +41,7 @@ const ProductPage = (props) => {
       sort: 'createdAt',
     };
     setProductLoading(true);
-    getProducts(data.offset, data.limit, data.sort, data.order)
+    getProducts(data)
       .then((res) => {
         console.log(res)
         if (isMounted.current) {

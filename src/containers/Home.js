@@ -5,21 +5,21 @@ import React,
   useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
+import { loadCSS } from 'fg-loadcss';
 import { withI18n } from 'react-i18next';
 import AwesomeSlider from 'react-awesome-slider';
+import { Link } from 'react-router-dom';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Icon from '@material-ui/core/Icon';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Chip from '@material-ui/core/Chip';
 
 import homeIcon from '../static/images/icon/home-icon.png';
-import rentIcon from '../static/images/icon/rent-icon.png';
-import visaIcon from '../static/images/icon/visa-icon.png';
-import otherIcon from '../static/images/icon/other-icon.png';
 import avatar1 from '../static/images/avatar/avatar-1.jpeg';
 import avatar2 from '../static/images/avatar/avatar-2.jpg';
 import { getProducts } from '../services/ProductServices';
@@ -37,8 +37,15 @@ const HomePage = (props) => {
   }, []);
 
   useEffect(() => {
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
+      document.querySelector('#font-awesome-css'),
+    );
+  }, []);
+
+  useEffect(() => {
     setProductLoading(true);
-    getProducts(0, 3, 'createdAt', 'ASC')
+    getProducts(0, 3, 'createdAt', 'DESC')
       .then((res) => {
         if (isMounted.current) {
           const data = res.data.data;
@@ -110,15 +117,18 @@ const HomePage = (props) => {
       justifyContent: 'center',
       alignSelf: 'center',
       flexWrap: 'wrap',
-      width: '80%',
+      // width: '80%',
       height: '60%',
       marginBottom: '100px'
     },
     serviceContent: {
       display: 'flex',
       width: '100%',
+      flexGrow: 1,
       justifyContent: 'center',
-      flexWrap: adjustServices ? 'nowrap' : 'wrap'
+      alignItems: 'center',
+      flexWrap: adjustServices ? 'nowrap' : 'wrap',
+      flexDirection: 'column',
     },
     serviceIcon: {
       width: '50px',
@@ -126,15 +136,28 @@ const HomePage = (props) => {
       marginBottom: '20px',
     },
     serviceWrapper: {
-      paddingLeft: adjustServices && '7%',
+      position: adjustServices || 'relative',
+      right: adjustServices || '9%',
       display: 'flex',
       flexDirection: 'column',
       width: '250px',
-      justifyContent: adjustServices || 'center',
-      alignItems: adjustServices || 'center',
-      textAlign: adjustServices || 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
       border: adjustServices || '1px solid #69C0FF',
       borderRadius: adjustServices || '5px',
+      padding: '25px 15px 25px 15px',
+      margin: '0 25px 20px 25px',
+    },
+    otherServices: {
+      position: adjustServices || 'relative',
+      right: adjustServices || '10%',
+      paddingLeft: adjustServices && '7%',
+      display: 'flex',
+      width: 'inherit',
+      justifyContent: adjustServices || 'center',
+      alignItems: adjustServices || 'center',
+      textAlign: adjustServices || 'left',
       padding: adjustServices || '25px 15px 25px 15px',
       margin: adjustServices || '0 25px 20px 25px',
     },
@@ -203,7 +226,7 @@ const HomePage = (props) => {
       }
       {
         productLoading ? (
-          <div className={classes.slickSlide} style={{ alignItems: 'center' }}>
+          <div className={classes.slickSlide} style={{ alignItems: 'center', position: 'relative', left: '25%' }}>
             <CircularProgress className={classes.progress} />
           </div>
         ) : (
@@ -219,7 +242,7 @@ const HomePage = (props) => {
                   <div className={classes.carouselDes}>
                     <div className={classes.carouselHeader}>{product.name}</div>
                     <p className={classes.carouselContent}>
-                      {product.street}, {product.district}, {product.ward}, {product.city}
+                      {product.address}, {product.district}, {product.ward}, {product.city}
                     </p>
                   </div>
                   <div style={{ width: '50%' }}>
@@ -234,40 +257,60 @@ const HomePage = (props) => {
       {/* ---------------- MAIN SERVICES ----------------- */}
       <div style={{ flexWrap: 'wrap', display: 'flex', justifyContent: 'center', width: '100%', marginTop: '100px' }}>
         <div className={classes.mainServices}>
-          <h2 style={{ fontSize: '1.5em', marginBottom: '25px' }}>{t('main_service')}</h2>
+          <h2 style={{ fontSize: '1.5em', marginBottom: '25px', fontWeight: 'bold' }}>{t('main_service')}</h2>
           <div className={classes.serviceContent}>
-            {/* home sales */}
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
-              <h3 style={{ marginBottom: '7%' }}>{t('home_sales')}</h3>
+              <Link to="/products" style={{ color: 'blue', textDecoration: 'blue' }}><h3 style={{ marginBottom: '7%' }}>{t('home_sales')}</h3></Link>
               <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-              <Button variant={adjustServices || "contained"} color="primary" className={classes.button}>
-                {t('details')}
-              </Button>
             </div>
-            {/* visa consulting */}
-            <div className={classes.serviceWrapper}>
-              <img className={classes.serviceIcon} src={visaIcon} alt="Visa" />
-              <h3 style={{ marginBottom: '7%' }}>{t('visa_consulting')}</h3>
-              <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-              <Button variant={adjustServices || "contained"} color="primary" className={classes.button}>
-                {t('details')}
-              </Button>
-            </div>
-            {/* employment consultation */}
-            <div className={classes.serviceWrapper}>
-              <img className={classes.serviceIcon} src={rentIcon} alt="Rent" />
-              <h3 style={{ marginBottom: '7%' }}>{t('employment_consultation')}</h3>
-              <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-              <Button variant={adjustServices || "contained"} color="primary" className={classes.button}>
-                {t('details')}
-              </Button>
-            </div>
-            {/* other */}
-            <div className={classes.serviceWrapper}>
-              <img className={classes.serviceIcon} src={otherIcon} alt="Other" />
-              <h3 style={{ marginBottom: '7%' }}>{t('other')}</h3>
-              <p className={classes.serviceDescription}>{t('other_des')}</p>
+            { adjustServices && <h3 style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>{t('other')}</h3> }
+            <div className={classes.otherServices} style={{ justifyContent: 'center' }}>
+              {
+                adjustServices ? (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Chip
+                      label="Visa"
+                      icon={<Icon className="fas fa-money-check" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />}
+                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                    />
+                    <Chip
+                      label="Jobs"
+                      icon={<Icon className="fas fa-briefcase" style={{ margin: '10px 0 10px 10px' }} />}
+                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                    />
+                    <Chip
+                      label="Translating"
+                      icon={<Icon className="fas fa-globe-americas" style={{ margin: '10px 0 10px 10px' }} />}
+                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                    />
+                    <Chip
+                      label="Repair Furniture"
+                      icon={<Icon className="fas fa-wrench" style={{ margin: '10px 0 10px 10px' }} />}
+                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                    />
+                    <Chip
+                      label="Mobile Sim"
+                      icon={<Icon className="fas fa-mobile" style={{ margin: '10px 0 10px 10px' }} />}
+                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                    />
+                    <Chip
+                      label="Wifi"
+                      icon={<Icon className="fas fa-wifi" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />}
+                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                    />
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Icon className="fas fa-money-check" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />
+                    <Icon className="fas fa-briefcase" style={{ margin: '10px 0 10px 10px' }} />
+                    <Icon className="fas fa-globe-americas" style={{ margin: '10px 0 10px 10px' }} />
+                    <Icon className="fas fa-wrench" style={{ margin: '10px 0 10px 10px' }} />
+                    <Icon className="fas fa-mobile" style={{ margin: '10px 0 10px 10px' }} />
+                    <Icon className="fas fa-wifi" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />
+                  </div>
+                )
+              }
             </div>
           </div>
         </div>

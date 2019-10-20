@@ -27,6 +27,7 @@ const AdminNews = (props) => {
   } = props;
   const { news_id } = useParams();
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [data, setData] = useState('');
   const [initialData, setInitialData] = useState('');
   const [fileList, setFileList] = useState([]);
@@ -67,6 +68,8 @@ const AdminNews = (props) => {
             const data = _.get(res, 'data.data');
             const title = _.get(data, 'title');
             setTitle(title);
+            const description = _.get(data, 'description');
+            setDescription(description);
             const content = _.get(data, 'content');
             setInitialData(content)
             const thumbnail = _.get(data, 'thumbnail');
@@ -117,6 +120,14 @@ const AdminNews = (props) => {
         <Input
           value={title}
           onChange={evt => setTitle(evt.currentTarget.value)}
+        />
+        <br />
+        <br />
+        <div>{t('news_description')}:</div>
+        <br />
+        <Input
+          value={description}
+          onChange={evt => setDescription(evt.currentTarget.value)}
         />
         <br />
         <br />

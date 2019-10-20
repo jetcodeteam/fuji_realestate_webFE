@@ -142,10 +142,8 @@ const NewsPage = (props) => {
     },
     cover: {
       width: '30vw',
-      minWidth: 200,
       height: 177.67,
       margin: '10px',
-      objectFit: 'contain',
     },
     container: {
       display: 'flex',
@@ -166,7 +164,7 @@ const NewsPage = (props) => {
       textDecoration: 'none',
     },
     newsroot: {
-      width: '90%',
+      width: matches ? '90%' : '350px',
       display: 'flex',
     },
     filter: {
@@ -240,7 +238,7 @@ const NewsPage = (props) => {
     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 100 }}>
       <div className={classes.newsroot}>
         <Grid container className={classes.root}>
-          <Grid item sm={12} md={11}>
+          <Grid item sm={12} md={11} className="news_holder">
             <p style={{ marginLeft: '12px', fontWeight: 700, fontSize: '2em' }}>{isTableLoading || t('recent_news')}</p>
             <div style={{ marginBottom: '10px' }}></div>
               {tableData.map(value => (
@@ -263,8 +261,7 @@ const NewsPage = (props) => {
                             color="textSecondary"
                             className="subtitle-news"
                           >
-                            オバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶして
-                            最も人気のある家のタイトルを主張しました
+                            {_.get(value, 'description')}
                           </Typography>
                         </CardContent>
                       </div>
@@ -298,9 +295,8 @@ const NewsPage = (props) => {
                                   {_.get(value, 'title')}
                                 </Text>
                                 <Typography
-                                  variant="subtitle1"
+                                  variant="caption"
                                   color="textSecondary"
-                                  style={{ fontSize: '9px' }}
                                   className="subtitle-news"
                                 >
                                   5時間前

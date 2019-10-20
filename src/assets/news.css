@@ -5,3 +5,24 @@
 .ant-anchor-ink::before {
     content: none;
 }
+
+.makeStyles-details-480 {
+    width: 100%;
+}
+
+.subtitle-news {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* number of lines to show */
+	-webkit-box-orient: vertical;
+ }
+
+@media only screen and (max-width: 613px) {
+    .MuiGrid-item > div {
+        display: block;
+    }
+    .MuiGrid-item div > img {
+        width: 95%;
+    }
+  }

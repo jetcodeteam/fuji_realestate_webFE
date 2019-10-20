@@ -9,9 +9,9 @@ import { message } from "antd";
 import emailPic from '../static/images/contact/email.png';
 import phoneCall from '../static/images/contact/phone-call.png';
 import schedule from '../static/images/contact/schedule.png';
-import map from '../static/images/contact/map.png';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createRequest } from '../services/EmailServices';
+import Map from '../components/EmbededMap';
 
 const ContactPage = (props) => {
   const {
@@ -223,7 +223,10 @@ const ContactPage = (props) => {
             </div>
           </div>
         </div>
-        <img src={map} alt="example map" width={shouldWrap ? '85%' : '100%'} height="auto" />
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14934.078062848324!2d106.68785263739069!3d10.800769793123232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1571580284629!5m2!1svi!2s"
+          width="1000" height="450" frameBorder="0" style={{ border:0 }} allowFullScreen="">
+        </iframe>
       </div>
     </React.Fragment>
   );

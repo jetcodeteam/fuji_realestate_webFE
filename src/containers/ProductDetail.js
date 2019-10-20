@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
@@ -15,32 +15,40 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { getProductDetails } from '../services/ProductServices';
 import product from '../static/images/product/product.png';
-import product1 from '../static/images/product/product1.png';
-import product2 from '../static/images/product/product2.png';
-import product3 from '../static/images/product/product3.png';
-import product4 from '../static/images/product/pr.png';
 import MobileProductDetail from '../components/MobileProductDetail';
 
 
 const ProductDetail = (props) => {
   const shouldWrap = useMediaQuery('(min-width:1150px)');
-  // const { product_id } = useParams();
+  const { product_id } = useParams();
+  const [productLoading, setProductLoading] = useState(false);
+  const [productInfo, setProductInfo] = useState([]);
+  const [productFeature, setProductFeature] = useState([]);
+  const [productImages, setProductImages] = useState([]);
+  const isMounted = useRef(true);
 
-  // useEffect(() => {
-  //   getProductDetails(product_id)
-  //     .then((res) => {
-  //       const data = _.get(res, 'data.data');
-  //       const name = _.get(data, 'title');
-  //       setTitle(title);
-  //       const thumbnail = _.get(data, 'thumbnail');
-  //       setFileList([{
-  //         uid: '1',
-  //         url: 'https://api-fujiwara-v2.herokuapp.com/static/' + thumbnail,
-  //         name: 'thumbnail',
-  //         thumbnail: 'https://api-fujiwara-v2.herokuapp.com/static/' + thumbnail,
-  //       }]);
-  //     })
-  // }, []);
+  useEffect(() => () => {
+    isMounted.current = false;
+  }, []);
+
+  useEffect(() => {
+    console.log('useEffect')
+    setProductLoading(true);
+    getProductDetails(product_id)
+      .then((res) => {
+        const data = res.data.data;
+        console.log(data);
+        setProductLoading(false);
+        setProductInfo(data);
+        setProductFeature(data.feature);
+        setProductImages(data.images);
+      })
+      .catch(() => {
+        if (isMounted.current) {
+          setProductLoading(false);
+        }
+      });
+  }, []);
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -115,10 +123,11 @@ const ProductDetail = (props) => {
       width: '100%',
       position: 'relative',
       top: '-60%',
+      height: 'fit-content',
     },
     verticalProductStyle: {
       width: '40vw',
-      height: 'auto',
+      height: '23vw',
     },
     horizontalProducts: {
       display: 'flex',
@@ -148,41 +157,43 @@ const ProductDetail = (props) => {
         shouldWrap ? (
           <div style={{ margin: '50px 0 150px 0' }}>
             <div className={classes.productAddress}>
-              <p>ホーチミン中心の１区、日本食も多く日本人が多く住んでいるエリア内です</p>
+              <p>{productInfo.name}</p>
             </div>
             <div style={{ height: '80vh', backgroundColor: 'lightgray' }}>
               <div className={classes.productBanner}>
                 <h2 style={{ color: 'white' }}>ワンルーム</h2>
               </div>
-              <h1 className={classes.houseSize}>約40㎡</h1>
+              <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
               <div className={classes.productProps}>
-                <h4>所在地： 街</h4>
-                <h4>階数：</h4>
-                <h4>キッチン：　あり</h4>
-                <h4>バルコニー：　あり</h4>
+                <h4>所在地： {productInfo.address}, {productInfo.ward}, {productInfo.district}, {productInfo.city}</h4>
+                <h4>階数：{productInfo.floor}</h4>
+                <h4>特徴:</h4>
+                {productFeature.map(feature => (
+                  <h4>{feature}：はい</h4>
+                ))}
               </div>
-              <h1 className={classes.price}>400ドル～</h1>
+              <h1 className={classes.price}>{productInfo.price}円</h1>
               <div className={classes.verticalProducts}>
                 <div>
                   <img
-                    src={product1}
+                    src={productImages[0]}
                     alt="product1"
                     className={classes.verticalProductStyle}
                     style={{ marginBottom: '50px' }}
                   />
                 </div>
                 <div>
-                  <img src={product2} alt="product2" className={classes.verticalProductStyle} />
+                  <img src={productImages[1]} alt="product2" className={classes.verticalProductStyle} />
                 </div>
               </div>
               <div className={classes.horizontalProducts}>
                 <img
                   className={classes.horizontalProductStyle}
                   style={{ marginRight: '40px' }}
-                  src={product3}
+                  src={productImages[2]}
                   alt="product3"
                 />
-                <img src={product4} alt="product4" className={classes.horizontalProductStyle} />
+                <img src={productImages[3]} alt="product4" className={classes.horizontalProductStyle} height="100%" />
               </div>
             </div>
           </div>

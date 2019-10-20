@@ -14,7 +14,7 @@ import product4 from '../static/images/product/pr.png';
 
 const MobileProductDetail = (props) => {
   const { t } = props;
-  const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles({
     root: {
       maxWidth: '100vw',
       display: 'flex',
@@ -57,7 +57,7 @@ const MobileProductDetail = (props) => {
       fontWeight: 'bold',
       color: 'white',
     }
-  }));
+  });
   const classes = useStyles();
 
   return (

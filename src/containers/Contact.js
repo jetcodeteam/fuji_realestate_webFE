@@ -11,7 +11,6 @@ import phoneCall from '../static/images/contact/phone-call.png';
 import schedule from '../static/images/contact/schedule.png';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createRequest } from '../services/EmailServices';
-import Map from '../components/EmbededMap';
 
 const ContactPage = (props) => {
   const {

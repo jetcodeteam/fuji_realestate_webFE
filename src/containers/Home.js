@@ -242,7 +242,7 @@ const HomePage = (props) => {
                   <div className={classes.carouselDes}>
                     <div className={classes.carouselHeader}>{product.name}</div>
                     <p className={classes.carouselContent}>
-                      {product.address}, {product.district}, {product.ward}, {product.city}
+                      {product.address}, {product.district.name}, {product.ward.name}, {product.city}
                     </p>
                   </div>
                   <div style={{ width: '50%' }}>

@@ -138,7 +138,7 @@ const ContactPage = (props) => {
             }
             <TextField
               id="outlined-phone-input"
-              label="Phone"
+              label={t('phone')}
               className={classes.textField}
               type="phone"
               name="phone"
@@ -149,7 +149,7 @@ const ContactPage = (props) => {
             />
             <TextField
               id="outlined-email-input"
-              label="Email"
+              label={t('email')}
               className={classes.textField}
               type="email"
               name="email"
@@ -160,7 +160,7 @@ const ContactPage = (props) => {
             />
             <TextField
               id="outlined-subject-input"
-              label="Subject"
+              label={t('subject')}
               className={classes.textField}
               type="subject"
               name="subject"
@@ -171,7 +171,7 @@ const ContactPage = (props) => {
             />
             <TextField
               id="outlined-description-flexible"
-              label="Description"
+              label={t('description')}
               multiline
               rowsMax="4"
               value={values.multiline}

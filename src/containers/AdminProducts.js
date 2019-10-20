@@ -84,8 +84,8 @@ const AdminEmails = (props) => {
     },
     {
       title: 'street',
-      dataIndex: 'street',
-      key: 'street',
+      dataIndex: 'address',
+      key: 'address',
       width: 200,
     },
     {

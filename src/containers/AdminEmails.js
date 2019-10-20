@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
+import _ from 'lodash';
 import {
   Table,
   Button,
   Modal,
+  Tag,
+  message,
 } from 'antd';
+import AdminEdmailEdit from '../components/AdminEmailEdit';
 import {
   pagination,
 } from '../configs/constants';
 
 import {
   getAllRequests,
+  deleteRequest,
 } from '../services/EmailServices';
 
 const { confirm } = Modal;
@@ -22,18 +27,22 @@ const AdminEmails = (props) => {
     t,
   } = props;
 
-  const showDeleteConfirm = () => {
+  const showDeleteConfirm = (record) => {
     confirm({
       title: t('delete_email'),
       okText: t('confirm'),
       okType: 'danger',
       cancelText: t('no'),
       onOk() {
-        console.log('OK');
+        deleteRequest(_.get(record, '_id'))
+          .then((res) => {
+            message.success(`Delete request ${_.get(record, 'topic')} success`)
+          })
+          .catch(() => {
+            message.error(`Couldn't delete request. Please try again.`)
+          })
       },
-      onCancel() {
-        console.log('Cancel');
-      },
+      onCancel() {},
     });
   };
 
@@ -53,7 +62,7 @@ const AdminEmails = (props) => {
       title: 'topic',
       dataIndex: 'topic',
       key: 'topic',
-      width: 100,
+      width: 150,
     },
     {
       title: 'email',
@@ -71,19 +80,20 @@ const AdminEmails = (props) => {
       title: 'content',
       dataIndex: 'content',
       key: 'content',
-      width: 200,
-    },
-    {
-      title: 'product_col',
-      dataIndex: 'product',
-      key: 'product',
-      width: 100,
+      width: 250,
     },
     {
       title: 'status',
       dataIndex: 'status',
       key: 'status',
       width: 50,
+      render: (text, record) => (
+        (!text) ? (
+          <Tag color="#108ee9">Pending</Tag>
+        ) : (
+          <Tag color="#87d068">Handled</Tag>
+        )
+      )
     },
     {
       key: 'actions',
@@ -102,7 +112,7 @@ const AdminEmails = (props) => {
           </Button>
           <Button
             type="link"
-            onClick={() => showDeleteConfirm()}
+            onClick={() => showDeleteConfirm(record)}
           >
             {t('delete')}
           </Button>
@@ -130,7 +140,7 @@ const AdminEmails = (props) => {
     setTableLoading(true);
     getAllRequests(data)
       .then((res) => {
-        console.log(res);
+        setTableData(_.get(res, 'data.data', []));
         setTableLoading(false);
         setTotalPage(0);
       })
@@ -142,14 +152,6 @@ const AdminEmails = (props) => {
   useEffect(() => {
     // get table Data
     getEmailList();
-    setTableData([{
-      id: '5d5fa766f54a623d45807adb',
-      topic: 'Mock test',
-      email: 'jetcode@gmail.com',
-      phone: '0212331231',
-      content: 'Want to buy a house in Binh Thanh District',
-      status: 'Pending',
-    }]);
 
     return Modal.destroyAll();
   }, []);
@@ -193,23 +195,12 @@ const AdminEmails = (props) => {
           style: { margin: '16px' },
         }}
       />
-      <Modal
-        title={t('email_detail')}
-        visible={detailVisible}
-        onOk={() => completeHandler(detailRecord)}
-        okText={t('email_complete')}
-        cancelText={t('cancel')}
-        confirmLoading={confirmLoading}
-        onCancel={() => {
-          setDetailVisible(false);
-          setDetailRecord({});
-        }
-        }
-        destroyOnClose
-        closable
-      >
-        <p>TODO</p>
-      </Modal>
+      <AdminEdmailEdit
+        record={detailRecord}
+        reloadTable={() => onPageChange(1)}
+        isFormVisible={detailVisible}
+        setFormVisible={setDetailVisible}
+      />
     </React.Fragment>
   );
 };

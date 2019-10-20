@@ -68,7 +68,7 @@ const ProductCreateForm = (props) => {
       if (!err) {
         values = {
           ...values,
-          images: values.images.map((item) => _.get(item, 'response.url', 'url')),
+          images: values.images.map((item) => _.get(item, 'response.url', _.get(item, 'url'))),
         }
         if (formData) {
           updateProduct(formData._id, values)
@@ -258,7 +258,7 @@ const ProductCreateForm = (props) => {
                   initialValue: _.get(formData, 'status', 0),
                   rules: [{ required: true, message: 'Status is required!' }],
                 })(
-                  <Select disabled={!_.get(formData, 'status', false)}>
+                  <Select disabled={!formData}>
                     {
                       statuses.map((status) => (
                         <Option key={_.get(status, 'id')} value={_.get(status, 'id')}>{_.get(status, 'name')}</Option>

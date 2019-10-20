@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { withI18n } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import '../assets/news.css';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -12,18 +14,97 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {
+  Anchor,
+  Typography as TypAntd,
+  BackTop,
+} from 'antd';
 
 
 import news from '../static/images/news/news.png';
 import news3 from '../static/images/news/news3.png';
 
-const NewsPage = () => {
+import { pagination } from '../configs/constants';
+import {
+  getNews,
+} from '../services/NewsServices';
+
+const { Text } = TypAntd;
+
+const NewsPage = (props) => {
+  const {
+    t,
+  } = props;
   const matches = useMediaQuery('(min-width:613px)');
   const shouldWrap = useMediaQuery('(min-width:961px)');
+
+  const [tableData, setTableData] = useState([]);
+  const [mostViewedData, setMostViewedData] = useState([]);
+  const [isTableLoading, setTableLoading] = useState(false);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const getMostViewedData = (params) => {
+    const data = {
+      offset: 0,
+      limit: 4,
+      order: 'desc',
+      sort: 'createdAt',
+      ...params,
+    };
+    setTableLoading(true);
+    getNews(data)
+      .then((res) => {
+        setMostViewedData([
+          ...mostViewedData,
+          ..._.get(res, 'data.data'),
+        ]);
+        setTableLoading(false);
+      })
+      .catch(() => {
+        setTableLoading(false);
+      });
+  };
+
+  const getNewsList = (params) => {
+    const data = {
+      offset: 0,
+      limit: pagination.limit,
+      order: 'desc',
+      sort: 'createdAt',
+      ...params,
+    };
+    setTableLoading(true);
+    getNews(data)
+      .then((res) => {
+        console.log(res);
+        setTableData([
+          ...tableData,
+          ..._.get(res, 'data.data'),
+        ]);
+        setTableLoading(false);
+        setTotalPage(parseInt(_.get(res, "headers['content-range']", "0/0").split("/")[1]) / data.limit);
+      })
+      .catch(() => {
+        setTableLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getNewsList()
+    getMostViewedData()
+  }, []);
+
+  const loadMore = () => {
+    const offset = (currentPage) * pagination.limit;
+    setCurrentPage(currentPage + 1);
+    getNewsList({ offset });
+  };
 
   const useStyles = makeStyles(theme => ({
     newsfeed: {
@@ -40,8 +121,10 @@ const NewsPage = () => {
     subContent: {
     },
     subCover: {
-      width: 200,
+      width: 150,
       margin: '10px',
+      height: 100,
+      objectFit: 'contain',
     },
     root: {
       display: 'flex',
@@ -59,8 +142,7 @@ const NewsPage = () => {
     },
     cover: {
       width: '30vw',
-      minWidth: 200,
-      height: 'auto',
+      height: 177.67,
       margin: '10px',
     },
     container: {
@@ -82,7 +164,7 @@ const NewsPage = () => {
       textDecoration: 'none',
     },
     newsroot: {
-      width: '90%',
+      width: matches ? '90%' : '350px',
       display: 'flex',
     },
     filter: {
@@ -120,12 +202,14 @@ const NewsPage = () => {
   }));
   const classes = useStyles();
 
-  function openFilterModal() {
-    console.log('oh ye');
-  }
+  // Uncomment this to show filter
+  // function openFilterModal() {
+  //   console.log('oh ye');
+  // }
 
   return (
     <React.Fragment>
+      <BackTop />
        <div className={classes.filter}>
         <Paper className={classes.input}>
           <IconButton aria-label="search">
@@ -137,39 +221,47 @@ const NewsPage = () => {
             style={{ width: '80%' }}
           />
         </Paper>
+        {/* Uncomment this to show filter
         <Button variant="contained" className={classes.filterInput} onClick={openFilterModal}>
           + フィルタ
         </Button>
+        */}
       </div>
-      <Divider variant="middle" className={classes.divider} />
+      {
+        isTableLoading ? (
+          <LinearProgress className={classes.divider} />          
+        ) : (
+          <Divider variant="middle" className={classes.divider} />
+        )
+      }
 
     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 100 }}>
       <div className={classes.newsroot}>
         <Grid container className={classes.root}>
-          <Grid item sm={12} md={8}>
-            <p style={{ marginLeft: '12px', fontWeight: 700, fontSize: '2em' }}>Recent News</p>
+          <Grid item sm={12} md={11} className="news_holder">
+            <p style={{ marginLeft: '12px', fontWeight: 700, fontSize: '2em' }}>{isTableLoading || t('recent_news')}</p>
             <div style={{ marginBottom: '10px' }}></div>
-              {[0, 1, 2].map(value => (
-                <Link to="/newsdetail" className={classes.linkDecoration}>
-                  <Grid key={value} style={{ marginBottom: 20 }} item>
-                    <Card className={classes.card}>
+              {tableData.map(value => (
+                <Link key={_.get(value, '_id')} to={`news/${_.get(value, '_id')}`} className={classes.linkDecoration}>
+                  <Grid key={_.get(value, '_id')} style={{ marginBottom: 20 }} item>
+                    <Card key={_.get(value, '_id')} className={classes.card}>
                       <CardMedia
                         className={classes.cover}
-                        image={news}
+                        component="img"
+                        src={`${process.env.REACT_APP_API_URL}/static/${_.get(value, 'thumbnail')}`}
                         title="News Title"
                       />
                       <div className={classes.details}>
                         <CardContent className={classes.content}>
-                          <Typography className="subtitle-news" variant="h6" style={{ marginBottom: '10px' }}>
-                            意味のない大きなタイトル、意味のない大きなタイトル、意味のない大きなタイトル
+                          <Typography className="subtitle-news" variant="h5" style={{ marginBottom: '10px' }}>
+                            {_.get(value, 'title')}
                           </Typography>
                           <Typography
                             variant="caption"
                             color="textSecondary"
                             className="subtitle-news"
                           >
-                            オバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶして
-                            最も人気のある家のタイトルを主張しました
+                            {_.get(value, 'description')}
                           </Typography>
                         </CardContent>
                       </div>
@@ -177,42 +269,49 @@ const NewsPage = () => {
                   </Grid>
                 </Link>
               ))}
+              { totalPage > currentPage && <Button onClick={loadMore}>More...</Button> }
           </Grid>
-          <Hidden smDown>
+        </Grid>
+        
+        <Hidden smDown>
             <Grid item sm={4}>
-              <span style={{ marginLeft: '60px', fontWeight: 700, fontSize: '1.5em' }}>Most Viewed</span>
-              <div style={{ marginBottom: '10px' }}></div>
-              <Grid container justify="center" spacing={2}>
-                {[0, 1, 2, 3].map(value => (
-                  <Grid key={value} item>
-                    <Card className={classes.subCard}>
-                      <CardMedia
-                        className={classes.subCover}
-                        image={news3}
-                        title="Title"
-                      />
-                      <div className={classes.subDetails}>
-                        <CardContent className={classes.subContent}>
-                          <Typography className="subtitle-news" component="h8" variant="h8" style={{ marginBottom: '20%' }}>
-                            ニュースのタイトル、ただ長くします
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            color="textSecondary"
-                            style={{ fontSize: '9px' }}
-                            className="subtitle-news"
-                          >
-                            5時間前
-                          </Typography>
-                        </CardContent>
-                      </div>
-                    </Card>
+              <Anchor affix={tableData.length >= 5}>
+                <span style={{ marginLeft: '60px', fontWeight: 700, fontSize: '1.5em' }}>{isTableLoading || t('most_viewed')}</span>
+                <div style={{ marginBottom: '10px' }}></div>
+                <Grid container justify="center">
+                  <Grid item>
+                    {mostViewedData.map(value => (
+                      <Link key={_.get(value, '_id')} to={`news/${_.get(value, '_id')}`} className={classes.linkDecoration}>
+                          <Card key={_.get(value, '_id')} className={classes.subCard}>
+                            <CardMedia
+                              className={classes.subCover}
+                              component="img"
+                              src={`${process.env.REACT_APP_API_URL}/static/${_.get(value, 'thumbnail')}`}
+                              title="Title"
+                            />
+                            <div className={classes.subDetails}>
+                              <CardContent className={classes.subContent}>
+                                <Text strong className="subtitle-news" style={{ marginBottom: '20%' }}>
+                                  {_.get(value, 'title')}
+                                </Text>
+                                <Typography
+                                  variant="caption"
+                                  color="textSecondary"
+                                  className="subtitle-news"
+                                >
+                                  5時間前
+                                </Typography>
+                              </CardContent>
+                            </div>
+                          </Card>
+                          <div style={{ marginBottom: '10px' }}></div>
+                      </Link>
+                    ))}
                   </Grid>
-                ))}
-              </Grid>
+                </Grid>
+              </Anchor>
             </Grid>
           </Hidden>
-        </Grid>
       </div>
     </div>
     </React.Fragment>

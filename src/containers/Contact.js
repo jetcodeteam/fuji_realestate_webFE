@@ -223,7 +223,7 @@ const ContactPage = (props) => {
           </div>
         </div>
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14934.078062848324!2d106.68785263739069!3d10.800769793123232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1571580284629!5m2!1svi!2s"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4174421520065!2d106.70258875020643!3d10.77930556205077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f48b8b124c3%3A0x57cd8facbcbcfec6!2zOGEgVGjDoWkgVsSDbiBMdW5nLCBC4bq_biBOZ2jDqSwgSG8gQ2hpIE1pbmggQ2l0eSwgSOG7kyBDaMOtIE1pbmgsIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1571581019509!5m2!1sen!2s"
           width="1000" height="450" frameBorder="0" style={{ border:0 }} allowFullScreen="">
         </iframe>
       </div>

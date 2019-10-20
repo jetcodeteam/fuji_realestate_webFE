@@ -74,5 +74,7 @@
     "news_thumbnail": "Thumbnail",
     "news_body": "Body",
     "delete_news": "Do you want to delete this news ?",
-    "back": "Back"
+    "back": "Back",
+    "recent_news": "Recent News",
+    "most_viewed": "Most Viewed"
 }

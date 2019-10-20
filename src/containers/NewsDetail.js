@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import { Link, useParams } from 'react-router-dom';
+import '../assets/news_detail.css';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,6 +18,11 @@ import article from '../static/images/news/article.png';
 import news from '../static/images/news/news2.png';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import {
+  getNews,
+  getNewsDetails,
+} from '../services/NewsServices';
+import { message, Skeleton } from 'antd';
 
 const ProductDetail = (props) => {
   const shouldWrap = useMediaQuery('(min-width:690px)');
@@ -25,12 +32,14 @@ const ProductDetail = (props) => {
       marginTop: 10,
       maxWidth: '100%',
       display: 'flex',
-      flexDirection: 'column',
-      marginBottom: '100px',
+      marginBottom: '50px',
     },
     card: {
       maxWidth: 300,
       width: 345,
+    },
+    cardInside: {
+      height: 345,
     },
     media: {
       height: 140,
@@ -53,10 +62,57 @@ const ProductDetail = (props) => {
     linkDecoration: {
       color: 'inherit',
       textDecoration: 'none',
+      margin: 25,
     },
   }));
   const { t } = props;
+  const { news_id } = useParams();
   const classes = useStyles();
+
+  const [articleInfo, setArticleInfo] = useState({});
+  const [relatedArticles, setRelatedArticles] = useState([]);
+  const [isPageLoading, setPageLoading] = useState(false);
+  const [relatedLoading, setRelatedLoading] = useState(false);
+
+  const getRelatedNews = (params) => {
+    const data = {
+      offset: 0,
+      limit: 3,
+      order: 'desc',
+      sort: 'createdAt',
+      ...params,
+    };
+    setRelatedLoading(true);
+    getNews(data)
+      .then((res) => {
+        setRelatedArticles([
+          ...relatedArticles,
+          ..._.get(res, 'data.data'),
+        ]);
+        setRelatedLoading(false);
+      })
+      .catch(() => {
+        setRelatedLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getRelatedNews();
+  }, []);
+
+  useEffect(() => {
+    console.log(news_id);
+    setPageLoading(true);
+    getNewsDetails(news_id)
+      .then((res) => {
+        setArticleInfo(_.get(res, 'data.data'));
+        setPageLoading(false);
+      })
+      .catch(() => {
+        setPageLoading(false);
+        message.error(`Couldn't load article. Please try to reload the page`);
+      })
+  }, [news_id]);
 
   return (
     <React.Fragment>
@@ -67,118 +123,84 @@ const ProductDetail = (props) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: '50px'
+          marginTop: '50px',
+          marginBottom: '75px',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            width: shouldWrap ? '60%' : '90%',
-            alignSelf: 'center',
-            WebkitJustifyContent: 'center',
-            flexDirection: 'column',
-          }}
-        >
-          <h1 style={{ fontSize: 40, marginBottom: 35 }}>新しい研究は成功について最も安っぽいクリシェを確認します</h1>
+        <Skeleton loading={isPageLoading} active paragraph={{ rows: 8 }}>
           <div
             style={{
               display: 'flex',
+              width: shouldWrap ? '60%' : '90%',
+              alignSelf: 'center',
+              WebkitJustifyContent: 'center',
               flexDirection: 'column',
-              alignItems: 'center',
-              marginBottom: 35,
             }}
           >
-            <img src={article} alt="article" style={{ height: 400, marginBottom: 5 }} />
-            <h7 style={{ opacity: 0.5 }}>クレジット: Mike Harrington/DigitalVision/Getty</h7>
+            <h1 style={{ fontSize: 40, marginBottom: 35 }}>{_.get(articleInfo, 'title')}</h1>
+            <div style={{ width: '100%' }} className="content" dangerouslySetInnerHTML={{__html: _.get(articleInfo, 'content')}}></div>
           </div>
-          <p>
-            これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあります。 これらはす
-            べて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあ
-            ります。 これらはすべて段落になります。これらはすべて段落になります。
-          </p>
-          <p>
-            これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあります。 これらはす
-            べて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあ
-            これらはすべて段落になります。
-          </p>
-          <p>
-            これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあります。 これらはす
-            べて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあ
-            これらはすべて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目
-            のものがあります。 これらはす べて段落になります。これは文です。 これは2番目のものですが、それより長く
-            なります。 次に、3番目のものがあこ。これは文です。 これは2番目のものですが、それより長くなります。次に、3番目
-            のものがあります。 これらはす べて段落になります。これは文です。 これは2番目のものですが、それより長く
-            なります。 次に、3番目のものがあこ
-          </p>
-          <p>
-            これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあります。 これらはす
-            べて段落になります。これは文です。 これは2番目のものですが、それより長くなります。 次に、3番目のものがあ
-            これらはすべて段落になります。
-          </p>
-        </div>
-        <div
-          style={{
-            marginTop: 55,
-            width: '80%',
-            alignSelf: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
           <div
             style={{
+              marginTop: 55,
+              width: '80%',
+              alignSelf: 'center',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
             }}
           >
-            <h1 style={{ marginLeft: 7, fontSize: 25, fontWeight: 700 }}>{t('more')}</h1>
             <div
               style={{
-                width: '100%',
-                height: '1px',
-                backgroundColor: 'gray',
-                opacity: 0.2,
-                marginLeft: 5,
-                marginRight: 5,
-                marginBottom: 25,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
               }}
             >
+              <h1 style={{ marginLeft: 7, fontSize: 25, fontWeight: 700 }}>{t('more')}</h1>
+              <div
+                style={{
+                  width: '100%',
+                  height: '1px',
+                  backgroundColor: 'gray',
+                  opacity: 0.2,
+                  marginLeft: 5,
+                  marginRight: 5,
+                  marginBottom: 25,
+                }}
+              >
+              </div>
             </div>
+                <Grid container justify="center" spacing={2} className={classes.root}>
+                  {relatedArticles.map(value => (
+                    <Link key={_.get(value, '_id')} to={`/news/${_.get(value, '_id')}`} className={classes.linkDecoration}>
+                      <Grid key={_.get(value, '_id')} xs={12} item>
+                        <Card className={classes.card}>
+                          <CardActionArea className={classes.cardInside}>
+                            <CardMedia
+                              className={classes.media}
+                              component="img"
+                              src={`${process.env.REACT_APP_API_URL}/static/${_.get(value, 'thumbnail')}`}
+                              title="Title"
+                            />
+                            <CardContent>
+                              <Typography gutterBottom variant="h6" component="h4" className="title">
+                                {_.get(value, 'title')}
+                              </Typography>
+                              <Typography variant="body2" color="textSecondary" component="p" className="description">
+                                オバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶしてオバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶしてdsalkcjxzkljcjaslkdjsalkncxzncasndlkjsaklsaldj
+                              </Typography>
+                              <Typography variant="caption" color="textSecondary" component="p" className="hour">
+                                5時間前
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                        </Card>
+                      </Grid>
+                    </Link>
+                  ))}
+                </Grid>
           </div>
-          <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={12}>
-              <Grid container justify="center" spacing={6}>
-                {[0, 1, 2].map(value => (
-                  <Link to="/newsdetail" className={classes.linkDecoration}>
-                    <Grid key={value} style={{ margin: 12 }} item>
-                      <Card className={classes.card}>
-                        <CardActionArea>
-                          <CardMedia
-                            className={classes.media}
-                            image={news}
-                            title="Title"
-                          />
-                          <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                              ニュースのタイトル、ただ長くします
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                              オバマ大統領の将来の大邸宅は、世論調査の数が多く、他のすべての候補者を押しつぶして
-                            </Typography>
-                            <Typography variant="body3" color="textSecondary" component="p">
-                              5時間前
-                            </Typography>
-                          </CardContent>
-                        </CardActionArea>
-                      </Card>
-                    </Grid>
-                  </Link>
-                ))}
-              </Grid>
-            </Grid>
-          </Grid>
-        </div>
+        </Skeleton>
       </div>
     </React.Fragment>
   );

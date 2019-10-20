@@ -1,0 +1,48 @@
+
+.content .image img {
+    width: 100%;
+}
+
+.content .image > figcaption {
+    width: 60vw;
+    text-align: center;
+    display: table-caption;
+    caption-side: bottom;
+    word-break: break-word;
+    color: #333;
+    background-color: #f7f7f7;
+    padding: .6em;
+    font-size: .75em;
+    outline-offset: -1px;
+}
+
+.ant-skeleton {
+    width: 80vw;
+}
+
+.title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 2px;
+}
+
+.MuiCardActionArea-root {
+    flex-direction: column;
+}
+
+.hour {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}

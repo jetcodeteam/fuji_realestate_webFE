@@ -6,7 +6,7 @@ const prefixProductURL = '/articles'
 | ------------------------------------------------------
 | GET /products?offset={offset}&limit={limit}&sort={sort}&order={ASC || DESC}
 */
-export const getNews = (data) => privateRequest(`${prefixProductURL}`, {
+export const getNews = (data) => publicRequest(`${prefixProductURL}`, {
   method: 'GET',
   params: data,
 });
@@ -15,7 +15,7 @@ export const getNews = (data) => privateRequest(`${prefixProductURL}`, {
 | ------------------------------------------------------
 | GET /products/{id}
 */
-export const getNewsDetails = (id) => privateRequest(`${prefixProductURL}/${id}`, {
+export const getNewsDetails = (id) => publicRequest(`${prefixProductURL}/${id}`, {
   method: 'GET',
 });
 /*

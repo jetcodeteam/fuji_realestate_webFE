@@ -1,0 +1,7 @@
+.MuiGrid-spacing-xs-2 {
+    margin: 0;
+}
+
+.ant-anchor-ink::before {
+    content: none;
+}

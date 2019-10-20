@@ -83,8 +83,8 @@ const App = () => {
             <PublicRoute path="/home" component={Home} />
             <PublicRoute exact path="/products" component={Product} />
             <PublicRoute path="/products/:product_id" component={ProductDetail} />
-            <PublicRoute path="/news" component={News} />
-            <PublicRoute path="/newsdetail" component={NewsDetail} />
+            <PublicRoute exact path="/news" component={News} />
+            <PublicRoute path="/news/:news_id" component={NewsDetail} />
             <PublicRoute path="/contact" component={Contact} />
             {/* <Route exact path="/admin" component={LoginPage} /> */}
             <Route

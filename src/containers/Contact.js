@@ -1,25 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withI18n } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { message } from "antd";
 
-import email from '../static/images/contact/email.png';
+import emailPic from '../static/images/contact/email.png';
 import phoneCall from '../static/images/contact/phone-call.png';
 import schedule from '../static/images/contact/schedule.png';
-import map from '../static/images/contact/map.png';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { createRequest } from '../services/EmailServices';
+import Map from '../components/EmbededMap';
 
-
-const ContactPage = () => {
+const ContactPage = (props) => {
+  const {
+    t,
+    history,
+  } = props;
   const shouldWrap = useMediaQuery('(min-width:555px)');
+  const [topic, setTopic] = useState('');
+  const [data, setData] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [values, setValues] = React.useState({
     multiline: '',
   });
   const handleChange = name => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
+
+  const handleSubmit = () => {
+    if (topic && data && email && phone) {
+      const body = {
+        topic: topic,
+        content: data,
+        email: email,
+        phone: phone,
+        status: 0,
+      }
+      createRequest(body)
+        .then((res) => {
+          console.log(res);
+          history.push('/request');
+        })
+        .catch((err) => {
+          message.error(`Couldn't create request`);
+          console.log(err);
+        })
+    } else {
+      message.error(`All field is required`);
+    }
+  }
 
   const useStyles = makeStyles(theme => ({
     contactWrapper: {
@@ -84,7 +116,6 @@ const ContactPage = () => {
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
-            // alignItems: 'center',
             marginBottom: '5%',
             flexWrap: 'wrap',
           }}
@@ -107,13 +138,15 @@ const ContactPage = () => {
               )
             }
             <TextField
-              id="outlined-name-input"
-              label="Name"
+              id="outlined-phone-input"
+              label="Phone"
               className={classes.textField}
-              type="name"
-              name="name"
+              type="phone"
+              name="phone"
               margin="normal"
               variant="outlined"
+              value={phone}
+              onChange={evt => setPhone(evt.currentTarget.value)}
             />
             <TextField
               id="outlined-email-input"
@@ -123,6 +156,8 @@ const ContactPage = () => {
               name="email"
               margin="normal"
               variant="outlined"
+              value={email}
+              onChange={evt => setEmail(evt.currentTarget.value)}
             />
             <TextField
               id="outlined-subject-input"
@@ -132,6 +167,8 @@ const ContactPage = () => {
               name="subject"
               margin="normal"
               variant="outlined"
+              value={topic}
+              onChange={evt => setTopic(evt.currentTarget.value)}
             />
             <TextField
               id="outlined-description-flexible"
@@ -143,8 +180,10 @@ const ContactPage = () => {
               className={classes.textField}
               margin="normal"
               variant="outlined"
+              value={data}
+              onChange={evt => setData(evt.currentTarget.value)}
             />
-            <Button variant="contained" color="primary" className={classes.button}>
+            <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
               Submit
             </Button>
           </div>
@@ -176,7 +215,7 @@ const ContactPage = () => {
               </div>
             </div>
             <div className={classes.subInfo}>
-              <img src={email} style={{ marginRight: '10%' }} alt="Email" width="40" height="40" />
+              <img src={emailPic} style={{ marginRight: '10%' }} alt="Email" width="40" height="40" />
               <div className={classes.infoContent}>
                 <h3>MAILING ADDRESS</h3>
                 <h3>company@fujiwara.com</h3>
@@ -184,7 +223,10 @@ const ContactPage = () => {
             </div>
           </div>
         </div>
-        <img src={map} alt="example map" width={shouldWrap ? '85%' : '100%'} height="auto" />
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14934.078062848324!2d106.68785263739069!3d10.800769793123232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1571580284629!5m2!1svi!2s"
+          width="1000" height="450" frameBorder="0" style={{ border:0 }} allowFullScreen="">
+        </iframe>
       </div>
     </React.Fragment>
   );

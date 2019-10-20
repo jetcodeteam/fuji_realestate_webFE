@@ -1,4 +1,4 @@
-import { privateRequest } from './HttpServices';
+import { privateRequest, publicRequest } from './HttpServices';
 
 const emailPrefixURL = '/requests';
 /*
@@ -16,7 +16,7 @@ export const getAllRequests = params => privateRequest(emailPrefixURL, {
 | ------------------------------------------------------
 | POST /requests
 */
-export const createRequest = data => privateRequest(emailPrefixURL, {
+export const createRequest = data => publicRequest(emailPrefixURL, {
   method: 'POST',
   data,
 });

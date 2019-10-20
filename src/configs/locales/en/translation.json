@@ -45,6 +45,8 @@
     "emails_nav": "Emails",
     "log_out": "Log Out",
     "topic": "Topic",
+    "subject": "Subject",
+    "description": "Description",
     "email": "Email",
     "phone": "Phone",
     "content": "Content",

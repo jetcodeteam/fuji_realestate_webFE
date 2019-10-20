@@ -91,14 +91,14 @@ const ProductDetail = (props) => {
       fontWeight: 700,
       position: 'relative',
       top: '-5%',
-      left: '7%',
+      marginLeft: '7%',
     },
     houseSize: {
       color: 'rgb(214,137,67)',
       fontSize: '3em',
       position: 'relative',
       top: '-14%  ',
-      left: '13%',
+      marginLeft: '13%',
     },
     productProps: {
       display: 'flex',
@@ -106,15 +106,15 @@ const ProductDetail = (props) => {
       position: 'relative',
       top: '-12%',
       fontSize: '1.5em',
-      left: '7%',
-      width: '50%',
+      marginLeft: '7%',
+      width: '43%',
       height: '20%',
     },
     verticalProducts: {
-      width: '35%',
+      textAlign: 'right',
+      width: '100%',
       position: 'relative',
       top: '-60%',
-      left: '60%',
     },
     verticalProductStyle: {
       width: '40vw',
@@ -124,7 +124,7 @@ const ProductDetail = (props) => {
       display: 'flex',
       position: 'relative',
       bottom: '100%',
-      left: '4%'
+      marginLeft: '4%'
     },
     horizontalProductStyle: {
       width: '25vw',
@@ -135,7 +135,8 @@ const ProductDetail = (props) => {
       fontSize: '4em',
       position: 'relative',
       top: '-41%',
-      left: '38%'
+      width: '60%',
+      textAlign: 'right',
     },
   }));
   const { t } = props;
@@ -196,7 +197,7 @@ const ProductDetail = (props) => {
             flexDirection: 'column',
             justifyContent: 'center',
             margin: '0 30px 0 30px',
-            width: '100%',
+            width: '90%',
           }}
         >
           <h1 style={{ marginLeft: 7, fontSize: 25, fontWeight: 700 }}>{t('more')}</h1>

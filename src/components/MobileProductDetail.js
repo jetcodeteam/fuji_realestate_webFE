@@ -6,14 +6,10 @@ import AwesomeSlider from 'react-awesome-slider';
 import { makeStyles } from '@material-ui/core/styles';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
 
-import product from '../static/images/product/product.png';
-import product1 from '../static/images/product/product1.png';
-import product2 from '../static/images/product/product2.png';
-import product3 from '../static/images/product/product3.png';
-import product4 from '../static/images/product/pr.png';
-
 const MobileProductDetail = (props) => {
-  const { t } = props;
+  const { t, product } = props;
+  const productImages = product.images;
+  const productFeature = product.feature;
   const useStyles = makeStyles({
     root: {
       maxWidth: '100vw',
@@ -64,7 +60,7 @@ const MobileProductDetail = (props) => {
     <React.Fragment>
       <div className={classes.root}>
         <div className={classes.description}>
-          <p style={{ margin: '20px' }}>ホーチミン中心の１区、日本食も多く日本人が多く住んでいるエリア内です</p>
+          <p style={{ margin: '20px' }}>{product.name}</p>
         </div>
         <AwesomeSlider
           bullets={false}
@@ -72,36 +68,30 @@ const MobileProductDetail = (props) => {
           className={classes.image}
           organicArrows
         >
-          <div><img src={product} alt="product" /></div>
-          <div><img src={product1} alt="product" /></div>
-          <div><img src={product2} alt="product" /></div>
-          <div><img src={product3} alt="product" /></div>
-          <div><img src={product4} alt="product" /></div>
+          {productImages.map(image => (
+            <div><img src={image} alt="product" /></div>
+          ))}
         </AwesomeSlider>
         <div className={classes.details}>
-          <p style={{ margin: '20px' }}>Dollar</p>
-          <p style={{ margin: '20px' }}>400</p>
+          <p style={{ margin: '20px' }}>{t('yen')}</p>
+          <p style={{ margin: '20px' }}>{product.price}</p>
         </div>
         <div className={classes.details}>
-          <p style={{ margin: '20px' }}>Size</p>
-          <p style={{ margin: '20px' }}>40㎡</p>
+          <p style={{ margin: '20px' }}>{t('size')}</p>
+          <p style={{ margin: '20px' }}>{product.size}㎡</p>
         </div>
         <div className={classes.details}>
-          <p style={{ margin: '20px' }}>Location</p>
-          <p style={{ margin: '20px' }}>12 Dien Bien Phu</p>
+          <p style={{ margin: '20px' }}>{t('location')}</p>
+          <p style={{ margin: '20px' }}>{product.address}, {product.ward.name}, {product.district.name}, {product.city}</p>
         </div>
         <div className={classes.feature}>
-          <p style={{ margin: '20px' }}>Feature/Facilities</p>
+          <p style={{ margin: '20px' }}>{t('feature')}</p>
         </div>
-        <div className={classes.details}>
-          <p style={{ margin: '20px' }}>TV</p>
-        </div>
-        <div className={classes.details}>
-          <p style={{ margin: '20px' }}>Air Conditioner</p>
-        </div>
-        <div className={classes.details}>
-          <p style={{ margin: '20px' }}>Stove</p>
-        </div>
+        {productFeature.map(feature => (
+          <div className={classes.details}>
+            <p style={{ margin: '20px' }}>{feature}</p>
+          </div>
+        ))}
       </div>
     </React.Fragment>
   );
@@ -109,6 +99,7 @@ const MobileProductDetail = (props) => {
 
 MobileProductDetail.propTypes = {
   t: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  product: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
 export default withI18n()(MobileProductDetail);

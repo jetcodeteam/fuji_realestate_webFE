@@ -50,6 +50,9 @@ const ProductDetail = (props) => {
       });
   }, []);
 
+  const ward = productInfo.ward;
+  const district = productInfo.district;
+
   const useStyles = makeStyles(theme => ({
     root: {
       maxWidth: '100%',
@@ -165,7 +168,7 @@ const ProductDetail = (props) => {
               </div>
               <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
               <div className={classes.productProps}>
-                <h4>所在地： {productInfo.address}, {productInfo.ward}, {productInfo.district}, {productInfo.city}</h4>
+                <h4>所在地： {productInfo.address}, {ward.name}, {district.name}, {productInfo.city}</h4>
                 <h4>階数：{productInfo.floor}</h4>
                 <h4>特徴:</h4>
                 {productFeature.map(feature => (
@@ -198,7 +201,7 @@ const ProductDetail = (props) => {
             </div>
           </div>
         ) : (
-          <MobileProductDetail />
+          <MobileProductDetail product={productInfo}/>
         )
       }
       <div style={{ marginBottom: '100px' }}>

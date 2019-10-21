@@ -259,11 +259,13 @@ const HomePage = (props) => {
         <div className={classes.mainServices}>
           <h2 style={{ fontSize: '1.5em', marginBottom: '25px', fontWeight: 'bold' }}>{t('main_service')}</h2>
           <div className={classes.serviceContent}>
-            <div className={classes.serviceWrapper}>
-              <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
-              <Link to="/products" style={{ color: 'blue', textDecoration: 'blue' }}><h3 style={{ marginBottom: '7%' }}>{t('home_sales')}</h3></Link>
-              <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-            </div>
+            <Link to="/products" style={{ color: 'inherit', textDecoration: 'blue' }}>
+              <div className={classes.serviceWrapper}>
+                <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
+                <h3 style={{ marginBottom: '7%' }}>{t('home_sales')}</h3>
+                <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
+              </div>
+            </Link>
             { adjustServices && <h3 style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>{t('other')}</h3> }
             <div className={classes.otherServices} style={{ justifyContent: 'center' }}>
               {

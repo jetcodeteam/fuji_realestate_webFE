@@ -22,6 +22,8 @@ const ProductDetail = (props) => {
   const shouldWrap = useMediaQuery('(min-width:1150px)');
   const { product_id } = useParams();
   const [productLoading, setProductLoading] = useState(false);
+  const [district, setDistrict] = useState([]);
+  const [ward, setWard] = useState([]);
   const [productInfo, setProductInfo] = useState([]);
   const [productFeature, setProductFeature] = useState([]);
   const [productImages, setProductImages] = useState([]);
@@ -41,6 +43,8 @@ const ProductDetail = (props) => {
         setProductLoading(false);
         setProductInfo(data);
         setProductFeature(data.feature);
+        setDistrict(data.district);
+        setWard(data.ward);
         setProductImages(data.images);
       })
       .catch(() => {
@@ -49,9 +53,6 @@ const ProductDetail = (props) => {
         }
       });
   }, []);
-
-  const ward = productInfo.ward;
-  const district = productInfo.district;
 
   const useStyles = makeStyles(theme => ({
     root: {

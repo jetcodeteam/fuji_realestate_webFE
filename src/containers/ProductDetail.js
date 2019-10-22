@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { getProductDetails } from '../services/ProductServices';
+import { getDistricts, getWards } from '../services/LocationServices';
 import product from '../static/images/product/product.png';
 import MobileProductDetail from '../components/MobileProductDetail';
 
@@ -53,6 +54,15 @@ const ProductDetail = (props) => {
         }
       });
   }, []);
+
+  useEffect(() => {
+    getDistricts()
+      .then((res) => {
+        console.log(res)
+      });
+  }, []);
+
+  console.log(productInfo)
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -132,15 +142,18 @@ const ProductDetail = (props) => {
     verticalProductStyle: {
       width: '40vw',
       height: '23vw',
+      objectFit: 'cover',
     },
     horizontalProducts: {
       display: 'flex',
       position: 'relative',
-      bottom: '100%',
-      marginLeft: '4%'
+      bottom: '105%',
+      height: '20vw',
+      marginLeft: '4%',
     },
     horizontalProductStyle: {
       width: '25vw',
+      objectFit: 'cover',
       height: 'auto',
     },
     price: {

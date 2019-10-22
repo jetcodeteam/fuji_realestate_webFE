@@ -215,7 +215,7 @@ const ProductDetail = (props) => {
             </div>
           </div>
         ) : (
-          <MobileProductDetail product={productInfo}/>
+          <MobileProductDetail />
         )
       }
       <div style={{ marginBottom: '100px' }}>

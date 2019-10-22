@@ -18,6 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
 
 import homeIcon from '../static/images/icon/home-icon.png';
 import avatar1 from '../static/images/avatar/avatar-1.jpeg';
@@ -63,6 +64,9 @@ const HomePage = (props) => {
   const useStyles = makeStyles(theme => ({
     progress: {
       margin: theme.spacing(2),
+    },
+    button: {
+      margin: theme.spacing(1),
     },
     bigAvatar: {
       marginBottom: '10px',
@@ -246,7 +250,12 @@ const HomePage = (props) => {
                     </p>
                   </div>
                   <div style={{ width: '50%' }}>
-                    <img src={product.images[0]} alt={product.name} height="100%" />
+                    <img
+                      src={product.images[0]}
+                      alt={product.name}
+                      height="100%" width="100%"
+                      style={{ objectFit: 'cover' }}
+                    />
                   </div>
                 </div>
               </div>
@@ -259,13 +268,12 @@ const HomePage = (props) => {
         <div className={classes.mainServices}>
           <h2 style={{ fontSize: '1.5em', marginBottom: '25px', fontWeight: 'bold' }}>{t('main_service')}</h2>
           <div className={classes.serviceContent}>
-            <Link to="/products" style={{ color: 'inherit', textDecoration: 'blue' }}>
-              <div className={classes.serviceWrapper}>
-                <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
-                <h3 style={{ marginBottom: '7%' }}>{t('home_sales')}</h3>
-                <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
-              </div>
-            </Link>
+            <div className={classes.serviceWrapper}>
+              <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
+              <h3 style={{ marginBottom: '7%' }}>{t('home_sales')}</h3>
+              <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
+              <Button className={classes.button} style={{ justifyContent: 'center' }} component={Link} to="/products">{t('more')}</Button>
+            </div>
             { adjustServices && <h3 style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>{t('other')}</h3> }
             <div className={classes.otherServices} style={{ justifyContent: 'center' }}>
               {

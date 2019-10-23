@@ -71,6 +71,10 @@
     "square": "Square",
     "floor": "Floor",
     "street": "Street",
+    "city": "City",
+    "district": "District",
+    "ward": "Ward",
+    "image": "Images",
 
     "news_nav": "News",
     "add_news": "Add",

@@ -147,7 +147,7 @@ const ProductCreateForm = (props) => {
         <Row>
           <Form {...formItemLayout}>
             <Col span={columnSpan}>
-              <Form.Item label={t('Name')}>
+              <Form.Item label={t('name')}>
                 {getFieldDecorator('name', {
                   initialValue: _.get(formData, 'name', ''),
                   rules: [{ required: true, message: 'Name is required!' }],
@@ -155,7 +155,7 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
-              <Form.Item label={t('Image')}>
+              <Form.Item label={t('image')}>
                 {getFieldDecorator('images', {
                   initialValue: _.get(formData, 'images', []).map((item, index) => {
                     return {
@@ -189,7 +189,15 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
-              <Form.Item label={t('Square')}>
+              <Form.Item label={t('price')}>
+                {getFieldDecorator('price', {
+                  initialValue: _.get(formData, 'price', ''),
+                  rules: [{ required: true, message: 'Price is required!' }],
+                })(<Input />)}
+              </Form.Item>
+            </Col>
+            <Col span={columnSpan}>
+              <Form.Item label={t('square')}>
                 {getFieldDecorator('square', {
                   initialValue: _.get(formData, 'square', ''),
                   rules: [{ required: true, message: 'Square is required!' }],
@@ -197,7 +205,7 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
-              <Form.Item label={t('Floor')}>
+              <Form.Item label={t('floor')}>
                 {getFieldDecorator('floor', {
                   initialValue: _.get(formData, 'floor', ''),
                   rules: [{ required: true, message: 'Floor is required!' }],
@@ -205,7 +213,7 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
-              <Form.Item label={t('Street')}>
+              <Form.Item label={t('street')}>
                 {getFieldDecorator('address', {
                   initialValue: _.get(formData, 'address', ''),
                   rules: [{ required: true, message: 'Street is required!' }],
@@ -213,7 +221,7 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
-              <Form.Item label={t('City')}>
+              <Form.Item label={t('city')}>
                 {getFieldDecorator('city', {
                   initialValue: 'Ho Chi Minh',
                   rules: [{ required: true, message: 'City is required!' }],
@@ -221,7 +229,7 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
-              <Form.Item label={t('District')}>
+              <Form.Item label={t('district')}>
                 {getFieldDecorator('district', {
                   initialValue: _.get(formData, 'district', ''),
                   rules: [{ required: true, message: 'District is required!' }],
@@ -237,7 +245,7 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
-              <Form.Item label={t('Ward')}>
+              <Form.Item label={t('ward')}>
                 {getFieldDecorator('ward', {
                   initialValue: _.get(formData, 'ward', ''),
                   rules: [{ required: true, message: 'Ward is required!' }],
@@ -253,7 +261,7 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
-              <Form.Item label={t('Status')}>
+              <Form.Item label={t('status')}>
                 {getFieldDecorator('status', {
                   initialValue: _.get(formData, 'status', 0),
                   rules: [{ required: true, message: 'Status is required!' }],

@@ -216,7 +216,7 @@ const ProductPage = (props) => {
                           {value.name}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                          {value.street}, {value.district.name}, {value.ward.name}, {value.city}
+                          {value.address}, {value.district.name}, {value.ward.name}, {value.city}
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('area')}</span>

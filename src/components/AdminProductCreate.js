@@ -18,7 +18,6 @@ import { getAccessToken } from '../services/TokenServices';
 import { Select } from 'antd';
 import {
   getDistricts,
-  getWards,
 } from '../services/LocationServices';
 import {
   createProduct,
@@ -110,11 +109,14 @@ const ProductCreateForm = (props) => {
 
   const handleWards = (district_id) => {
     setWardsDisable(true);
-    getWards(district_id)
-      .then((res) => {
-        setWardsDisable(false);
-        setWards(_.get(res, 'data.data.wardList', []));
-      })
+    setWardsDisable(false);
+    let district;
+    for (district of districts) {
+      if (district._id == district_id) {
+        setWards(district.ward);
+        break;
+      };
+    };
   }
 
   useEffect(() => {

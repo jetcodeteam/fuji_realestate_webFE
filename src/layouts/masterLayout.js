@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/styles';
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
 import MobileHeader from '../components/MobileHeader';
+import TranslateButton from '../components/TranslateButton';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -55,7 +56,7 @@ const MasterLayout = (props) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <BackTop visibilityHeight={100} />
-      <Header style={{backgroundColor: 'unset'}}>
+      <Header style={{backgroundColor: 'unset', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
         {
           matches ? (
             <PageHeader />
@@ -63,6 +64,7 @@ const MasterLayout = (props) => {
             <MobileHeader />
           )
         }
+        <TranslateButton />
       </Header>
       <Content>{children}</Content>
       <Footer><PageFooter /></Footer>

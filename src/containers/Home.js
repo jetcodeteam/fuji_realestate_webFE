@@ -9,6 +9,7 @@ import { loadCSS } from 'fg-loadcss';
 import { withI18n } from 'react-i18next';
 import AwesomeSlider from 'react-awesome-slider';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -246,7 +247,7 @@ const HomePage = (props) => {
                   <div className={classes.carouselDes}>
                     <div className={classes.carouselHeader}>{product.name}</div>
                     <p className={classes.carouselContent}>
-                      {product.address}, {product.district.name}, {product.ward.name}, {product.city}
+                      {product.address}, {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {product.city}
                     </p>
                   </div>
                   <div style={{ width: '50%' }}>
@@ -270,8 +271,8 @@ const HomePage = (props) => {
           <div className={classes.serviceContent}>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
-              <h3 style={{ marginBottom: '7%' }}>{t('home_sales')}</h3>
-              <p className={classes.serviceDescription}>{t('home_sales_des')}</p>
+              <h3 style={{ marginBottom: '7%' }}>{t('real_estate')}</h3>
+              <p className={classes.serviceDescription}>{t('real_estate_des')}</p>
               <Button className={classes.button} style={{ justifyContent: 'center' }} component={Link} to="/products">{t('more')}</Button>
             </div>
             { adjustServices && <h3 style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>{t('other')}</h3> }

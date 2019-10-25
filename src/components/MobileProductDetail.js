@@ -35,8 +35,8 @@ const MobileProductDetail = (props) => {
         setProductLoading(false);
         setProductInfo(data);
         setProductFeature(data.feature);
-        setDistrict(_.get(data.district, 'name'));
-        setWard(_.get(data.ward, 'name'));
+        setDistrict(_.get(data.district, 'name_with_type', ''));
+        setWard(_.get(data.ward, 'name_with_type', ''));
         setProductImages(data.images);
       })
       .catch(() => {

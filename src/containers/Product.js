@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Pagination, Modal } from 'antd';
+import { Tag } from 'antd';
 
 import ProductFilter from '../components/ProductFilterForm';
 import { getProducts } from '../services/ProductServices';
@@ -212,11 +213,12 @@ const ProductPage = (props) => {
                         title={value.name}
                       />
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {value.name}
+                        <Typography gutterBottom variant="h5" component="h2" className={classes.productDetails}>
+                          <span>{value.name}</span>
+                          {value.status ? <span><Tag color="#f50">sold</Tag></span> : null}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                          {value.address}, {value.district.name}, {value.ward.name}, {value.city}
+                          <span>{value.address}, {_.get(value, 'ward.name_with_type', '')}, {_.get(value, 'district.name_with_type', '')}, {value.city}</span>
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('area')}</span>

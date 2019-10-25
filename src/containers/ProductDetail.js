@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
+import _ from 'lodash';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -23,8 +24,6 @@ const ProductDetail = (props) => {
   const shouldWrap = useMediaQuery('(min-width:1150px)');
   const { product_id } = useParams();
   const [productLoading, setProductLoading] = useState(false);
-  const [district, setDistrict] = useState([]);
-  const [ward, setWard] = useState([]);
   const [productInfo, setProductInfo] = useState([]);
   const [productFeature, setProductFeature] = useState([]);
   const [productImages, setProductImages] = useState([]);
@@ -44,8 +43,6 @@ const ProductDetail = (props) => {
         setProductLoading(false);
         setProductInfo(data);
         setProductFeature(data.feature);
-        setDistrict(data.district);
-        setWard(data.ward);
         setProductImages(data.images);
       })
       .catch(() => {
@@ -182,12 +179,12 @@ const ProductDetail = (props) => {
               </div>
               <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
               <div className={classes.productProps}>
-                <h4>所在地： {productInfo.address}, {ward.name}, {district.name}, {productInfo.city}</h4>
+                <h4>所在地： {productInfo.address}, {_.get(productInfo, 'ward.name_with_type', '')}, {_.get(productInfo, 'district.name_with_type', '')}, {productInfo.city}</h4>
                 <h4>階数：{productInfo.floor}</h4>
-                <h4>特徴:</h4>
-                {productFeature.map(feature => (
+                {productFeature ? (<h4>特徴:</h4>) : null}
+                {productFeature && (productFeature.map(feature => (
                   <h4>{feature}：はい</h4>
-                ))}
+                )))}
               </div>
               <h1 className={classes.price}>{productInfo.price}円</h1>
               <div className={classes.verticalProducts}>

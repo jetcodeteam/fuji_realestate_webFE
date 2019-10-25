@@ -49,8 +49,8 @@ const ProductDetail = (props) => {
         console.log(data);
         setProductLoading(false);
         setProductInfo(data);
-        setProductFeature(data.feature);
-        setProductImages(data.images);
+        setProductFeature(_.get(data, 'feature', ''));
+        setProductImages(_.get(data, 'images', ''));
       })
       .catch(() => {
         if (isMounted.current) {
@@ -72,7 +72,7 @@ const ProductDetail = (props) => {
       .then((res) => {
         setRelatedProducts([
           ...relatedProducts,
-          ..._.get(res, 'data.data'),
+          ..._.get(res, 'data.data', ''),
         ]);
         setRelatedLoading(false);
       })
@@ -90,8 +90,10 @@ const ProductDetail = (props) => {
     setProductLoading(true);
     getProductDetails(product_id)
       .then((res) => {
-        setProductInfo(_.get(res, 'data.data'));
+        setProductInfo(_.get(res, 'data.data', ''));
         setProductLoading(false);
+        setProductFeature(_.get(res, 'data.data.feature', ''));
+        setProductImages(_.get(res, 'data.data.images', ''));
       })
       .catch(() => {
         setProductLoading(false);
@@ -184,7 +186,7 @@ const ProductDetail = (props) => {
     horizontalProducts: {
       display: 'flex',
       position: 'relative',
-      bottom: '105%',
+      bottom: '70vh',
       height: '15vw',
       marginLeft: '4%',
     },
@@ -239,7 +241,7 @@ const ProductDetail = (props) => {
                 <div>
                   <img
                     src={_.get(productImages[0], 'url', '')}
-                    alt="product1"
+                    alt={_.get(productImages[0], 'filename', '')}
                     className={classes.verticalProductStyle}
                     style={{ marginBottom: '50px' }}
                   />

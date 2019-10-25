@@ -8,6 +8,7 @@ import { withNamespaces } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import TranslateButton from './TranslateButton';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -55,7 +56,6 @@ const PageHeader = (props) => {
   const useStyles = makeStyles({
     pageHeader: {
       display: 'flex',
-      flexDirection: 'row',
       height: '64px',
       alignItems: 'center',
       fontFamily: 'Roboto',
@@ -84,34 +84,37 @@ const PageHeader = (props) => {
   const classes = useStyles();
 
   return (
-    <header ref={Header} className={classes.pageHeader}>
-      <Button style={{ backgroundColor: 'transparent' }} component={Link} to="/home">
-        <div className={classes.companyLogo}>FUJIWARA</div>
-      </Button>
-      <div className={classes.headerMenu} ref={homeRef}>
-        <Link to="/home" className={classes.linkDecoration}>
-          {t('home')}
-        </Link>
-        {homeLine && <div className={classes.line} />}
+    <header style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div ref={Header} className={classes.pageHeader}>
+        <Button style={{ backgroundColor: 'transparent' }} component={Link} to="/home">
+          <div className={classes.companyLogo}>FUJIWARA</div>
+        </Button>
+        <div className={classes.headerMenu} ref={homeRef}>
+          <Link to="/home" className={classes.linkDecoration}>
+            {t('home')}
+          </Link>
+          {homeLine && <div className={classes.line} />}
+        </div>
+        <div className={classes.headerMenu} ref={productRef}>
+          <Link to="/products" className={classes.linkDecoration}>
+            {t('product')}
+          </Link>
+          {productLine && <div className={classes.line} />}
+        </div>
+        <div className={classes.headerMenu} ref={newsRef}>
+          <Link to="/news" className={classes.linkDecoration}>
+            {t('news')}
+          </Link>
+          {newsLine && <div className={classes.line} />}
+        </div>
+        <div className={classes.headerMenu} ref={contactRef}>
+          <Link to="/contact" className={classes.linkDecoration}>
+            {t('contact_us')}
+          </Link>
+          {contactLine && <div className={classes.line} />}
+        </div>
       </div>
-      <div className={classes.headerMenu} ref={productRef}>
-        <Link to="/products" className={classes.linkDecoration}>
-          {t('product')}
-        </Link>
-        {productLine && <div className={classes.line} />}
-      </div>
-      <div className={classes.headerMenu} ref={newsRef}>
-        <Link to="/news" className={classes.linkDecoration}>
-          {t('news')}
-        </Link>
-        {newsLine && <div className={classes.line} />}
-      </div>
-      <div className={classes.headerMenu} ref={contactRef}>
-        <Link to="/contact" className={classes.linkDecoration}>
-          {t('contact_us')}
-        </Link>
-        {contactLine && <div className={classes.line} />}
-      </div>
+      <TranslateButton mobileMode={false} />
     </header>
   );
 };

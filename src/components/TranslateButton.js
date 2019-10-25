@@ -8,7 +8,7 @@ import jpFlag from '../static/flag/japan.png';
 import usFlag from '../static/flag/us.png';
 
 const TranslateButton = (props) => {
-  const { t, i18n, className } = props;
+  const { t, i18n, className, mobileMode } = props;
   const { state, dispatch } = useContext(RootContext);
   const flag = {
     "jp": jpFlag,
@@ -31,10 +31,10 @@ const TranslateButton = (props) => {
     <div
       className={className}
       onClick={() => changeLanguage()}
-      style={{ cursor: 'pointer', margin: '15px 5vw 0 0', display: 'flex', alignItems: 'center', zIndex: 10 }}
+      style={{ cursor: 'pointer', margin: '0 5vw 0 0', display: 'flex', alignItems: 'center', zIndex: 10 }}
     >
-      <span style={{ fontSize: '1em', marginRight: '15px' }}>{t(state.currentLanguage)}</span>
-      <img src={flag[state.currentLanguage]} alt={state.currentLanguage} width="50" height="50" />
+      <img src={flag[state.currentLanguage]} alt={state.currentLanguage} style={{ marginRight: mobileMode ? '7vw' : '15px' }} width="25vw" height="25vw" />
+      <span style={{ fontSize: '1em' }}>{t(state.currentLanguage)}</span>
     </div>
   );
 };

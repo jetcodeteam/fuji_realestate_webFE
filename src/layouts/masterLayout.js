@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/styles';
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
 import MobileHeader from '../components/MobileHeader';
-import TranslateButton from '../components/TranslateButton';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -64,7 +63,6 @@ const MasterLayout = (props) => {
             <MobileHeader />
           )
         }
-        <TranslateButton />
       </Header>
       <Content>{children}</Content>
       <Footer><PageFooter /></Footer>

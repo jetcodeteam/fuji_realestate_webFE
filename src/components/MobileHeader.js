@@ -20,6 +20,7 @@ import SubtitlesIcon from '@material-ui/icons/Subtitles';
 import BookIcon from '@material-ui/icons/Book';
 
 import menuBackground from '../static/images/menu.png';
+import TranslateButton from './TranslateButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -98,6 +99,9 @@ const MobileHeader = (props) => {
           <ListItem button component={Link} to="/contact">
             <ListItemIcon><ContactSupportIcon /></ListItemIcon>
             <ListItemText primary={t('contact_us_menu')} />
+          </ListItem>
+          <ListItem button>
+            <TranslateButton mobileMode={true} />
           </ListItem>
         </List>
       </div>

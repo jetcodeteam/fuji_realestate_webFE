@@ -7,7 +7,7 @@ import MobileHeader from '../components/MobileHeader';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 
 const { Header, Footer, Content } = Layout;
 
@@ -54,6 +54,7 @@ const MasterLayout = (props) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      <BackTop visibilityHeight={100} />
       <Header style={{backgroundColor: 'unset'}}>
         {
           matches ? (

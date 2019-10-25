@@ -164,14 +164,14 @@ const ProductDetail = (props) => {
     },
     verticalProductStyle: {
       width: '40vw',
-      height: '23vw',
+      height: '20vw',
       objectFit: 'cover',
     },
     horizontalProducts: {
       display: 'flex',
       position: 'relative',
       bottom: '105%',
-      height: '20vw',
+      height: '15vw',
       marginLeft: '4%',
     },
     horizontalProductStyle: {
@@ -283,7 +283,7 @@ const ProductDetail = (props) => {
             <Grid container spacing={4} style={{ width: 'fit-content', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
               {relatedProducts.map(value => (
                 <Link key={`/products/${_.get(value, '_id')}`} to={`/products/${_.get(value, '_id')}`} className={classes.linkDecoration}>
-                  <Grid key={value} style={{ margin: 12 }} item>
+                  <Grid key={`/products/${_.get(value, '_id')}`} style={{ margin: 12 }} item>
                     <Card className={classes.card}>
                       <CardActionArea>
                         <CardMedia

@@ -13,6 +13,7 @@ import {
   Icon,
   Row,
   Col,
+  InputNumber,
 } from 'antd';
 import { getAccessToken } from '../services/TokenServices';
 import { Select } from 'antd';
@@ -67,7 +68,9 @@ const ProductCreateForm = (props) => {
       if (!err) {
         values = {
           ...values,
-          images: values.images.map((item) => _.get(item, 'response.url', _.get(item, 'url'))),
+          images: values.images.map((item) => _.get(item, 'response', _.get(item, 'url'))),
+          district: districts.find(item => item._id === values.district),
+          ward: wards.find(item => item._id === values.ward)
         }
         if (formData) {
           updateProduct(formData._id, values)
@@ -110,6 +113,7 @@ const ProductCreateForm = (props) => {
   const handleWards = (district_id) => {
     setWardsDisable(true);
     setWardsDisable(false);
+    form.resetFields('ward');
     let district;
     for (district of districts) {
       if (district._id == district_id) {
@@ -127,7 +131,7 @@ const ProductCreateForm = (props) => {
   }, []);
 
   useEffect(() => {
-    const district = _.get(formData, 'district', null);
+    const district = _.get(formData, 'district._id', null);
     if (district) {
       handleWards(district);
     };
@@ -157,15 +161,31 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
+              <Form.Item label={t('house_type')}>
+                {getFieldDecorator('houseType', {
+                  initialValue: _.get(formData, 'houseType', ''),
+                  rules: [{ required: true, message: 'House Type is required!' }],
+                })(
+                  <Select onChange={handleWards}>
+                    {
+                      [1, 2, 3, 4].map((type) => (
+                        <Option key={`house_type${type}`} value={`house_type${type}`}>{t(`house_type${type}`)}</Option>
+                      ))
+                    }
+                  </Select>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={columnSpan}>
               <Form.Item label={t('image')}>
                 {getFieldDecorator('images', {
                   initialValue: _.get(formData, 'images', []).map((item, index) => {
                     return {
                       uid: index,
-                      name: `${index + 1}.png`,
-                      url: item,
+                      name: item.filename,
+                      url: item.url,
                       status: 'done',
-                      thumbUrl: item,
+                      thumbUrl: item.url,
                     }
                   }),
                   valuePropName: 'fileList',
@@ -215,6 +235,14 @@ const ProductCreateForm = (props) => {
               </Form.Item>
             </Col>
             <Col span={columnSpan}>
+              <Form.Item label={t('room')}>
+                {getFieldDecorator('room', {
+                  initialValue: _.get(formData, 'room', ''),
+                  rules: [{ required: true, message: 'Room is required!' }],
+                })(<InputNumber min={1} max={99} style={{ width: '100%' }} />)}
+              </Form.Item>
+            </Col>
+            <Col span={columnSpan}>
               <Form.Item label={t('street')}>
                 {getFieldDecorator('address', {
                   initialValue: _.get(formData, 'address', ''),
@@ -233,7 +261,7 @@ const ProductCreateForm = (props) => {
             <Col span={columnSpan}>
               <Form.Item label={t('district')}>
                 {getFieldDecorator('district', {
-                  initialValue: _.get(formData, 'district', ''),
+                  initialValue: _.get(formData, 'district._id', ''),
                   rules: [{ required: true, message: 'District is required!' }],
                 })(
                   <Select onChange={handleWards}>
@@ -249,13 +277,13 @@ const ProductCreateForm = (props) => {
             <Col span={columnSpan}>
               <Form.Item label={t('ward')}>
                 {getFieldDecorator('ward', {
-                  initialValue: _.get(formData, 'ward', ''),
+                  initialValue: _.get(formData, 'ward._id', ''),
                   rules: [{ required: true, message: 'Ward is required!' }],
                 })(
                   <Select disabled={isWardsDisable}>
                     {
                       wards.map((ward) => (
-                        <Option key={_.get(ward, 'code')} value={_.get(ward, 'code')}>{_.get(ward, 'name_with_type')}</Option>
+                        <Option key={_.get(ward, '_id')} value={_.get(ward, '_id')}>{_.get(ward, 'name_with_type')}</Option>
                       ))
                     }
                   </Select>

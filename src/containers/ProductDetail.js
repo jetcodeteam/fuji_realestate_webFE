@@ -4,7 +4,7 @@ import { withI18n } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import _ from 'lodash';
 
-import { Tag } from 'antd';
+import { Tag, message } from 'antd';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -84,6 +84,20 @@ const ProductDetail = (props) => {
   useEffect(() => {
     getRelatedProducts()
   }, []);
+
+  useEffect(() => {
+    console.log(product_id);
+    setProductLoading(true);
+    getProductDetails(product_id)
+      .then((res) => {
+        setProductInfo(_.get(res, 'data.data'));
+        setProductLoading(false);
+      })
+      .catch(() => {
+        setProductLoading(false);
+        message.error(`Couldn't load product. Please try to reload the page`);
+      })
+  }, [product_id]);
 
   console.log(productInfo)
 

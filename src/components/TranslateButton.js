@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { withNamespaces } from 'react-i18next';
-import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
 import { RootContext } from '../store';

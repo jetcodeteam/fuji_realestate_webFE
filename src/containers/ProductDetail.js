@@ -4,8 +4,9 @@ import { withI18n } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import _ from 'lodash';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { Tag } from 'antd';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -14,9 +15,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { getProductDetails } from '../services/ProductServices';
-import { getDistricts, getWards } from '../services/LocationServices';
-import product from '../static/images/product/product.png';
+import { getProductDetails, getProducts } from '../services/ProductServices';
 import MobileProductDetail from '../components/MobileProductDetail';
 
 
@@ -27,6 +26,8 @@ const ProductDetail = (props) => {
   const [productInfo, setProductInfo] = useState([]);
   const [productFeature, setProductFeature] = useState([]);
   const [productImages, setProductImages] = useState([]);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [relatedLoading, setRelatedLoading] = useState([]);
   const isMounted = useRef(true);
   const room = {
     1: '1ベッドルーム',
@@ -41,7 +42,6 @@ const ProductDetail = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect')
     setProductLoading(true);
     getProductDetails(product_id)
       .then((res) => {
@@ -59,11 +59,30 @@ const ProductDetail = (props) => {
       });
   }, []);
 
-  useEffect(() => {
-    getDistricts()
+  const getRelatedProducts = (params) => {
+    const data = {
+      offset: 0,
+      limit: 3,
+      order: 'desc',
+      sort: 'createdAt',
+      ...params,
+    };
+    setRelatedLoading(true);
+    getProducts(data)
       .then((res) => {
-        console.log(res)
+        setRelatedProducts([
+          ...relatedProducts,
+          ..._.get(res, 'data.data'),
+        ]);
+        setRelatedLoading(false);
+      })
+      .catch(() => {
+        setRelatedLoading(false);
       });
+  };
+
+  useEffect(() => {
+    getRelatedProducts()
   }, []);
 
   console.log(productInfo)
@@ -168,6 +187,14 @@ const ProductDetail = (props) => {
       width: '60%',
       textAlign: 'right',
     },
+    productDetails: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    detailTitle: {
+      fontSize: '1em',
+      fontWeight: 'bold',
+    },
   }));
   const { t } = props;
   const classes = useStyles();
@@ -252,33 +279,41 @@ const ProductDetail = (props) => {
           />
         </div>
         <Grid container className={classes.root} spacing={2}>
-          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-            <Grid container spacing={4} style={{ width: '100%', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
-              {[0, 1, 2].map(value => (
-                <Link key={value} to="/productdetail" className={classes.linkDecoration}>
+          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid container spacing={4} style={{ width: 'fit-content', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
+              {relatedProducts.map(value => (
+                <Link key={`/products/${_.get(value, '_id')}`} to={`/products/${_.get(value, '_id')}`} className={classes.linkDecoration}>
                   <Grid key={value} style={{ margin: 12 }} item>
                     <Card className={classes.card}>
                       <CardActionArea>
                         <CardMedia
                           className={classes.media}
-                          image={product}
-                          title="Title"
+                          image={_.get(value, 'images[0].url', '')}
+                          title={_.get(value.images[0], 'filename', '')}
                         />
                         <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {t('title')}
+                          <Typography gutterBottom variant="h5" component="h2" className={classes.productDetails}>
+                            <span>{value.name}</span>
+                            {value.status ? <span><Tag color="#f50">{t('sold')}</Tag></span> : null}
                           </Typography>
                           <Typography variant="body2" color="textSecondary" component="p">
-                            27 dien bien phu, HCM, Vietnam
+                            <span>{value.address}, {_.get(value, 'ward.name_with_type', '')}, {_.get(value, 'district.name_with_type', '')}, {value.city}</span>
                           </Typography>
-                          <Typography variant="body2" color="textSecondary" component="p">
-                            2 寝室
+                          <Typography className={classes.productDetails} variant="body2" color="textSecondary">
+                            <span className={classes.detailTitle}>{t('area')}</span>
+                            <span>{value.square}㎡</span>
                           </Typography>
-                          <Typography variant="body2" color="textSecondary" component="p">
-                            ¥1,280
+                          <Typography className={classes.productDetails} variant="body2" color="textSecondary">
+                            <span className={classes.detailTitle}>{t('floor')}</span>
+                            <span>{value.floor}</span>
                           </Typography>
-                          <Typography variant="body2" color="textSecondary" component="p">
-                            278,499 đ
+                          <Typography className={classes.productDetails} variant="body2" color="textSecondary">
+                            <span className={classes.detailTitle}>{t('price')}</span>
+                            <span>¥{value.price}</span>
+                          </Typography>
+                          <Typography className={classes.productDetails} variant="body2" color="textSecondary">
+                            <span className={classes.detailTitle}>{t('house_type')}</span>
+                            <span>{t(value.houseType)}</span>
                           </Typography>
                         </CardContent>
                       </CardActionArea>

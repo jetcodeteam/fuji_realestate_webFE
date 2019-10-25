@@ -13,9 +13,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
-import article from '../static/images/news/article.png';
-import news from '../static/images/news/news2.png';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import {

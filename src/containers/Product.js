@@ -67,6 +67,19 @@ const ProductPage = (props) => {
     getProductList(0);
   }, []);
 
+  productList.sort(function(a, b) {
+    var statusA = a.status;
+    var statusB = b.status;
+    if (statusA < statusB) {
+      return -1;
+    }
+    if (statusA > statusB) {
+      return 1;
+    }
+  
+    return 0;
+  });
+
   function handlePageChange(page, pageSize) {
     console.log('changePage')
     let offset = (page - 1) * 6
@@ -209,20 +222,20 @@ const ProductPage = (props) => {
                     <CardActionArea>
                       <CardMedia
                         className={classes.media}
-                        image={value.images[0]}
-                        title={value.name}
+                        image={_.get(value, 'images[0].url', '')}
+                        title={_.get(value.images[0], 'filename', '')}
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2" className={classes.productDetails}>
                           <span>{value.name}</span>
-                          {value.status ? <span><Tag color="#f50">sold</Tag></span> : null}
+                          {value.status ? <span><Tag color="#f50">{t('sold')}</Tag></span> : null}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
                           <span>{value.address}, {_.get(value, 'ward.name_with_type', '')}, {_.get(value, 'district.name_with_type', '')}, {value.city}</span>
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('area')}</span>
-                          <span>{value.square}</span>
+                          <span>{value.square}㎡</span>
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('floor')}</span>
@@ -234,7 +247,7 @@ const ProductPage = (props) => {
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('house_type')}</span>
-                          <span>{value.houseType}</span>
+                          <span>{t(value.houseType)}</span>
                         </Typography>
                       </CardContent>
                     </CardActionArea>

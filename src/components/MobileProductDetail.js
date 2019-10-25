@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
+import { Tag } from 'antd';
 
 import { getProductDetails } from '../services/ProductServices';
 
@@ -95,8 +96,9 @@ const MobileProductDetail = (props) => {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <div className={classes.description}>
+        <div className={classes.description} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <p style={{ margin: '20px' }}>{productInfo.name}</p>
+          {productInfo.status ? <span style={{ marginRight: '20px' }}><Tag color="#f50">sold</Tag></span> : null}
         </div>
         <AwesomeSlider
           bullets={false}
@@ -105,7 +107,7 @@ const MobileProductDetail = (props) => {
           organicArrows
         >
           {productImages.map(image => (
-            <div><img src={image} alt="product" /></div>
+            <div><img src={_.get(image, 'url', '')} alt={_.get(image, 'filename', '')} /></div>
           ))}
         </AwesomeSlider>
         <div className={classes.details}>
@@ -113,8 +115,12 @@ const MobileProductDetail = (props) => {
           <p style={{ margin: '20px' }}>{productInfo.price}</p>
         </div>
         <div className={classes.details}>
+          <p style={{ margin: '20px' }}>{t('room')}</p>
+          <p style={{ margin: '20px' }}>{productInfo.room}</p>
+        </div>
+        <div className={classes.details}>
           <p style={{ margin: '20px' }}>{t('size')}</p>
-          <p style={{ margin: '20px' }}>{productInfo.size}㎡</p>
+          <p style={{ margin: '20px' }}>{productInfo.square}㎡</p>
         </div>
         <div className={classes.details}>
           <p style={{ margin: '20px' }}>{t('location')}</p>

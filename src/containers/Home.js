@@ -122,7 +122,6 @@ const HomePage = (props) => {
       justifyContent: 'center',
       alignSelf: 'center',
       flexWrap: 'wrap',
-      // width: '80%',
       height: '60%',
       marginBottom: '100px'
     },
@@ -252,8 +251,8 @@ const HomePage = (props) => {
                   </div>
                   <div style={{ width: '50%' }}>
                     <img
-                      src={product.images[0]}
-                      alt={product.name}
+                      src={_.get(product.images[0], 'url', '')}
+                      alt={_.get(product.images[0], 'filename', '')}
                       height="100%" width="100%"
                       style={{ objectFit: 'cover' }}
                     />
@@ -273,7 +272,7 @@ const HomePage = (props) => {
               <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
               <h3 style={{ marginBottom: '7%' }}>{t('real_estate')}</h3>
               <p className={classes.serviceDescription}>{t('real_estate_des')}</p>
-              <Button className={classes.button} style={{ justifyContent: 'center' }} component={Link} to="/products">{t('more')}</Button>
+              <Button className={classes.button} style={{ justifyContent: 'center' }} component={Link} to="/products">{t('learn_more')}</Button>
             </div>
             { adjustServices && <h3 style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>{t('other')}</h3> }
             <div className={classes.otherServices} style={{ justifyContent: 'center' }}>

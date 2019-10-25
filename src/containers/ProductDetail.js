@@ -28,6 +28,13 @@ const ProductDetail = (props) => {
   const [productFeature, setProductFeature] = useState([]);
   const [productImages, setProductImages] = useState([]);
   const isMounted = useRef(true);
+  const room = {
+    1: '1ベッドルーム',
+    2: '2ベッドルーム',
+    3: '3ベッドルーム',
+    4: '4ベッドルーム',
+    5: '5ベッドルーム'
+  }
 
   useEffect(() => () => {
     isMounted.current = false;
@@ -175,7 +182,7 @@ const ProductDetail = (props) => {
             </div>
             <div style={{ height: '80vh', backgroundColor: 'lightgray' }}>
               <div className={classes.productBanner}>
-                <h2 style={{ color: 'white' }}>ワンルーム</h2>
+                <h2 style={{ color: 'white' }}>{room[productInfo.room]}</h2>
               </div>
               <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
               <div className={classes.productProps}>
@@ -190,24 +197,30 @@ const ProductDetail = (props) => {
               <div className={classes.verticalProducts}>
                 <div>
                   <img
-                    src={productImages[0]}
+                    src={_.get(productImages[0], 'url', '')}
                     alt="product1"
                     className={classes.verticalProductStyle}
                     style={{ marginBottom: '50px' }}
                   />
                 </div>
                 <div>
-                  <img src={productImages[1]} alt="product2" className={classes.verticalProductStyle} />
+                  <img
+                    src={_.get(productImages[1], 'url', '')}
+                    alt={_.get(productImages[1], 'filename', '')}
+                    className={classes.verticalProductStyle} />
                 </div>
               </div>
               <div className={classes.horizontalProducts}>
                 <img
                   className={classes.horizontalProductStyle}
                   style={{ marginRight: '40px' }}
-                  src={productImages[2]}
-                  alt="product3"
+                  src={_.get(productImages[2], 'url', '')}
+                  alt={_.get(productImages[2], 'filename', '')}
                 />
-                <img src={productImages[3]} alt="product4" className={classes.horizontalProductStyle} height="100%" />
+                <img
+                  src={_.get(productImages[3], 'url', '')}
+                  alt={_.get(productImages[3], 'filename', '')}
+                  className={classes.horizontalProductStyle} height="100%" />
               </div>
             </div>
           </div>

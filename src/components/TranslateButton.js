@@ -11,8 +11,12 @@ const TranslateButton = (props) => {
   const { t, i18n, className, mobileMode } = props;
   const { state, dispatch } = useContext(RootContext);
   const flag = {
-    "jp": jpFlag,
-    "en": usFlag
+    "jp": usFlag,
+    "en": jpFlag
+  }
+  const lang = {
+    "jp": "English",
+    "en": "日本語"
   }
 
   useEffect(() => {
@@ -34,7 +38,7 @@ const TranslateButton = (props) => {
       style={{ cursor: 'pointer', margin: '0 5vw 0 0', display: 'flex', alignItems: 'center', zIndex: 10 }}
     >
       <img src={flag[state.currentLanguage]} alt={state.currentLanguage} style={{ marginRight: mobileMode ? '7vw' : '15px' }} width="25vw" height="25vw" />
-      <span style={{ fontSize: '1em' }}>{t(state.currentLanguage)}</span>
+      <span style={{ fontSize: '1em' }}>{lang[state.currentLanguage]}</span>
     </div>
   );
 };

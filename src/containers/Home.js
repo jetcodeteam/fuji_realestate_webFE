@@ -121,9 +121,10 @@ const HomePage = (props) => {
       alignItems: 'center',
       justifyContent: 'center',
       alignSelf: 'center',
+      flexGrow: 1,
       flexWrap: 'wrap',
       height: '60%',
-      marginBottom: '100px'
+      paddingTop: '50px',
     },
     serviceContent: {
       display: 'flex',
@@ -140,8 +141,6 @@ const HomePage = (props) => {
       marginBottom: '20px',
     },
     serviceWrapper: {
-      position: adjustServices || 'relative',
-      right: adjustServices || '9%',
       display: 'flex',
       flexDirection: 'column',
       width: '250px',
@@ -154,8 +153,6 @@ const HomePage = (props) => {
       margin: '0 25px 20px 25px',
     },
     otherServices: {
-      position: adjustServices || 'relative',
-      right: adjustServices || '10%',
       paddingLeft: adjustServices && '7%',
       display: 'flex',
       width: 'inherit',
@@ -263,65 +260,73 @@ const HomePage = (props) => {
           </AwesomeSlider>
         )
       }
-      {/* ---------------- MAIN SERVICES ----------------- */}
-      <div style={{ flexWrap: 'wrap', display: 'flex', justifyContent: 'center', width: '100%', marginTop: '100px' }}>
+      {/* ---------------- SERVICES ----------------- */}
+      <div style={{ flexWrap: 'wrap', background: '#f7f8f9', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', margin: '100px 0 100px 0' }}>
         <div className={classes.mainServices}>
           <h2 style={{ fontSize: '1.5em', marginBottom: '25px', fontWeight: 'bold' }}>{t('main_service')}</h2>
           <div className={classes.serviceContent}>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
-              <h3 style={{ marginBottom: '7%' }}>{t('real_estate')}</h3>
+              <h3 style={{ marginBottom: '7%', fontSize: '1.5em', fontWeight: 500 }}>{t('real_estate')}</h3>
               <p className={classes.serviceDescription}>{t('real_estate_des')}</p>
-              <Button className={classes.button} style={{ width: 'fit-content', padding: '10px' }} component={Link} to="/products">{t('learn_more')}</Button>
-            </div>
-            { adjustServices && <h3 style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>{t('other')}</h3> }
-            <div className={classes.otherServices} style={{ justifyContent: 'center' }}>
               {
                 adjustServices ? (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Chip
-                      label={t('visa')}
-                      icon={<Icon className="fas fa-money-check" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />}
-                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
-                    />
-                    <Chip
-                      label={t('jobs')}
-                      icon={<Icon className="fas fa-briefcase" style={{ margin: '10px 0 10px 10px' }} />}
-                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
-                    />
-                    <Chip
-                      label={t('translating')}
-                      icon={<Icon className="fas fa-globe-americas" style={{ margin: '10px 0 10px 10px' }} />}
-                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
-                    />
-                    <Chip
-                      label={t('repair_furniture')}
-                      icon={<Icon className="fas fa-wrench" style={{ margin: '10px 0 10px 10px' }} />}
-                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
-                    />
-                    <Chip
-                      label={t('mobile_sim')}
-                      icon={<Icon className="fas fa-mobile" style={{ margin: '10px 0 10px 10px' }} />}
-                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
-                    />
-                    <Chip
-                      label={t('wifi')}
-                      icon={<Icon className="fas fa-wifi" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />}
-                      style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
-                    />
-                  </div>
+                  <Link style={{ color: '#27a0f5', fontFamily: 'Helvetica' }} to="/products">{t('learn_more')}</Link>
                 ) : (
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Icon className="fas fa-money-check" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />
-                    <Icon className="fas fa-briefcase" style={{ margin: '10px 0 10px 10px' }} />
-                    <Icon className="fas fa-globe-americas" style={{ margin: '10px 0 10px 10px' }} />
-                    <Icon className="fas fa-wrench" style={{ margin: '10px 0 10px 10px' }} />
-                    <Icon className="fas fa-mobile" style={{ margin: '10px 0 10px 10px' }} />
-                    <Icon className="fas fa-wifi" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />
-                  </div>
+                  <Button className={classes.button} style={{ width: 'fit-content', padding: '10px' }} component={Link} to="products/">{t('learn_more')}</Button>
                 )
               }
             </div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1, marginBottom: '5vw', padding: '20px 0 0 0' }}>
+          { adjustServices && <h3 style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>{t('other')}</h3> }
+          <div className={classes.otherServices} style={{ justifyContent: 'center' }}>
+            {
+              adjustServices ? (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Chip
+                    label={t('visa')}
+                    icon={<Icon className="fas fa-money-check" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />}
+                    style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                  />
+                  <Chip
+                    label={t('jobs')}
+                    icon={<Icon className="fas fa-briefcase" style={{ margin: '10px 0 10px 10px' }} />}
+                    style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                  />
+                  <Chip
+                    label={t('translating')}
+                    icon={<Icon className="fas fa-globe-americas" style={{ margin: '10px 0 10px 10px' }} />}
+                    style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                  />
+                  <Chip
+                    label={t('repair_furniture')}
+                    icon={<Icon className="fas fa-wrench" style={{ margin: '10px 0 10px 10px' }} />}
+                    style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                  />
+                  <Chip
+                    label={t('mobile_sim')}
+                    icon={<Icon className="fas fa-mobile" style={{ margin: '10px 0 10px 10px' }} />}
+                    style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                  />
+                  <Chip
+                    label={t('wifi')}
+                    icon={<Icon className="fas fa-wifi" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />}
+                    style={{ margin: '0 10px 10px 0', width: 'fit-content' }}
+                  />
+                </div>
+              ) : (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Icon className="fas fa-money-check" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />
+                  <Icon className="fas fa-briefcase" style={{ margin: '10px 0 10px 10px' }} />
+                  <Icon className="fas fa-globe-americas" style={{ margin: '10px 0 10px 10px' }} />
+                  <Icon className="fas fa-wrench" style={{ margin: '10px 0 10px 10px' }} />
+                  <Icon className="fas fa-mobile" style={{ margin: '10px 0 10px 10px' }} />
+                  <Icon className="fas fa-wifi" style={{ margin: '10px 0 10px 10px', width: 'fit-content' }} />
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

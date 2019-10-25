@@ -68,7 +68,7 @@ const ProductCreateForm = (props) => {
       if (!err) {
         values = {
           ...values,
-          images: values.images.map((item) => _.get(item, 'response', _.get(item, 'url'))),
+          images: values.images.map((item) => _.get(item, 'response', item)),
           district: districts.find(item => item._id === values.district),
           ward: wards.find(item => item._id === values.ward)
         }
@@ -183,6 +183,7 @@ const ProductCreateForm = (props) => {
                     return {
                       uid: index,
                       name: item.filename,
+                      filename: item.filename,
                       url: item.url,
                       status: 'done',
                       thumbUrl: item.url,

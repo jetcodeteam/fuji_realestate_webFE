@@ -91,5 +91,11 @@
     "house_type1": "Residence",
     "house_type2": "Tenant",
     "house_type3": "Office",
-    "house_type4": "Industrial Area"
+    "house_type4": "Industrial Area",
+    "about_des": "About Description...",
+    "working_hours": "WORKING HOURS",
+    "call_now": "CALL NOW",
+    "mailing_address": "MAILING ADDRESS",
+    "contact_information": "Contact Information",
+    "submit": "Submit"
 }

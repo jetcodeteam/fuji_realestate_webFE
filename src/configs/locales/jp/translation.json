@@ -91,5 +91,11 @@
     "visa": "Visa",
     "ward": "Ward",
     "wifi": "Wifi",
-    "yen": "Yen"
+    "yen": "Yen",
+    "about_des": "About Description...",
+    "working_hours": "",
+    "call_now": "",
+    "mailing_address": "",
+    "contact_information": "",
+    "submit": ""
 }

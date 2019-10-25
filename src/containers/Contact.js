@@ -132,7 +132,7 @@ const ContactPage = (props) => {
                     backgroundColor: '#fff',
                   }}
                 >
-                  Contact Information
+                  {t('contact_information')}
                 </div>
               )
             }
@@ -183,7 +183,7 @@ const ContactPage = (props) => {
               onChange={evt => setData(evt.currentTarget.value)}
             />
             <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
-              Submit
+              {t('submit')}
             </Button>
           </div>
           <div className={classes.infoWrapper}>
@@ -196,7 +196,7 @@ const ContactPage = (props) => {
                 height="40"
               />
               <div className={classes.infoContent}>
-                <h3>WORKING HOURS</h3>
+                <h3>{t('working_hours')}</h3>
                 <h3>7:00 AM - 5:00 PM</h3>
               </div>
             </div>
@@ -209,14 +209,14 @@ const ContactPage = (props) => {
                 height="40"
               />
               <div className={classes.infoContent}>
-                <h3>CALL NOW</h3>
+                <h3>{t('call_now')}</h3>
                 <h3>+84 90 - 381 - 5099</h3>
               </div>
             </div>
             <div className={classes.subInfo}>
               <img src={emailPic} style={{ marginRight: '10%' }} alt="Email" width="40" height="40" />
               <div className={classes.infoContent}>
-                <h3>MAILING ADDRESS</h3>
+                <h3>{t('mailing_address')}</h3>
                 <h3>company@fujiwara.com</h3>
               </div>
             </div>

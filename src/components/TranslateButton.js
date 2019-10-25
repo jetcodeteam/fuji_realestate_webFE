@@ -31,7 +31,7 @@ const TranslateButton = (props) => {
     <div
       className={className}
       onClick={() => changeLanguage()}
-      style={{ cursor: 'pointer', margin: '15px 5vw 0 0', display: 'flex', alignItems: 'center' }}
+      style={{ cursor: 'pointer', margin: '15px 5vw 0 0', display: 'flex', alignItems: 'center', zIndex: 10 }}
     >
       <span style={{ fontSize: '1em', marginRight: '15px' }}>{t(state.currentLanguage)}</span>
       <img src={flag[state.currentLanguage]} alt={state.currentLanguage} width="50" height="50" />

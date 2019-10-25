@@ -107,7 +107,7 @@ const MobileProductDetail = (props) => {
           organicArrows
         >
           {productImages.map(image => (
-            <div><img src={_.get(image, 'url', '')} alt={_.get(image, 'filename', '')} /></div>
+            <div><img key={_.get(image, 'url', '')} src={_.get(image, 'url', '')} alt={_.get(image, 'filename', '')} /></div>
           ))}
         </AwesomeSlider>
         <div className={classes.details}>
@@ -141,7 +141,6 @@ const MobileProductDetail = (props) => {
 
 MobileProductDetail.propTypes = {
   t: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  product: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
 export default withI18n()(MobileProductDetail);

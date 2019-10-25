@@ -216,8 +216,8 @@ const ProductPage = (props) => {
         <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
           <Grid container spacing={6} style={{ width: '85%', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
             {productList.map(value => (
-              <Link key={value} to={`/products/${value._id}`} className={classes.linkDecoration}>
-                <Grid key={value} style={{ margin: 12 }} item>
+              <Link key={_.get(value, '_id', '')} to={`/products/${value._id}`} className={classes.linkDecoration}>
+                <Grid key={_.get(value, '_id', '')} style={{ margin: 12 }} item>
                   <Card className={classes.card}>
                     <CardActionArea>
                       <CardMedia

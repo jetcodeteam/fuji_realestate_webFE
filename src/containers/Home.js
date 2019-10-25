@@ -241,7 +241,7 @@ const HomePage = (props) => {
             organicArrows
           >    
             {productList.map(product => (
-              <div style={{ backgroundColor: 'white', position: 'relative' }}>
+              <div key={_.get(product, '_id', '')} style={{ backgroundColor: 'white', position: 'relative' }}>
                 <div className={classes.slide}>
                   <div className={classes.carouselDes}>
                     <div className={classes.carouselHeader}>{product.name}</div>
@@ -272,7 +272,7 @@ const HomePage = (props) => {
               <img className={classes.serviceIcon} src={homeIcon} alt="Home" />
               <h3 style={{ marginBottom: '7%' }}>{t('real_estate')}</h3>
               <p className={classes.serviceDescription}>{t('real_estate_des')}</p>
-              <Button className={classes.button} style={{ justifyContent: 'center' }} component={Link} to="/products">{t('learn_more')}</Button>
+              <Button className={classes.button} style={{ width: 'fit-content', padding: '10px' }} component={Link} to="/products">{t('learn_more')}</Button>
             </div>
             { adjustServices && <h3 style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>{t('other')}</h3> }
             <div className={classes.otherServices} style={{ justifyContent: 'center' }}>

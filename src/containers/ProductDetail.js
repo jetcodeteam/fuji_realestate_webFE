@@ -17,46 +17,17 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { getProductDetails, getProducts } from '../services/ProductServices';
 import MobileProductDetail from '../components/MobileProductDetail';
+import WebProductDetail from '../components/WebProductDetail';
 
 
 const ProductDetail = (props) => {
   const shouldWrap = useMediaQuery('(min-width:1150px)');
-  const { product_id } = useParams();
-  const [productLoading, setProductLoading] = useState(false);
-  const [productInfo, setProductInfo] = useState([]);
-  const [productFeature, setProductFeature] = useState([]);
-  const [productImages, setProductImages] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [relatedLoading, setRelatedLoading] = useState([]);
   const isMounted = useRef(true);
-  const room = {
-    1: '1ベッドルーム',
-    2: '2ベッドルーム',
-    3: '3ベッドルーム',
-    4: '4ベッドルーム',
-    5: '5ベッドルーム'
-  }
 
   useEffect(() => () => {
     isMounted.current = false;
-  }, []);
-
-  useEffect(() => {
-    setProductLoading(true);
-    getProductDetails(product_id)
-      .then((res) => {
-        const data = res.data.data;
-        console.log(data);
-        setProductLoading(false);
-        setProductInfo(data);
-        setProductFeature(_.get(data, 'feature', ''));
-        setProductImages(_.get(data, 'images', ''));
-      })
-      .catch(() => {
-        if (isMounted.current) {
-          setProductLoading(false);
-        }
-      });
   }, []);
 
   const getRelatedProducts = (params) => {
@@ -84,24 +55,6 @@ const ProductDetail = (props) => {
   useEffect(() => {
     getRelatedProducts()
   }, []);
-
-  useEffect(() => {
-    console.log(product_id);
-    setProductLoading(true);
-    getProductDetails(product_id)
-      .then((res) => {
-        setProductInfo(_.get(res, 'data.data', ''));
-        setProductLoading(false);
-        setProductFeature(_.get(res, 'data.data.feature', ''));
-        setProductImages(_.get(res, 'data.data.images', ''));
-      })
-      .catch(() => {
-        setProductLoading(false);
-        message.error(`Couldn't load product. Please try to reload the page`);
-      })
-  }, [product_id]);
-
-  console.log(productInfo)
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -138,78 +91,13 @@ const ProductDetail = (props) => {
       color: 'inherit',
       textDecoration: 'none',
     },
-    productAddress: {
-      maxWidth: '400px',
-      fontSize: '1.5em',
-      margin: '0 0 100px 15%',
-    },
-    productBanner: {
-      width: shouldWrap ? '40px' : '4vw',
-      backgroundColor: 'rgb(105,192,255)',
-      textAlign: 'center',
-      verticalAlign: 'middle',
-      fontSize: shouldWrap ? '22px' : '2.5vw',
-      fontWeight: 700,
-      position: 'relative',
-      top: '-5%',
-      marginLeft: '7%',
-    },
-    houseSize: {
-      color: 'rgb(214,137,67)',
-      fontSize: '3em',
-      position: 'relative',
-      top: '-14%  ',
-      marginLeft: '13%',
-    },
-    productProps: {
-      display: 'flex',
-      flexDirection: 'column',
-      position: 'relative',
-      top: '-12%',
-      fontSize: '1.5em',
-      marginLeft: '7%',
-      width: '43%',
-      height: '20%',
-    },
-    verticalProducts: {
-      textAlign: 'right',
-      width: '100%',
-      position: 'relative',
-      top: '-60%',
-      height: 'fit-content',
-    },
-    verticalProductStyle: {
-      width: '40vw',
-      height: '20vw',
-      objectFit: 'cover',
-    },
-    horizontalProducts: {
-      display: 'flex',
-      position: 'relative',
-      bottom: '105%',
-      height: '15vw',
-      marginLeft: '4%',
-    },
-    horizontalProductStyle: {
-      width: '25vw',
-      objectFit: 'cover',
-      height: 'auto',
-    },
-    price: {
-      color: 'rgb(40,208,55)',
-      fontSize: '4em',
-      position: 'relative',
-      top: '-41%',
-      width: '60%',
-      textAlign: 'right',
+    detailTitle: {
+      fontSize: '1em',
+      fontWeight: 'bold',
     },
     productDetails: {
       display: 'flex',
       justifyContent: 'space-between',
-    },
-    detailTitle: {
-      fontSize: '1em',
-      fontWeight: 'bold',
     },
   }));
   const { t } = props;
@@ -217,60 +105,7 @@ const ProductDetail = (props) => {
 
   return (
     <React.Fragment>
-      {
-        shouldWrap ? (
-          <div style={{ margin: '50px 0 150px 0' }}>
-            <div className={classes.productAddress}>
-              <p>{productInfo.name}</p>
-            </div>
-            <div style={{ height: '80vh', backgroundColor: 'lightgray' }}>
-              <div className={classes.productBanner}>
-                <h2 style={{ color: 'white' }}>{room[productInfo.room]}</h2>
-              </div>
-              <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
-              <div className={classes.productProps}>
-                <h4>所在地： {productInfo.address}</h4>
-                <h4>階数：{productInfo.floor}</h4>
-                {productFeature ? (<h4>特徴:</h4>) : null}
-                {productFeature && (productFeature.map(feature => (
-                  <h4>{feature}：はい</h4>
-                )))}
-              </div>
-              <h1 className={classes.price}>{productInfo.price}円</h1>
-              <div className={classes.verticalProducts}>
-                <div>
-                  <img
-                    src={_.get(productImages[0], 'url', '')}
-                    alt={_.get(productImages[0], 'filename', '')}
-                    className={classes.verticalProductStyle}
-                    style={{ marginBottom: '50px' }}
-                  />
-                </div>
-                <div>
-                  <img
-                    src={_.get(productImages[1], 'url', '')}
-                    alt={_.get(productImages[1], 'filename', '')}
-                    className={classes.verticalProductStyle} />
-                </div>
-              </div>
-              <div className={classes.horizontalProducts}>
-                <img
-                  className={classes.horizontalProductStyle}
-                  style={{ marginRight: '40px' }}
-                  src={_.get(productImages[2], 'url', '')}
-                  alt={_.get(productImages[2], 'filename', '')}
-                />
-                <img
-                  src={_.get(productImages[3], 'url', '')}
-                  alt={_.get(productImages[3], 'filename', '')}
-                  className={classes.horizontalProductStyle} height="100%" />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <MobileProductDetail />
-        )
-      }
+      { shouldWrap ? (<WebProductDetail />) : (<MobileProductDetail />) }
       <div style={{ marginBottom: '100px' }}>
         <div
           style={{

@@ -13,13 +13,10 @@ import _ from 'lodash';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
 
 import homeIcon from '../static/images/icon/home-icon.png';
 import visaIcon from '../static/images/icon/visa-icon.png';

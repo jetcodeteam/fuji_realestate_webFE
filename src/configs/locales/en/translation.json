@@ -13,11 +13,6 @@
     "about": "ABOUT",
     "main_service": "OUR MAIN SERVICES",
     "real_estate": "Real Estate",
-    "real_estate_des": "Customers are able to provide spreadsheet services. More than 50 characters",
-    "visa_consulting": "Visa Consulting",
-    "visa_consulting_des": "Customers are able to provide spreadsheet services. More than 50 characters",
-    "employment_consultation": "Employment Consultation",
-    "employment_consultation_des": "Customers are able to provide spreadsheet services. More than 50 characters",
     "other": "OTHER",
     "other_des": "Visa, Jobs, Translating, Repair Furniture, Mobile Sim, Wifi",
     "title": "Title",
@@ -97,5 +92,7 @@
     "call_now": "CALL NOW",
     "mailing_address": "MAILING ADDRESS",
     "contact_information": "Contact Information",
-    "submit": "Submit"
+    "submit": "Submit",
+    "sold": "Sold",
+    "bedroom": "Bedroom"
 }

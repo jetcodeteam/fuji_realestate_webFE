@@ -7,7 +7,8 @@ import _ from 'lodash';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
-import { Tag } from 'antd';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Tag, message } from 'antd';
 
 import { getProductDetails } from '../services/ProductServices';
 
@@ -43,7 +44,25 @@ const MobileProductDetail = (props) => {
       });
   }, []);
 
-  const useStyles = makeStyles({
+  useEffect(() => {
+    setProductLoading(true);
+    getProductDetails(product_id)
+      .then((res) => {
+        setProductInfo(_.get(res, 'data.data', ''));
+        setProductLoading(false);
+        setProductFeature(_.get(res, 'data.data.feature', ''));
+        setProductImages(_.get(res, 'data.data.images', ''));
+      })
+      .catch(() => {
+        setProductLoading(false);
+        message.error(`Couldn't load product. Please try to reload the page`);
+      })
+  }, [product_id]);
+
+  const useStyles = makeStyles(theme => ({
+    progress: {
+      margin: theme.spacing(2),
+    },
     root: {
       maxWidth: '100vw',
       display: 'flex',
@@ -86,51 +105,59 @@ const MobileProductDetail = (props) => {
       fontWeight: 'bold',
       color: 'white',
     }
-  });
+  }));
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      <div className={classes.root}>
-        <div className={classes.description} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <p style={{ margin: '20px' }}>{productInfo.name}</p>
-          {productInfo.status ? <span style={{ marginRight: '20px' }}><Tag color="#f50">sold</Tag></span> : null}
-        </div>
-        <AwesomeSlider
-          bullets={false}
-          cssModule={AwesomeSliderStyles}
-          className={classes.image}
-          organicArrows
-        >
-          {productImages.map(image => (
-            <div><img key={_.get(image, 'url', '')} src={_.get(image, 'url', '')} alt={_.get(image, 'filename', '')} /></div>
-          ))}
-        </AwesomeSlider>
-        <div className={classes.details}>
-          <p style={{ margin: '20px' }}>{t('yen')}</p>
-          <p style={{ margin: '20px' }}>{productInfo.price}</p>
-        </div>
-        <div className={classes.details}>
-          <p style={{ margin: '20px' }}>{t('room')}</p>
-          <p style={{ margin: '20px' }}>{productInfo.room}</p>
-        </div>
-        <div className={classes.details}>
-          <p style={{ margin: '20px' }}>{t('size')}</p>
-          <p style={{ margin: '20px' }}>{productInfo.square}㎡</p>
-        </div>
-        <div className={classes.details}>
-          <p style={{ margin: '20px' }}>{t('location')}</p>
-          <p style={{ margin: '20px' }}>{productInfo.address}</p>
-        </div>
-        <div className={classes.feature}>
-          <p style={{ margin: '20px' }}>{t('feature')}</p>
-        </div>
-        {productFeature.map(feature => (
-          <div className={classes.details}>
-            <p style={{ margin: '20px' }}>{feature}</p>
+      {
+        productLoading ? (
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '100px 0 100px 0' }}>
+            <CircularProgress className={classes.progress} />
           </div>
-        ))}
-      </div>
+        ) : (
+          <div className={classes.root}>
+            <div className={classes.description} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <p style={{ margin: '20px' }}>{productInfo.name}</p>
+              {productInfo.status ? <span style={{ marginRight: '20px' }}><Tag color="#f50">{t('sold')}</Tag></span> : null}
+            </div>
+            <AwesomeSlider
+              bullets={false}
+              cssModule={AwesomeSliderStyles}
+              className={classes.image}
+              organicArrows
+            >
+              {productImages.map(image => (
+                <div><img key={_.get(image, 'url', '')} src={_.get(image, 'url', '')} alt={_.get(image, 'filename', '')} /></div>
+              ))}
+            </AwesomeSlider>
+            <div className={classes.details}>
+              <p style={{ margin: '20px' }}>{t('yen')}</p>
+              <p style={{ margin: '20px' }}>{productInfo.price}</p>
+            </div>
+            <div className={classes.details}>
+              <p style={{ margin: '20px' }}>{t('room')}</p>
+              <p style={{ margin: '20px' }}>{productInfo.room}</p>
+            </div>
+            <div className={classes.details}>
+              <p style={{ margin: '20px' }}>{t('size')}</p>
+              <p style={{ margin: '20px' }}>{productInfo.square}㎡</p>
+            </div>
+            <div className={classes.details}>
+              <p style={{ margin: '20px' }}>{t('location')}</p>
+              <p style={{ margin: '20px' }}>{productInfo.address}</p>
+            </div>
+            <div className={classes.feature}>
+              <p style={{ margin: '20px' }}>{t('feature')}</p>
+            </div>
+            {productFeature.map(feature => (
+              <div className={classes.details}>
+                <p style={{ margin: '20px' }}>{feature}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }    
     </React.Fragment>
   );
 }; 

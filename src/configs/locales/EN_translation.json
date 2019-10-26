@@ -94,5 +94,9 @@
     "contact_information": "Contact Information",
     "submit": "Submit",
     "sold": "Sold",
-    "bedroom": "Bedroom"
+    "bedroom": "Bedroom",
+    "all": "All",
+    "product_filter": "Product Filter",
+    "total_area": "Total Area",
+    "address": "Address"
 }

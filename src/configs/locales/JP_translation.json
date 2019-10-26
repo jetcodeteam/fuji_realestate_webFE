@@ -94,5 +94,9 @@
     "contact_information": "連絡先",
     "submit": "提出する",
     "sold": "売った",
-    "bedroom": "ベッドルーム"
+    "bedroom": "ベッドルーム",
+    "all": "すべて",
+    "product_filter": "フィルター",
+    "total_area": "面積",
+    "address": "住所"
 }

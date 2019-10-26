@@ -25,7 +25,6 @@ import TranslateButton from './TranslateButton';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    flexDirection: 'row',
     height: '56px',
     alignItems: 'center',
     fontFamily: 'Roboto',
@@ -36,7 +35,6 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 700,
     fontSize: '35px',
     paddingTop: '20px',
-    paddingRight: '20px',
   },
   menuBg: {
     background: `url(${menuBackground})`,

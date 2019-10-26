@@ -105,7 +105,7 @@ const ProductDetail = (props) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      margin: '0 30px 30px 30px',
+      margin: '0 30px 30px 5vw',
       width: '90%',
     },
   }));

@@ -153,7 +153,7 @@ const HomePage = (props) => {
       border: adjustServices || '1px solid #69C0FF',
       borderRadius: adjustServices || '5px',
       padding: '25px 15px 25px 15px',
-      margin: '0 0 20px 0',
+      margin: '0 2vw 20px 2vw',
     },
     otherServices: {
       paddingLeft: adjustServices && '7%',

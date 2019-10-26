@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
-import PageHeader from '../components/PageHeader';
-import PageFooter from '../components/PageFooter';
-import MobileHeader from '../components/MobileHeader';
+import PageHeader from '../components/utils/PageHeader';
+import PageFooter from '../components/utils/PageFooter';
+import MobileHeader from '../components/utils/MobileHeader';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 

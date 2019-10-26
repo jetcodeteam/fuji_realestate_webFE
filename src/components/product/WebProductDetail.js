@@ -8,7 +8,7 @@ import { message } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { getProductDetails } from '../services/ProductServices';
+import { getProductDetails } from '../../services/ProductServices';
 
 const WebProductDetail = (props) => {
   const { t } = props;

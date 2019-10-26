@@ -7,10 +7,10 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import AdornedButton from '../components/AdornedButton';
-import Background from '../assets/admin-bg.png';
-import { userLogin } from '../services/UserServices';
-import { setAccessToken } from '../services/TokenServices';
+import AdornedButton from '../../components/utils/AdornedButton';
+import Background from '../../assets/admin-bg.png';
+import { userLogin } from '../../services/UserServices';
+import { setAccessToken } from '../../services/TokenServices';
 
 const styles = () => ({
   container: {

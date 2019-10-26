@@ -7,19 +7,19 @@ import {
 } from "react-router-dom";
 import _ from 'lodash';
 import { withI18n } from 'react-i18next';
-import env from '../configs/environments';
+import env from '../../configs/environments';
 
 import { Input, Button, Upload, Icon, message } from 'antd';
 
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import { getAccessToken } from '../services/TokenServices';
+import { getAccessToken } from '../../services/TokenServices';
 import {
   getNewsDetails,
   createNews,
   updateNews,
-} from '../services/NewsServices';
+} from '../../services/NewsServices';
 
 const AdminNews = (props) => {
   const {

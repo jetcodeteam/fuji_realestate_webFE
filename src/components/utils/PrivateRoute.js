@@ -7,9 +7,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import AdminLayout from '../layouts/adminLayout';
-import { getAccessToken } from '../services/TokenServices';
-import { isEmpty } from '../utils/index';
+import AdminLayout from '../../layouts/adminLayout';
+import { getAccessToken } from '../../services/TokenServices';
+import { isEmpty } from '../../utils/index';
 
 const useStyles = makeStyles(theme => ({
   progress: {

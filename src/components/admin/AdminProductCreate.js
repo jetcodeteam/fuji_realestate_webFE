@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
-import env from '../configs/environments';
+import env from '../../configs/environments';
 import _ from 'lodash';
 import {
   Modal,
@@ -16,15 +16,15 @@ import {
   Col,
   InputNumber,
 } from 'antd';
-import { getAccessToken } from '../services/TokenServices';
+import { getAccessToken } from '../../services/TokenServices';
 import { Select } from 'antd';
 import {
   getDistricts,
-} from '../services/LocationServices';
+} from '../../services/LocationServices';
 import {
   createProduct,
   updateProduct,
-} from '../services/ProductServices';
+} from '../../services/ProductServices';
 
 const { Option } = Select;
 

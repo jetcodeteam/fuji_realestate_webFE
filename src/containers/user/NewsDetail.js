@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import _ from 'lodash';
 import { Link, useParams } from 'react-router-dom';
-import '../assets/news_detail.css';
+import '../../assets/news_detail.css';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,7 +18,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
   getNews,
   getNewsDetails,
-} from '../services/NewsServices';
+} from '../../services/NewsServices';
 import { message, Skeleton } from 'antd';
 
 const ProductDetail = (props) => {

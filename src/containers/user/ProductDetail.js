@@ -15,9 +15,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { getProductDetails, getProducts } from '../services/ProductServices';
-import MobileProductDetail from '../components/MobileProductDetail';
-import WebProductDetail from '../components/WebProductDetail';
+import { getProductDetails, getProducts } from '../../services/ProductServices';
+import MobileProductDetail from '../../components/product/MobileProductDetail';
+import WebProductDetail from '../../components/product/WebProductDetail';
 
 
 const ProductDetail = (props) => {

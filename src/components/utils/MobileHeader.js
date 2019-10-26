@@ -19,7 +19,7 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import SubtitlesIcon from '@material-ui/icons/Subtitles';
 import BookIcon from '@material-ui/icons/Book';
 
-import menuBackground from '../static/images/menu.png';
+import menuBackground from '../../static/images/menu.png';
 import TranslateButton from './TranslateButton';
 
 const useStyles = makeStyles(theme => ({

@@ -2,8 +2,8 @@ import i18n from 'i18next';
 import { reactI18nextModule } from 'react-i18next';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
-import translationEN from './configs/locales/en/translation.json';
-import translationJP from './configs/locales/jp/translation.json';
+import translationEN from './configs/locales/EN_translation.json';
+import translationJP from './configs/locales/JP_translation.json';
 
 i18n
   .use(reactI18nextModule)

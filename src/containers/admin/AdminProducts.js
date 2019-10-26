@@ -9,16 +9,16 @@ import {
   Tag,
   message
 } from 'antd';
-import AdornedButton from '../components/AdornedButton';
-import ProductCreateForm from '../components/AdminProductCreate';
+import AdornedButton from '../../components/utils/AdornedButton';
+import ProductCreateForm from '../../components/admin/AdminProductCreate';
 import {
   pagination,
-} from '../configs/constants';
+} from '../../configs/constants';
 
 import {
   getProducts,
   deleteProduct,
-} from '../services/ProductServices';
+} from '../../services/ProductServices';
 
 const { confirm } = Modal;
 

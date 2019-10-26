@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withI18n } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
-import '../assets/news.css';
+import '../../assets/news.css';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -25,14 +25,8 @@ import {
   BackTop,
 } from 'antd';
 
-
-import news from '../static/images/news/news.png';
-import news3 from '../static/images/news/news3.png';
-
-import { pagination } from '../configs/constants';
-import {
-  getNews,
-} from '../services/NewsServices';
+import { pagination } from '../../configs/constants';
+import { getNews } from '../../services/NewsServices';
 
 const { Text } = TypAntd;
 

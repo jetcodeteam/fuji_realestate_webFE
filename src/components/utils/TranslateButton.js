@@ -2,9 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { withNamespaces } from 'react-i18next';
 import PropTypes from 'prop-types';
 
-import { RootContext } from '../store';
-import jpFlag from '../static/flag/japan.png';
-import usFlag from '../static/flag/us.png';
+import { RootContext } from '../../store';
+import jpFlag from '../../static/flag/japan.png';
+import usFlag from '../../static/flag/us.png';
 
 const TranslateButton = (props) => {
   const { t, i18n, className, mobileMode } = props;

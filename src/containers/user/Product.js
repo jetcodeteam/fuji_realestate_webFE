@@ -16,8 +16,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { Pagination, Modal } from 'antd';
 import { Tag } from 'antd';
 
-import ProductFilter from '../components/ProductFilterForm';
-import { getProducts } from '../services/ProductServices';
+import ProductFilter from '../../components/product/ProductFilterForm';
+import { getProducts } from '../../services/ProductServices';
 
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';

@@ -9,15 +9,15 @@ import {
   Tag,
   message,
 } from 'antd';
-import AdminEdmailEdit from '../components/AdminEmailEdit';
+import AdminEdmailEdit from '../../components/admin/AdminEmailEdit';
 import {
   pagination,
-} from '../configs/constants';
+} from '../../configs/constants';
 
 import {
   getAllRequests,
   deleteRequest,
-} from '../services/EmailServices';
+} from '../../services/EmailServices';
 
 const { confirm } = Modal;
 

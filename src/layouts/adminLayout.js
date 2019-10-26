@@ -8,11 +8,11 @@ import {
   Button,
 } from 'antd';
 import { MENU_DATA } from '../configs/constants';
-import MenuHolder from '../components/MenuHolder';
-import CustomMenu from '../components/CustomMenu';
+import MenuHolder from '../components/utils/MenuHolder';
+import CustomMenu from '../components/utils/CustomMenu';
 import { setAccessToken } from '../services/TokenServices';
 
-import FujiwaraLogoSvg from '../components/LogoSvg';
+import FujiwaraLogoSvg from '../components/svg/LogoSvg';
 
 const {
   Sider, Content,

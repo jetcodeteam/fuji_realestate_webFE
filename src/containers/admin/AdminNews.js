@@ -7,7 +7,7 @@ import { withI18n } from 'react-i18next';
 
 import {
   pagination,
-} from '../configs/constants';
+} from '../../configs/constants';
 
 import {
   message,
@@ -15,11 +15,11 @@ import {
   Button,
   Modal,
 } from 'antd';
-import AdornedButton from '../components/AdornedButton';
+import AdornedButton from '../../components/utils/AdornedButton';
 
 import {
   getNews, deleteNews,
-} from '../services/NewsServices';
+} from '../../services/NewsServices';
 
 const { confirm } = Modal;
 

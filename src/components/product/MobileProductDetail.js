@@ -10,7 +10,7 @@ import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Tag, message } from 'antd';
 
-import { getProductDetails } from '../services/ProductServices';
+import { getProductDetails } from '../../services/ProductServices';
 
 const MobileProductDetail = (props) => {
   const { t } = props;

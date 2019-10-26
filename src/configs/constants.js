@@ -1,7 +1,7 @@
 /* store global constants */
-import EmailsSvg from '../components/EmailsSvg';
-import ProductsSvg from '../components/ProductsSvg';
-import NewsSvg from '../components/NewsSvg';
+import EmailsSvg from '../components/svg/EmailsSvg';
+import ProductsSvg from '../components/svg/ProductsSvg';
+import NewsSvg from '../components/svg/NewsSvg';
 
 export const DATE_FORMATTER_STRING = 'DD-MM-YYYY';
 export const DATETIME_FORMATTER_STRING = 'DD-MM-YYYY HH:mm:ss';

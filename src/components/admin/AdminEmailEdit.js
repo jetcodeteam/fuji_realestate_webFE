@@ -8,7 +8,7 @@ import {
   message,
 } from 'antd';
 
-import { updateRequest } from '../services/EmailServices';
+import { updateRequest } from '../../services/EmailServices';
 
 const AdminEmailEdit = (props) => {
   const {

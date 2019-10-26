@@ -10,22 +10,25 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { RootProvider } from './store';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/utils/PrivateRoute';
 
 import './assets/app.css';
 
 const MasterLayout = lazy(() => import('./layouts/masterLayout'));
-const Home = lazy(() => import('./containers/Home'));
-const Product = lazy(() => import('./containers/Product'));
-const Contact = lazy(() => import('./containers/Contact'));
-const ProductDetail = lazy(() => import('./containers/ProductDetail'));
-const News = lazy(() => import('./containers/News'));
-const NewsDetail = lazy(() => import('./containers/NewsDetail'));
-const AdminEmails = lazy(() => import('./containers/AdminEmails'));
-const AdminProducts = lazy(() => import('./containers/AdminProducts'));
-const AdminNews = lazy(() => import('./containers/AdminNews'));
-const AdminNewsForm = lazy(() => import('./containers/AdminNewsForm'));
-const LoginPage = lazy(() => import('./containers/LoginPage'));
+// user
+const Home = lazy(() => import('./containers/user/Home'));
+const Product = lazy(() => import('./containers/user/Product'));
+const Contact = lazy(() => import('./containers/user/Contact'));
+const ProductDetail = lazy(() => import('./containers/user/ProductDetail'));
+const News = lazy(() => import('./containers/user/News'));
+const NewsDetail = lazy(() => import('./containers/user/NewsDetail'));
+
+// admin
+const AdminEmails = lazy(() => import('./containers/admin/AdminEmails'));
+const AdminProducts = lazy(() => import('./containers/admin/AdminProducts'));
+const AdminNews = lazy(() => import('./containers/admin/AdminNews'));
+const AdminNewsForm = lazy(() => import('./containers/admin/AdminNewsForm'));
+const LoginPage = lazy(() => import('./containers/admin/LoginPage'));
 
 const useStyles = makeStyles(theme => ({
   progress: {

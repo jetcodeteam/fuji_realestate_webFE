@@ -241,7 +241,9 @@ const HomePage = (props) => {
               <div key={_.get(product, '_id', '')} style={{ backgroundColor: 'white', position: 'relative' }}>
                 <div className={classes.slide}>
                   <div className={classes.carouselDes}>
-                    <div className={classes.carouselHeader}>{product.name}</div>
+                    <Link key={_.get(product, '_id', '')} to={`/products/${product._id}`}>
+                      <div className={classes.carouselHeader}>{product.name}</div>
+                    </Link>
                     <p className={classes.carouselContent}>
                       {product.address}, {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {product.city}
                     </p>

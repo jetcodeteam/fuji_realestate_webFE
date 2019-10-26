@@ -186,7 +186,7 @@ const ProductDetail = (props) => {
     horizontalProducts: {
       display: 'flex',
       position: 'relative',
-      bottom: '70vh',
+      bottom: '105%',
       height: '15vw',
       marginLeft: '4%',
     },

@@ -197,27 +197,27 @@ const ContactPage = (props) => {
               />
               <div className={classes.infoContent}>
                 <h3>{t('working_hours')}</h3>
-                <h3>7:00 AM - 5:00 PM</h3>
+                <h3>10:00 AM - 7:00 PM</h3>
               </div>
             </div>
             <div className={classes.subInfo}>
               <img
                 src={phoneCall}
-                style={{ marginRight: '10%' }}
+                style={{ marginRight: '20%' }}
                 alt="Phone Call"
                 width="40"
                 height="40"
               />
               <div className={classes.infoContent}>
                 <h3>{t('call_now')}</h3>
-                <h3>+84 90 - 381 - 5099</h3>
+                <h3>0367635753</h3>
               </div>
             </div>
             <div className={classes.subInfo}>
               <img src={emailPic} style={{ marginRight: '10%' }} alt="Email" width="40" height="40" />
               <div className={classes.infoContent}>
                 <h3>{t('mailing_address')}</h3>
-                <h3>company@fujiwara.com</h3>
+                <h3>czw07602@gmail.com</h3>
               </div>
             </div>
           </div>

@@ -28,6 +28,7 @@ const TranslateButton = (props) => {
   const changeLanguage = () => {
     i18n.changeLanguage(state.currentLanguage);
     dispatch({ type: 'changeLanguage' });
+    window.location.reload(true)
   };
 
   return (

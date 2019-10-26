@@ -32,6 +32,7 @@ const ProductPage = (props) => {
   const [productLoading, setProductLoading] = useState(false);
   const [productList, setProductList] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
+  const [filterData, setFilterData] = useState({});
   const isMounted = useRef(true);
 
   const getProductList = (offset) => {
@@ -40,6 +41,7 @@ const ProductPage = (props) => {
       limit: 6,
       order: 'desc',
       sort: 'createdAt',
+      filter: filterData
     };
     setProductLoading(true);
     getProducts(data)
@@ -64,7 +66,7 @@ const ProductPage = (props) => {
   }, []);
 
   useEffect(() => {
-    getProductList(0);
+    getProductList(0, filterData);
   }, []);
 
   productList.sort(function(a, b) {
@@ -83,7 +85,7 @@ const ProductPage = (props) => {
   function handlePageChange(page, pageSize) {
     console.log('changePage')
     let offset = (page - 1) * 6
-    getProductList(offset);
+    getProductList(offset, filterData);
     console.log(productList);
   }
 
@@ -97,8 +99,21 @@ const ProductPage = (props) => {
 
   function handleFilter(states) {
     console.log('filtering...', states);
+    let filter_states = {};
+    for (let state in states) {
+      if (states[state]) {
+        filter_states[String(state)] = states[state]
+      };
+    };
+    setFilterData(filter_states);
     onFilterClose();
   }
+  console.log(filterData);
+
+  useEffect(() => {
+    getProductList(0, filterData);
+  }, [filterData])
+
   const matches = useMediaQuery('(min-width:613px)');
   const useStyles = makeStyles(theme => ({
     progress: {

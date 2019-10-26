@@ -17,8 +17,8 @@ const ProductFilterForm = (props) => {
   const kinds = {
     room: 'room',
     floor: 'floor',
-    area: 'area',
-    district: 'district',
+    square: 'square',
+    districts: 'districts',
     ward: 'ward',
     city: 'city',
     price: 'price',
@@ -28,15 +28,14 @@ const ProductFilterForm = (props) => {
   const [state, setState] = useState({
     [kinds.room]: undefined,
     [kinds.floor]: undefined,
-    [kinds.area]: undefined,
-    [kinds.district]: undefined,
+    [kinds.square]: undefined,
+    [kinds.districts]: undefined,
     [kinds.ward]: undefined,
     [kinds.city]: undefined,
     [kinds.price]: undefined,
     [kinds.houseType]: undefined,
   });
 
-  console.log(state);
 
   const onValueChange = (kind, value) => {
       setState({
@@ -99,7 +98,7 @@ const ProductFilterForm = (props) => {
             </Col>
             <Col span={12}>
               <Form.Item label="Total area">
-                <Input addonAfter="m2" value={state.area} onChange={(e) => onValueChange(kinds.area, e.target.value)} />
+                <Input addonAfter="m2" value={state.square} onChange={(e) => onValueChange(kinds.square, e.target.value)} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -122,10 +121,10 @@ const ProductFilterForm = (props) => {
                   value={state.houseType}
                 >
                   <Option key="all" value={undefined}>All</Option>
-                  <Option key="1" value="1">Office</Option>
-                  <Option key="2" value="2">House</Option>
-                  <Option key="3" value="3">Restaurant</Option>
-                  <Option key="4" value="4">Industrial Zone</Option>
+                  <Option key="1" value="house_type1">Residence</Option>
+                  <Option key="2" value="house_type2">Tenant</Option>
+                  <Option key="3" value="house_type3">Office</Option>
+                  <Option key="4" value="house_type4">Industrial Area</Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -133,14 +132,14 @@ const ProductFilterForm = (props) => {
               <Form.Item label="Address">
                 <Select
                   placeholder="Select the district you want"
-                  onChange={value => onValueChange(kinds.district, value)}
-                  value={state.district}
+                  onChange={value => onValueChange(kinds.districts, value)}
+                  value={state.districts}
                 >
                   <Option key="all" value={undefined}>All</Option>
-                  <Option key="1" value="1">District 1</Option>
-                  <Option key="2" value="2">District 8</Option>
-                  <Option key="3" value="3">District 12</Option>
-                  <Option key="4" value="4">District 4</Option>
+                  <Option key="1" value="Quận 1">District 1</Option>
+                  <Option key="2" value="Quận 8">District 8</Option>
+                  <Option key="3" value="Quận 12">District 12</Option>
+                  <Option key="4" value="Quận 4">District 4</Option>
                 </Select>
               </Form.Item>
             </Col>

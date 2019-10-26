@@ -87,7 +87,7 @@ const PageHeader = (props) => {
     <header style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div ref={Header} className={classes.pageHeader}>
         <Button style={{ backgroundColor: 'transparent' }} component={Link} to="/home">
-          <div className={classes.companyLogo}>FUJIWARA</div>
+          <div className={classes.companyLogo}>FUJIWARA Real Estate</div>
         </Button>
         <div className={classes.headerMenu} ref={homeRef}>
           <Link to="/home" className={classes.linkDecoration}>

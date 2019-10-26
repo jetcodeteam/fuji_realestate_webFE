@@ -229,7 +229,7 @@ const ProductDetail = (props) => {
               </div>
               <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
               <div className={classes.productProps}>
-                <h4>所在地： {productInfo.address}, {_.get(productInfo, 'ward.name_with_type', '')}, {_.get(productInfo, 'district.name_with_type', '')}, {productInfo.city}</h4>
+                <h4>所在地： {productInfo.address}</h4>
                 <h4>階数：{productInfo.floor}</h4>
                 {productFeature ? (<h4>特徴:</h4>) : null}
                 {productFeature && (productFeature.map(feature => (

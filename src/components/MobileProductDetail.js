@@ -15,8 +15,6 @@ const MobileProductDetail = (props) => {
   const { t } = props;
   const { product_id } = useParams();
   const [productLoading, setProductLoading] = useState(false);
-  const [district, setDistrict] = useState([]);
-  const [ward, setWard] = useState([]);
   const [productInfo, setProductInfo] = useState([]);
   const [productFeature, setProductFeature] = useState([]);
   const [productImages, setProductImages] = useState([]);
@@ -36,8 +34,6 @@ const MobileProductDetail = (props) => {
         setProductLoading(false);
         setProductInfo(data);
         setProductFeature(data.feature);
-        setDistrict(_.get(data.district, 'name_with_type', ''));
-        setWard(_.get(data.ward, 'name_with_type', ''));
         setProductImages(data.images);
       })
       .catch(() => {
@@ -124,7 +120,7 @@ const MobileProductDetail = (props) => {
         </div>
         <div className={classes.details}>
           <p style={{ margin: '20px' }}>{t('location')}</p>
-          <p style={{ margin: '20px' }}>{productInfo.address}, {ward}, {district}, {productInfo.city}</p>
+          <p style={{ margin: '20px' }}>{productInfo.address}</p>
         </div>
         <div className={classes.feature}>
           <p style={{ margin: '20px' }}>{t('feature')}</p>

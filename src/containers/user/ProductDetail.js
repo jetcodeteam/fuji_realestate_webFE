@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-import { Tag, message } from 'antd';
+import { Tag } from 'antd';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -14,8 +14,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Divider from '@material-ui/core/Divider';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { getProductDetails, getProducts } from '../../services/ProductServices';
+import { getProducts } from '../../services/ProductServices';
 import MobileProductDetail from '../../components/product/MobileProductDetail';
 import WebProductDetail from '../../components/product/WebProductDetail';
 
@@ -99,6 +101,13 @@ const ProductDetail = (props) => {
       display: 'flex',
       justifyContent: 'space-between',
     },
+    relatedContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      margin: '0 30px 30px 30px',
+      width: '90%',
+    },
   }));
   const { t } = props;
   const classes = useStyles();
@@ -107,27 +116,9 @@ const ProductDetail = (props) => {
     <React.Fragment>
       { shouldWrap ? (<WebProductDetail />) : (<MobileProductDetail />) }
       <div style={{ marginBottom: '100px' }}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            margin: '0 30px 0 30px',
-            width: '90%',
-          }}
-        >
+        <div className={classes.relatedContainer}>
           <h1 style={{ marginLeft: 7, fontSize: 25, fontWeight: 700 }}>{t('more')}</h1>
-          <div
-            style={{
-              width: '100%',
-              height: '1px',
-              backgroundColor: 'gray',
-              opacity: 0.2,
-              marginLeft: 5,
-              marginRight: 5,
-              marginBottom: 25,
-            }}
-          />
+          { relatedLoading ? (<LinearProgress />) : (<Divider />) }
         </div>
         <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>

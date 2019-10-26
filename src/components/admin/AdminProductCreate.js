@@ -148,7 +148,6 @@ const ProductCreateForm = (props) => {
         onCancel={handleCancel}
         destroyOnClose
         closable
-        // centered
         width="800px"
       >
         <Row>

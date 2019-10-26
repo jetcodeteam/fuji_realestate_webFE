@@ -1,7 +1,7 @@
 {
     "build": {
         "env": {
-            "REACT_APP_API_URL": "https://api-fujiwara-v2.herokuapp.com"
+            "REACT_APP_API_URL": "http://178.128.61.184"
         }
     }
 }

@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import _ from 'lodash';
 import { withI18n } from 'react-i18next';
+import env from '../configs/environments';
 
 import { Input, Button, Upload, Icon, message } from 'antd';
 
@@ -75,9 +76,9 @@ const AdminNews = (props) => {
             const thumbnail = _.get(data, 'thumbnail');
             setFileList([{
               uid: '1',
-              url: 'https://api-fujiwara-v2.herokuapp.com/static/' + thumbnail,
+              url: `${env.host}/static/` + thumbnail,
               name: 'thumbnail',
-              thumbnail: 'https://api-fujiwara-v2.herokuapp.com/static/' + thumbnail,
+              thumbnail: `${env.host}/static/` + thumbnail,
             }]);
           })
       }
@@ -85,7 +86,7 @@ const AdminNews = (props) => {
 
   const uploadProps = {
     name: 'upload',
-    action: 'https://api-fujiwara-v2.herokuapp.com/uploads',
+    action: `${env.host}/uploads/`,
     headers: {
       authorization: `Bearer ${getAccessToken()}`,
     },
@@ -148,7 +149,7 @@ const AdminNews = (props) => {
           config={{
             simpleUpload: {
               // The URL the images are uploaded to.
-              uploadUrl: 'https://api-fujiwara-v2.herokuapp.com/uploads',
+              uploadUrl: `${env.host}/uploads/`,
 
               // Headers sent along with the XMLHttpRequest to the upload server.
               headers: {

@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
+import env from '../configs/environments';
 import _ from 'lodash';
 import {
   Modal,
@@ -200,7 +201,7 @@ const ProductCreateForm = (props) => {
                     name="upload"
                     multiple
                     listType="picture"
-                    action="https://api-fujiwara-v2.herokuapp.com/uploads"
+                    action={`${env.host}/uploads`}
                   >
                     <p className="ant-upload-drag-icon">
                       <Icon type="inbox" />

@@ -64,12 +64,12 @@ const PageHeader = (props) => {
     companyLogo: {
       marginRight: '40px',
       fontWeight: '900',
-      fontSize: '1.5em',
+      fontSize: '1.5vw',
       marginLeft: '35px',
     },
     headerMenu: {
       marginRight: '40px',
-      fontSize: '15px',
+      fontSize: '1vw',
     },
     line: {
       width: 'inherit',

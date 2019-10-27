@@ -139,14 +139,14 @@ const HomePage = (props) => {
       flexWrap: 'wrap',
     },
     serviceIcon: {
-      width: '50px',
-      height: '50px',
+      width: adjustServices ? '3vw' : '50px',
+      height: adjustServices ? '3vw' : '50px',
       marginBottom: '20px',
     },
     serviceWrapper: {
       display: 'flex',
       flexDirection: 'column',
-      width: '200px',
+      width: adjustServices ? '10vw' : '200px',
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
@@ -272,31 +272,31 @@ const HomePage = (props) => {
           <div className={classes.serviceContent}>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={homeIcon} alt={t('real_estate')} />
-              <h3 style={{ marginBottom: '7%', fontSize: '1.5em', fontWeight: 500 }}>{t('real_estate')}</h3>
+              <h3 style={{ marginBottom: '7%', fontSize: '1em', fontWeight: 500 }}>{t('real_estate')}</h3>
             </div>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={visaIcon} alt="Visa" />
-              <h3 style={{ marginBottom: '7%', fontSize: '1.5em', fontWeight: 500 }}>{t('visa')}</h3>
+              <h3 style={{ marginBottom: '7%', fontSize: '1em', fontWeight: 500 }}>{t('visa')}</h3>
             </div>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={jobIcon} alt="Job" />
-              <h3 style={{ marginBottom: '7%', fontSize: '1.5em', fontWeight: 500 }}>{t('jobs')}</h3>
+              <h3 style={{ marginBottom: '7%', fontSize: '1em', fontWeight: 500 }}>{t('jobs')}</h3>
             </div>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={translateIcon} alt="Home" />
-              <h3 style={{ marginBottom: '7%', fontSize: '1.5em', fontWeight: 500 }}>{t('translating')}</h3>
+              <h3 style={{ marginBottom: '7%', fontSize: '1em', fontWeight: 500 }}>{t('translating')}</h3>
             </div>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={repairIcon} alt="Home" />
-              <h3 style={{ marginBottom: '7%', fontSize: '1.5em', fontWeight: 500 }}>{t('repair_furniture')}</h3>
+              <h3 style={{ marginBottom: '7%', fontSize: '1em', fontWeight: 500 }}>{t('repair_furniture')}</h3>
             </div>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={simIcon} alt="Home" />
-              <h3 style={{ marginBottom: '7%', fontSize: '1.5em', fontWeight: 500 }}>{t('mobile_sim')}</h3>
+              <h3 style={{ marginBottom: '7%', fontSize: '1em', fontWeight: 500 }}>{t('mobile_sim')}</h3>
             </div>
             <div className={classes.serviceWrapper}>
               <img className={classes.serviceIcon} src={wifiIcon} alt="Home" />
-              <h3 style={{ marginBottom: '7%', fontSize: '1.5em', fontWeight: 500 }}>{t('wifi')}</h3>
+              <h3 style={{ marginBottom: '7%', fontSize: '1em', fontWeight: 500 }}>{t('wifi')}</h3>
             </div>
           </div>
         </div>

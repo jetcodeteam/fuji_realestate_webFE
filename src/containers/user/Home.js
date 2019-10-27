@@ -7,10 +7,7 @@ import React,
 import PropTypes from 'prop-types';
 import { loadCSS } from 'fg-loadcss';
 import { withI18n } from 'react-i18next';
-import AwesomeSlider from 'react-awesome-slider';
-import { Link } from 'react-router-dom';
 import _ from 'lodash';
-import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -25,10 +22,10 @@ import translateIcon from '../../static/images/icon/translate-icon.png';
 import repairIcon from '../../static/images/icon/repair-icon.png';
 import simIcon from '../../static/images/icon/sim-icon.png';
 import wifiIcon from '../../static/images/icon/wifi-icon.png';
-
 import avatar1 from '../../static/images/avatar/avatar-1.jpeg';
 import avatar2 from '../../static/images/avatar/avatar-2.jpg';
 import { getProducts } from '../../services/ProductServices';
+import Carousel from '../../components/utils/Carousel';
 
 
 const HomePage = (props) => {
@@ -78,26 +75,6 @@ const HomePage = (props) => {
       width: 90,
       height: 90,
       alignSelf: 'center',
-    },
-    carouselImg: {
-      width: '100%',
-      height: 450,
-    },
-    carouselText: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    carouselHeader: {
-      fontSize: adjustServices ? '3.5vw' : '25px',
-      textAlign: 'left',
-      marginBottom: '10px',
-    },
-    carouselContent: {
-      fontSize: adjustServices ? '1.5vw': '10px',
-      opacity: 0.5,
-      lineHeight: 'normal',
-      zIndex: 3,
-      textAlign: 'left',
     },
     about: {
       display: 'flex',
@@ -178,21 +155,6 @@ const HomePage = (props) => {
       justifyContent: 'center',
       flexGrow: 1,
     },
-    slickSlide: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      marginTop: '20px',
-      height: '30vw',
-      width: '50%',
-    },
-    slide: {
-      display: 'flex',
-      top: 0,
-      left: 0,
-      width: '100vw',
-      height: '30vw',
-    },
     carouselBackdrop: {
       position: 'absolute',
       zIndex: '0',
@@ -208,13 +170,6 @@ const HomePage = (props) => {
       padding: adjustServices && 0,
       width: adjustServices && '25px',
       backgroundColor: adjustServices || '#54D5FE',
-    },
-    carouselDes: {
-      width: '50%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      paddingLeft: '7vw',
     },
   }));
   const { t } = props;
@@ -234,35 +189,7 @@ const HomePage = (props) => {
             <CircularProgress className={classes.progress} />
           </div>
         ) : (
-          <AwesomeSlider
-            bullets={false}
-            cssModule={AwesomeSliderStyles}
-            className={classes.slickSlide}
-            organicArrows
-          >    
-            {productList.map(product => (
-              <div key={_.get(product, '_id', '')} style={{ backgroundColor: 'white', position: 'relative' }}>
-                <div className={classes.slide}>
-                  <div className={classes.carouselDes}>
-                    <Link key={_.get(product, '_id', '')} to={`/products/${product._id}`}>
-                      <div className={classes.carouselHeader}>{product.name}</div>
-                    </Link>
-                    <p className={classes.carouselContent}>
-                      {product.address}, {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {product.city}
-                    </p>
-                  </div>
-                  <div style={{ width: '50%' }}>
-                    <img
-                      src={_.get(product.images[0], 'url', '')}
-                      alt={_.get(product.images[0], 'filename', '')}
-                      height="100%" width="100%"
-                      style={{ objectFit: 'cover' }}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </AwesomeSlider>
+          <Carousel productList={productList} adjustServices={adjustServices} />
         )
       }
       {/* ---------------- SERVICES ----------------- */}

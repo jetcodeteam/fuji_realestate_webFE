@@ -16,7 +16,7 @@ const Carousel = (props) => {
     if (productList.length > 0) {
       setShowProduct(true);
     }
-  }, [])
+  }, [productList])
 
   const useStyles = makeStyles({
     carouselImg: {

@@ -143,7 +143,7 @@ const WebProductDetail = (props) => {
             </div>
             <div style={{ height: '80vh', backgroundColor: 'lightgray' }}>
               <div className={classes.productBanner}>
-                <h2 style={{ color: 'white' }}>{productInfo.room}{t('bedroom')}</h2>
+                <h2 style={{ color: 'white' }}>{productInfo.room}ベッドルーム</h2>
               </div>
               <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
               <div className={classes.productProps}>

@@ -171,6 +171,14 @@ const HomePage = (props) => {
       width: adjustServices && '25px',
       backgroundColor: adjustServices || '#54D5FE',
     },
+    slickSlide: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      marginTop: '20px',
+      height: '30vw',
+      width: '50%',
+    },
   }));
   const { t } = props;
   const classes = useStyles();

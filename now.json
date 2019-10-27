@@ -1,7 +1,7 @@
 {
     "build": {
         "env": {
-            "REACT_APP_API_URL": "https://178.128.61.184"
+            "REACT_APP_API_URL": "https://jetcode.tech"
         }
     }
 }

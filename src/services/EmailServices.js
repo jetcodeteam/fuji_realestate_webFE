@@ -1,6 +1,6 @@
 import { privateRequest, publicRequest } from './HttpServices';
 
-const emailPrefixURL = 'requests';
+const emailPrefixURL = '/requests';
 /*
 | Get requests
 | ------------------------------------------------------

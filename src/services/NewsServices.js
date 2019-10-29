@@ -1,6 +1,6 @@
 import { publicRequest, privateRequest } from './HttpServices';
 
-const prefixProductURL = 'articles'
+const prefixProductURL = '/articles'
 /*
 | Get products
 | ------------------------------------------------------

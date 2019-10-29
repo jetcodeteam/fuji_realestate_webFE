@@ -1,6 +1,6 @@
 import { publicRequest, privateRequest } from './HttpServices';
 
-const authPrefixURL = 'users';
+const authPrefixURL = '/users';
 /*
 | Authentication and get accesstoken of auth user
 | ------------------------------------------------------

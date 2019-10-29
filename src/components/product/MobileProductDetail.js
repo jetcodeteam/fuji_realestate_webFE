@@ -128,7 +128,14 @@ const MobileProductDetail = (props) => {
               organicArrows
             >
               {productImages.map(image => (
-                <div><img key={_.get(image, 'url', '')} src={_.get(image, 'url', '')} alt={_.get(image, 'filename', '')} /></div>
+                <div style={{ width: 'inherit', height: 'inherit' }}>
+                  <img
+                    style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                    key={_.get(image, 'url', '')}
+                    src={_.get(image, 'url', '')}
+                    alt={_.get(image, 'filename', '')}
+                  />
+                </div>
               ))}
             </AwesomeSlider>
             <div className={classes.details}>

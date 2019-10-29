@@ -58,7 +58,6 @@ const ContactPage = (props) => {
       width: '100%',
       display: 'flex',
       flexWrap: 'wrap',
-      height: '160%',
       justifyContent: 'center',
       alignItems: 'center',
     },

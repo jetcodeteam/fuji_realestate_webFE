@@ -80,7 +80,6 @@ const HomePage = (props) => {
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
-      height: '40%',
       alignItems: 'center',
       marginBottom: '100px'
     },
@@ -90,7 +89,6 @@ const HomePage = (props) => {
       marginBottom: '25px',
     },
     aboutContent: {
-      flexGrow: 1,
       width: '60%',
       textAlign: 'center',
       fontWeight: '700',

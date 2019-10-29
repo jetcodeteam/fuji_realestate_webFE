@@ -94,6 +94,8 @@ const NewsPage = (props) => {
     getMostViewedData()
   }, []);
 
+  console.log(tableData);
+
   const loadMore = () => {
     const offset = (currentPage) * pagination.limit;
     setCurrentPage(currentPage + 1);
@@ -263,7 +265,7 @@ const NewsPage = (props) => {
                   </Grid>
                 </Link>
               ))}
-              { totalPage > currentPage && <Button onClick={loadMore}>More...</Button> }
+              { totalPage > currentPage && <Button onClick={loadMore}>{t('more')}...</Button> }
           </Grid>
         </Grid>
         

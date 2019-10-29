@@ -35,9 +35,11 @@ const AdminNews = (props) => {
 
   const submitNew = () => {
     if (title && data && fileList) {
+      const thumburl = _.get(fileList[0], 'response.url').split('/')
+      const thumbnail = thumburl[thumburl.length-1]
       const body = {
         title: title,
-        thumbnail: _.get(fileList[0], 'response.filename'),
+        thumbnail: thumbnail,
         content: data,
       }
       if (news_id === 'create') {

@@ -238,11 +238,7 @@ const HomePage = (props) => {
       <div className={classes.about}>
         <h2 className={classes.aboutHeader}>{t('about')}</h2>
         <div className={classes.aboutContent}>
-          未稿dolor座amet,consectetur adipiscing elit.
-          Risus egestas nisl id donec nibh porttitor duis habitant mattis.
-          座レオアットblandit nibh est sagittis,et et. Ut tortor,nulla placerat
-          volutpat非habitasse proin turpis. Mattis scelerisqueナム
-          laoreet habitasse urna職務経歴書lorem nibh.
+          {t('about_des')}
         </div>
         <div style={{ width: '50%' }}>
           <Grid container justify="center" alignItems="center">

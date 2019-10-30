@@ -108,6 +108,11 @@ const ProductDetail = (props) => {
       margin: '0 30px 30px 5vw',
       width: '90%',
     },
+    longText: {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+    },
   }));
   const { t } = props;
   const classes = useStyles();
@@ -134,11 +139,11 @@ const ProductDetail = (props) => {
                           title={_.get(value.images[0], 'filename', '')}
                         />
                         <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2" className={classes.productDetails}>
+                          <Typography gutterBottom variant="h5" component="h2" className={classes.productDetails} className={classes.longText}>
                             <span>{value.name}</span>
                             {value.status ? <span><Tag color="#f50">{t('sold')}</Tag></span> : null}
                           </Typography>
-                          <Typography variant="body2" color="textSecondary" component="p">
+                          <Typography variant="body2" color="textSecondary" component="p" className={classes.longText}>
                             <span>{value.address}, {_.get(value, 'ward.name_with_type', '')}, {_.get(value, 'district.name_with_type', '')}, {value.city}</span>
                           </Typography>
                           <Typography className={classes.productDetails} variant="body2" color="textSecondary">

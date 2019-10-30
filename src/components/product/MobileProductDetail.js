@@ -139,7 +139,7 @@ const MobileProductDetail = (props) => {
               ))}
             </AwesomeSlider>
             <div className={classes.details}>
-              <p style={{ margin: '20px' }}>{t('yen')}</p>
+              <p style={{ margin: '20px' }}>{t('dollar')}</p>
               <p style={{ margin: '20px' }}>{productInfo.price}</p>
             </div>
             <div className={classes.details}>

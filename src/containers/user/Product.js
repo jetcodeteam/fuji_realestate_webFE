@@ -263,7 +263,7 @@ const ProductPage = (props) => {
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('price')}</span>
-                          <span>¥{value.price}</span>
+                          <span>{value.price}$</span>
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('house_type')}</span>

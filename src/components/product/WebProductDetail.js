@@ -154,7 +154,7 @@ const WebProductDetail = (props) => {
                   <h4>{feature}：{t('yes')}</h4>
                 )))}
               </div>
-              <h1 className={classes.price}>{productInfo.price}{t('yen')}</h1>
+              <h1 className={classes.price}>{productInfo.price} {t('dollar')}</h1>
               <div className={classes.verticalProducts}>
                 <div>
                   <img

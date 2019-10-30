@@ -81,17 +81,16 @@ const HomePage = (props) => {
       flexDirection: 'column',
       width: '100%',
       alignItems: 'center',
-      marginBottom: '100px'
+      justifyContent: 'center',
+      padding: '100px 0 100px 0',
     },
     aboutHeader: {
       fontSize: '1.5em',
       fontWeight: '700',
-      marginBottom: '25px',
     },
     aboutContent: {
       width: '60%',
       textAlign: 'center',
-      marginBottom: '100px',
     },
     mainServices: {
       display: 'flex',
@@ -198,7 +197,7 @@ const HomePage = (props) => {
         )
       }
       {/* ---------------- SERVICES ----------------- */}
-      <div style={{ flexWrap: 'wrap', background: '#f7f8f9', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', margin: '100px 0 100px 0' }}>
+      <div style={{ flexWrap: 'wrap', background: '#f7f8f9', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', margin: '100px 0 0 0' }}>
         <div className={classes.mainServices}>
           <h2 style={{ fontSize: '1.5em', marginBottom: '25px', fontWeight: 'bold' }}>{t('main_service')}</h2>
           <div className={classes.serviceContent}>
@@ -238,18 +237,6 @@ const HomePage = (props) => {
         <h2 className={classes.aboutHeader}>{t('about')}</h2>
         <div className={classes.aboutContent}>
           {t('about_des')}
-        </div>
-        <div style={{ width: '50%' }}>
-          <Grid container justify="center" alignItems="center">
-            <div className={classes.avatarArea}>
-              <Avatar alt="Remy Sharp" src={avatar1} className={classes.bigAvatar} />
-              <div style={{ fontWeight: 700, textAlign: 'center' }}>幹事</div>
-            </div>
-            <div className={classes.avatarArea}>
-              <Avatar alt="Remy Sharp" src={avatar2} className={classes.bigAvatar} />
-              <div style={{ fontWeight: 700, textAlign: 'center' }}>執行役員</div>
-            </div>
-          </Grid>
         </div>
       </div>
     </React.Fragment>

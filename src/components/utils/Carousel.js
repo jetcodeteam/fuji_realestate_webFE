@@ -31,6 +31,9 @@ const Carousel = (props) => {
       fontSize: adjustServices ? '3.5vw' : '25px',
       textAlign: 'left',
       marginBottom: '10px',
+      overflow: adjustServices || 'hidden',
+      whiteSpace: adjustServices || 'nowrap',
+      textOverflow: adjustServices || 'ellipsis',
     },
     carouselContent: {
       fontSize: adjustServices ? '1.5vw': '10px',
@@ -38,6 +41,9 @@ const Carousel = (props) => {
       lineHeight: 'normal',
       zIndex: 3,
       textAlign: 'left',
+      overflow: adjustServices || 'hidden',
+      whiteSpace: adjustServices || 'nowrap',
+      textOverflow: adjustServices || 'ellipsis',
     },
     slickSlide: {
       display: 'flex',

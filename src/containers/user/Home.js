@@ -91,7 +91,6 @@ const HomePage = (props) => {
     aboutContent: {
       width: '60%',
       textAlign: 'center',
-      fontWeight: '700',
       marginBottom: '100px',
     },
     mainServices: {

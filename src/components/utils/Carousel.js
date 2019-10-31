@@ -89,7 +89,8 @@ const Carousel = (props) => {
                       <div className={classes.carouselHeader}>{_.get(product, 'name', '')}</div>
                     </Link>
                     <p className={classes.carouselContent}>
-                      {_.get(product, 'address', '')}, {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {_.get(product, 'city', '')}
+                      {_.get(product, 'address', '')}<br />
+                      {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {_.get(product, 'city', '')}
                     </p>
                   </div>
                   <div style={{ width: '50%' }}>

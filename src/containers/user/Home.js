@@ -87,6 +87,7 @@ const HomePage = (props) => {
     aboutHeader: {
       fontSize: '1.5em',
       fontWeight: '700',
+      marginBottom: '20px',
     },
     aboutContent: {
       width: '60%',

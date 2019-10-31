@@ -149,10 +149,14 @@ const WebProductDetail = (props) => {
               <div className={classes.productProps}>
                 <h4>{t('location')}： {productInfo.address}</h4>
                 <h4>{t('floor')}：{productInfo.floor}</h4>
-                {productFeature ? (<h4>{t('feature')}:</h4>) : null}
-                {productFeature && (productFeature.map(feature => (
-                  <h4>{feature}：{t('yes')}</h4>
-                )))}
+                <div style={{ display: 'flex', width: 'fit-content', height: 'inherit', flexWrap: 'wrap' }}>
+                  {productFeature ? (<h4 style={{ marginRight: '30px' }}>{t('feature')}:</h4>) : null}
+                  {productFeature && (productFeature.map(feature => (
+                    <div style={{ width: 'fit-content', marginRight: '30px' }}>
+                      <h4>{feature}: {t('yes')}</h4>
+                    </div>
+                  )))}
+                </div>
               </div>
               <h1 className={classes.price}>{productInfo.price} {t('dollar')}</h1>
               <div className={classes.verticalProducts}>

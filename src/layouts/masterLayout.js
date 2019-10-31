@@ -49,7 +49,7 @@ const styles = {
 };
 
 const MasterLayout = (props) => {
-  const { children, classes } = props;
+  const { children } = props;
   const matches = useMediaQuery('(min-width:690px)');
 
   return (

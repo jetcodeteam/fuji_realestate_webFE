@@ -1,11 +1,9 @@
-import React, {
-  useState,
-  useEffect,
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import env from '../../configs/environments';
 import _ from 'lodash';
+
 import {
   Modal,
   Form,
@@ -15,16 +13,13 @@ import {
   Row,
   Col,
   InputNumber,
+  Button,
+  Select
 } from 'antd';
+
 import { getAccessToken } from '../../services/TokenServices';
-import { Select } from 'antd';
-import {
-  getDistricts,
-} from '../../services/LocationServices';
-import {
-  createProduct,
-  updateProduct,
-} from '../../services/ProductServices';
+import { getDistricts } from '../../services/LocationServices';
+import { createProduct, updateProduct } from '../../services/ProductServices';
 
 const { Option } = Select;
 
@@ -66,13 +61,16 @@ const ProductCreateForm = (props) => {
   const handleSubmit = () => {
     setFormLoading(true);
     form.validateFields((err, values) => {
+      console.log(values)
       if (!err) {
         values = {
           ...values,
+          feature: values.feature.split(', '),
           images: values.images.map((item) => _.get(item, 'response', item)),
           district: districts.find(item => item._id === values.district),
           ward: wards.find(item => item._id === values.ward)
         }
+        console.log(values)
         if (formData) {
           updateProduct(formData._id, values)
             .then((res) => {
@@ -232,6 +230,14 @@ const ProductCreateForm = (props) => {
                 {getFieldDecorator('floor', {
                   initialValue: _.get(formData, 'floor', ''),
                   rules: [{ required: true, message: 'Floor is required!' }],
+                })(<Input />)}
+              </Form.Item>
+            </Col>
+            <Col span={columnSpan}>
+              <Form.Item label={t('feature')}>
+                {getFieldDecorator('feature', {
+                  initialValue: _.get(formData, 'feature', ''),
+                  rules: [{ required: true, message: 'Feature is required!' }],
                 })(<Input />)}
               </Form.Item>
             </Col>

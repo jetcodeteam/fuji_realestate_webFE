@@ -31,7 +31,7 @@ const WebProductDetail = (props) => {
         console.log(data);
         setProductLoading(false);
         setProductInfo(data);
-        setProductFeature(data.feature.split(','));
+        setProductFeature(data.feature[0].split(','));
         setProductImages(data.images);
       })
       .catch(() => {
@@ -48,7 +48,7 @@ const WebProductDetail = (props) => {
       .then((res) => {
         setProductInfo(_.get(res, 'data.data', ''));
         setProductLoading(false);
-        setProductFeature(_.get(res, 'data.data.feature', ''));
+        setProductFeature((_.get(res, 'data.data.feature[0]', '')).split(','));
         setProductImages(_.get(res, 'data.data.images', ''));
       })
       .catch(() => {

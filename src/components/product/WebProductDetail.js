@@ -43,6 +43,7 @@ const WebProductDetail = (props) => {
 
   useEffect(() => {
     console.log(product_id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setProductLoading(true);
     getProductDetails(product_id)
       .then((res) => {

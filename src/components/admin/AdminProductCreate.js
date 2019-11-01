@@ -13,7 +13,6 @@ import {
   Row,
   Col,
   InputNumber,
-  Button,
   Select
 } from 'antd';
 
@@ -61,11 +60,9 @@ const ProductCreateForm = (props) => {
   const handleSubmit = () => {
     setFormLoading(true);
     form.validateFields((err, values) => {
-      console.log(values)
       if (!err) {
         values = {
           ...values,
-          feature: values.feature.split(', '),
           images: values.images.map((item) => _.get(item, 'response', item)),
           district: districts.find(item => item._id === values.district),
           ward: wards.find(item => item._id === values.ward)

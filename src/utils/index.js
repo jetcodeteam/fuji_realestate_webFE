@@ -21,7 +21,7 @@
 // @param string mobile
 // @return boolean
 //-----------------------------------------------------------------------------
-export const validMobile = (mobile) => {
+export const validMobile = mobile => {
   const regex = /^((\+?84)|0)(\d{2,3}\d{7})$/;
   return regex.test(mobile);
 };
@@ -29,18 +29,42 @@ export const validMobile = (mobile) => {
 //-----------------------------------------------------------------------------
 // Check the object is empty or not
 //-----------------------------------------------------------------------------
-export const isEmpty = (input) => {
+export const isEmpty = input => {
   if (input === null || input === undefined) {
     return true;
   }
-  if (typeof (input) === 'string' && input.trim() === '') {
+  if (typeof input === "string" && input.trim() === "") {
     return true;
   }
   if (Array.isArray(input) && input.length === 0) {
     return true;
   }
-  if (typeof (input) === 'object' && Object.keys(input).length === 0) {
+  if (typeof input === "object" && Object.keys(input).length === 0) {
     return true;
   }
   return false;
+};
+
+export const parseISOString = isoFormat => {
+  // Convert the Iso-formated time string to human-readable string
+  const time = new Date(isoFormat);
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  const m = time.getMonth();
+  const d = time.getDay();
+  const y = time.getFullYear();
+  const mString = months[m];
+  return mString + " " + d + ", " + y; // "m d, y"
 };

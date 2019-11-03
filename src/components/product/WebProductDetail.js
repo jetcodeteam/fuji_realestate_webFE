@@ -18,6 +18,7 @@ const WebProductDetail = (props) => {
   const [productFeature, setProductFeature] = useState([]);
   const [productImages, setProductImages] = useState([]);
   const isMounted = useRef(true);
+  const isFirefox = typeof InstallTrigger !== 'undefined';
 
   useEffect(() => () => {
     isMounted.current = false;
@@ -43,7 +44,11 @@ const WebProductDetail = (props) => {
 
   useEffect(() => {
     console.log(product_id);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (isFirefox) {
+      window.scrollTo(0, 0); 
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setProductLoading(true);
     getProductDetails(product_id)
       .then((res) => {

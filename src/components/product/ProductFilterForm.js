@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
+import _ from 'lodash';
 
 import { Modal, Button, Select, Row, Col, Form, Input } from 'antd';
+import { getDistricts } from '../../services/LocationServices';
 
 const { Option } = Select;
 
@@ -18,11 +20,18 @@ const ProductFilterForm = (props) => {
     room: 'room',
     floor: 'floor',
     square: 'square',
-    districts: 'districts',
+    districts: 'district',
     ward: 'ward',
     city: 'city',
     price: 'price',
     houseType: 'houseType',
+  }
+
+  const price_range = {
+    'below_6': { "$lt": 6000000 },
+    'from_6_to_10': { "$gte": 6000000, "$lte": 10000000},
+    'from_10_to_15': { "$gte": 10000000, "$lte": 15000000},
+    'above_15': { "$gt": 15000000 },
   }
 
   const [state, setState] = useState({
@@ -35,13 +44,27 @@ const ProductFilterForm = (props) => {
     [kinds.price]: undefined,
     [kinds.houseType]: undefined,
   });
+  const [districts, setDistricts] = useState([])
 
+  useEffect(() => {
+    getDistricts()
+    .then((res) => {
+      setDistricts(_.get(res, 'data.data', []));
+    })
+  }, [])
 
   const onValueChange = (kind, value) => {
+    setState({
+        ...state,
+        [kind]: value,
+    });
+    if (kind === kinds.price) {
       setState({
-          ...state,
-          [kind]: value,
+        ...state,
+        // [kind]: price_range[value],
+        [kind]: { "$lt": 6000000 },
       });
+    };
   };
 
   const numberArray = Array.from(Array(10), (e,i)=>i+1);
@@ -108,9 +131,10 @@ const ProductFilterForm = (props) => {
                   value={state.price}
                 >
                   <Option key="all" value={undefined}>{t('all')}</Option>
-                  <Option key="1" value="1">Below 6 billions</Option>
-                  <Option key="2" value="2">From 6 to 10 billions</Option>
-                  <Option key="3" value="3">More than 10 billions</Option>
+                  <Option key='below_6' value='below_6'>Below 6 millions</Option>
+                  <Option key='from_6_to_10' value='from_6_to_10'>From 6 to 10 millions</Option>
+                  <Option key='from_10_to_15' value='from_10_to_15'>From 10 to 15 millions</Option>
+                  <Option key='above_15' value='above_15'>More than 15 millions</Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -136,10 +160,14 @@ const ProductFilterForm = (props) => {
                   value={state.districts}
                 >
                   <Option key="all" value={undefined}>{t('all')}</Option>
-                  <Option key="1" value="Quận 1">District 1</Option>
-                  <Option key="2" value="Quận 8">District 8</Option>
-                  <Option key="3" value="Quận 12">District 12</Option>
-                  <Option key="4" value="Quận 4">District 4</Option>
+                  {districts.map(district => (
+                    <Option
+                      key={_.get(district, '_id', '')}
+                      value={_.get(district, '_id', '')}
+                    >
+                      {_.get(district, 'name_with_type', '')}
+                  </Option>
+                  ))}
                 </Select>
               </Form.Item>
             </Col>

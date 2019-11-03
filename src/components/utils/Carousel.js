@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { withNamespaces } from 'react-i18next';
 import PropTypes from 'prop-types';
-import AwesomeSlider from 'react-awesome-slider';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
-import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
+import AliceCarousel from 'react-alice-carousel';
+import "react-alice-carousel/lib/alice-carousel.css";
 
 import { makeStyles } from '@material-ui/core/styles';
 
 const Carousel = (props) => {
   const { productList, adjustServices } = props;
   const [showProduct, setShowProduct] = useState(false);
+  const responsive = {
+    0: { items: 1 },
+    1024: { items: 1 },
+  }
 
   useEffect(() => {
     if (productList.length > 0) {
@@ -49,9 +53,8 @@ const Carousel = (props) => {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      marginTop: '20px',
+      marginTop: '25px',
       height: '30vw',
-      width: '50%',
     },
     slide: {
       display: 'flex',
@@ -75,36 +78,38 @@ const Carousel = (props) => {
     <React.Fragment>
       {
         showProduct ? (
-          <AwesomeSlider
-            bullets={false}
-            cssModule={AwesomeSliderStyles}
-            className={classes.slickSlide}
-            organicArrows
-          >    
-            {productList.map(product => (
-              <div key={_.get(product, '_id', '')} style={{ backgroundColor: 'white', position: 'relative' }}>
-                <div className={classes.slide}>
-                  <div className={classes.carouselDes}>
-                    <Link key={_.get(product, '_id', '')} to={`/products/${_.get(product, '_id', '')}`}>
-                      <div className={classes.carouselHeader}>{_.get(product, 'name', '')}</div>
-                    </Link>
-                    <p className={classes.carouselContent}>
-                      {_.get(product, 'address', '')}<br />
-                      {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {_.get(product, 'city', '')}
-                    </p>
-                  </div>
-                  <div style={{ width: '50%' }}>
-                    <img
-                      src={_.get(product, 'images[0].url', '')}
-                      alt={_.get(product, 'images[0].filename', '')}
-                      height="100%" width="100%"
-                      style={{ objectFit: 'cover' }}
-                    />
+          <div className={classes.slickSlide}>
+            <AliceCarousel
+              responsive={responsive}
+              autoPlay autoPlayInterval={3500}
+              duration={600}
+              buttonsDisabled mouseDragEnabled
+            >
+              {productList.map(product => (
+                <div key={_.get(product, '_id', '')} style={{ backgroundColor: 'white', position: 'relative', height: '30vw', width: '50vw' }}>
+                  <div className={classes.slide}>
+                    <div className={classes.carouselDes}>
+                      <Link key={_.get(product, '_id', '')} to={`/products/${_.get(product, '_id', '')}`}>
+                        <div className={classes.carouselHeader}>{_.get(product, 'name', '')}</div>
+                      </Link>
+                      <p className={classes.carouselContent}>
+                        {_.get(product, 'address', '')}<br />
+                        {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {_.get(product, 'city', '')}
+                      </p>
+                    </div>
+                    <div style={{ width: '50%' }}>
+                      <img
+                        src={_.get(product, 'images[0].url', '')}
+                        alt={_.get(product, 'images[0].filename', '')}
+                        height="100%" width="100%"
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </AwesomeSlider>
+              ))}
+            </AliceCarousel>
+          </div>
         ) : (
           <div className={classes.slickSlide} />
         )

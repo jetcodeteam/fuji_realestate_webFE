@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { withI18n, translate } from 'react-i18next';
+import { withI18n } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -34,6 +34,13 @@ const ProductPage = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const [filterData, setFilterData] = useState({});
   const isMounted = useRef(true);
+
+  const price_range = {
+    'below_6': { "$lt": 6000000 },
+    'from_6_to_10': { "$gte": 6000000, "$lte": 10000000},
+    'from_10_to_15': { "$gte": 10000000, "$lte": 15000000},
+    'above_15': { "$gt": 15000000 },
+  }
 
   const getProductList = (offset) => {
     const data = {
@@ -102,7 +109,11 @@ const ProductPage = (props) => {
     let filter_states = {};
     for (let state in states) {
       if (states[state]) {
-        filter_states[String(state)] = states[state]
+        if (String(state) === "price") {
+          filter_states[String(state)] = price_range[states[state]];
+        } else {
+          filter_states[String(state)] = states[state]
+        }
       };
     };
     setFilterData(filter_states);

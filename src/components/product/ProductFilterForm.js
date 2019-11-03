@@ -27,13 +27,6 @@ const ProductFilterForm = (props) => {
     houseType: 'houseType',
   }
 
-  const price_range = {
-    'below_6': { "$lt": 6000000 },
-    'from_6_to_10': { "$gte": 6000000, "$lte": 10000000},
-    'from_10_to_15': { "$gte": 10000000, "$lte": 15000000},
-    'above_15': { "$gt": 15000000 },
-  }
-
   const [state, setState] = useState({
     [kinds.room]: undefined,
     [kinds.floor]: undefined,
@@ -58,13 +51,6 @@ const ProductFilterForm = (props) => {
         ...state,
         [kind]: value,
     });
-    if (kind === kinds.price) {
-      setState({
-        ...state,
-        // [kind]: price_range[value],
-        [kind]: { "$lt": 6000000 },
-      });
-    };
   };
 
   const numberArray = Array.from(Array(10), (e,i)=>i+1);

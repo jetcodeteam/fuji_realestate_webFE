@@ -20,7 +20,7 @@ const ProductFilterForm = (props) => {
     room: 'room',
     floor: 'floor',
     square: 'square',
-    districts: 'district',
+    district: 'district',
     ward: 'ward',
     city: 'city',
     price: 'price',
@@ -31,7 +31,7 @@ const ProductFilterForm = (props) => {
     [kinds.room]: undefined,
     [kinds.floor]: undefined,
     [kinds.square]: undefined,
-    [kinds.districts]: undefined,
+    [kinds.district]: undefined,
     [kinds.ward]: undefined,
     [kinds.city]: undefined,
     [kinds.price]: undefined,
@@ -142,8 +142,8 @@ const ProductFilterForm = (props) => {
               <Form.Item label={t('address')}>
                 <Select
                   placeholder="Select the district you want"
-                  onChange={value => onValueChange(kinds.districts, value)}
-                  value={state.districts}
+                  onChange={value => onValueChange(kinds.district, value)}
+                  value={state.district}
                 >
                   <Option key="all" value={undefined}>{t('all')}</Option>
                   {districts.map(district => (

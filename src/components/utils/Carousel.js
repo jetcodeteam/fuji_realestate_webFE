@@ -7,6 +7,7 @@ import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 
 import { makeStyles } from '@material-ui/core/styles';
+import { Button, Icon } from 'antd';
 
 const Carousel = (props) => {
   const { productList, adjustServices } = props;
@@ -73,42 +74,60 @@ const Carousel = (props) => {
     },
   });
   const classes = useStyles();
+  let ca;
 
   return (
     <React.Fragment>
       {
         showProduct ? (
-          <div className={classes.slickSlide}>
-            <AliceCarousel
-              responsive={responsive}
-              autoPlay autoPlayInterval={3500}
-              duration={600}
-              buttonsDisabled mouseDragEnabled
-            >
-              {productList.map(product => (
-                <div key={_.get(product, '_id', '')} style={{ backgroundColor: 'white', position: 'relative', height: '30vw', width: '50vw' }}>
-                  <div className={classes.slide}>
-                    <div className={classes.carouselDes}>
-                      <Link key={_.get(product, '_id', '')} to={`/products/${_.get(product, '_id', '')}`}>
-                        <div className={classes.carouselHeader}>{_.get(product, 'name', '')}</div>
-                      </Link>
-                      <p className={classes.carouselContent}>
-                        {_.get(product, 'address', '')}<br />
-                        {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {_.get(product, 'city', '')}
-                      </p>
-                    </div>
-                    <div style={{ width: '50%' }}>
-                      <img
-                        src={_.get(product, 'images[0].url', '')}
-                        alt={_.get(product, 'images[0].filename', '')}
-                        height="100%" width="100%"
-                        style={{ objectFit: 'cover' }}
-                      />
+          <div>
+            <div className={classes.slickSlide}>
+              <AliceCarousel
+                responsive={responsive}
+                autoPlay autoPlayInterval={3500}
+                duration={600}
+                buttonsDisabled
+                ref={(el) => (ca = el)}
+              >
+                {productList.map(product => (
+                  <div key={_.get(product, '_id', '')} style={{ backgroundColor: 'white', position: 'relative', height: '30vw', width: '50vw' }}>
+                    <div className={classes.slide}>
+                      <div className={classes.carouselDes}>
+                        <Link key={_.get(product, '_id', '')} to={`/products/${_.get(product, '_id', '')}`}>
+                          <div className={classes.carouselHeader}>{_.get(product, 'name', '')}</div>
+                        </Link>
+                        <p className={classes.carouselContent}>
+                          {_.get(product, 'address', '')}<br />
+                          {_.get(product, 'ward.name_with_type', '')}, {_.get(product, 'district.name_with_type', '')}, {_.get(product, 'city', '')}
+                        </p>
+                      </div>
+                      <div style={{ width: '50%' }}>
+                        <img
+                          src={_.get(product, 'images[0].url', '')}
+                          alt={_.get(product, 'images[0].filename', '')}
+                          height="100%" width="100%"
+                          style={{ objectFit: 'cover' }}
+                        />
+                      </div>
                     </div>
                   </div>
+                ))}
+              </AliceCarousel>
+            </div>
+            {
+              adjustServices ? (
+                <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: '10px' }}>
+                  <Button type="ghost" size="default" onClick={() => ca.slidePrev()}>
+                    <Icon type="left" />
+                  </Button>
+                  <Button type="ghost" size="default" onClick={() => ca.slideNext()}>
+                    <Icon type="right" />
+                  </Button>
                 </div>
-              ))}
-            </AliceCarousel>
+              ) : (
+                null
+              )
+            }
           </div>
         ) : (
           <div className={classes.slickSlide} />

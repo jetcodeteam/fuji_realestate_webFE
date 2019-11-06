@@ -173,7 +173,7 @@ const WebProductDetail = (props) => {
               </div>
               <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
               <div className={classes.productProps}>
-                <h4><Tag color="#87d068">{t('location')}</Tag>： {productInfo.address}</h4>
+                <h4><Tag color="#87d068">{t('location')}</Tag>：{productInfo.address}, {_.get(productInfo, 'ward.name_with_type', '')}, {_.get(productInfo, 'district.name_with_type', '')}, {productInfo.city}</h4>
                 <h4><Tag color="#87d068">{t('floor')}</Tag>：{productInfo.floor}</h4>
                 <div style={{ display: 'flex', width: 'fit-content', height: 'inherit', flexWrap: 'wrap' }}>
                   {productFeature ? (

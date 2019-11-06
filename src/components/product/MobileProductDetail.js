@@ -179,7 +179,7 @@ const MobileProductDetail = (props) => {
             </div>
             <div className={classes.details}>
               <p style={{ margin: '20px' }}>{t('location')}</p>
-              <p style={{ margin: '20px' }}>{productInfo.address}</p>
+              <p style={{ margin: '20px', textOverflow: 'ellipsis' }}>{productInfo.address}, {_.get(productInfo, 'ward.name_with_type', '')}, {_.get(productInfo, 'district.name_with_type', '')}, {productInfo.city}</p>
             </div>
             <div className={classes.feature}>
               <p style={{ margin: '20px' }}>{t('feature')}</p>

@@ -52,10 +52,10 @@ const ProductPage = (props) => {
   }
 
   const price_range = {
-    'below_6': { "$lt": 6000000 },
-    'from_6_to_10': { "$gte": 6000000, "$lte": 10000000},
-    'from_10_to_15': { "$gte": 10000000, "$lte": 15000000},
-    'above_15': { "$gt": 15000000 },
+    'below_250': { "$lt": 250 },
+    'from_250_to_450': { "$gte": 250, "$lte": 450},
+    'from_450_to_650': { "$gte": 450, "$lte": 650},
+    'above_650': { "$gt": 650 },
   }
 
   const getProductList = (offset) => {
@@ -238,13 +238,13 @@ const ProductPage = (props) => {
             <SearchIcon />
           </IconButton>
           <InputBase
-            placeholder="目的地を入力してください"
+            placeholder={t('search_help')}
             inputProps={{ 'aria-label': 'search real estates' }}
             style={{ width: '80%' }}
           />
         </Paper>
         <Button variant="contained" className={classes.filterInput} onClick={openFilterModal}>
-          + フィルタ
+          + {t('filter')}
         </Button>
       </div>
       {

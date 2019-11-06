@@ -117,10 +117,10 @@ const ProductFilterForm = (props) => {
                   value={state.price}
                 >
                   <Option key="all" value={undefined}>{t('all')}</Option>
-                  <Option key='below_6' value='below_6'>Below 6 millions</Option>
-                  <Option key='from_6_to_10' value='from_6_to_10'>From 6 to 10 millions</Option>
-                  <Option key='from_10_to_15' value='from_10_to_15'>From 10 to 15 millions</Option>
-                  <Option key='above_15' value='above_15'>More than 15 millions</Option>
+                  <Option key='below_250' value='below_250'>{t('below_250')}</Option>
+                  <Option key='from_250_to_450' value='from_250_to_450'>{t('from_250_to_450')}</Option>
+                  <Option key='from_450_to_650' value='from_450_to_650'>{t('from_450_to_650')}</Option>
+                  <Option key='above_650' value='above_650'>{t('above_650')}</Option>
                 </Select>
               </Form.Item>
             </Col>

@@ -13,7 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { Pagination, Modal } from 'antd';
+import { Pagination } from 'antd';
 import { Tag } from 'antd';
 
 import ProductFilter from '../../components/product/ProductFilterForm';
@@ -27,13 +27,29 @@ import Button from '@material-ui/core/Button';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const ProductPage = (props) => {
-  const [activeStep, setActiveStep] = useState(0);
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [productLoading, setProductLoading] = useState(false);
   const [productList, setProductList] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [filterData, setFilterData] = useState({});
   const isMounted = useRef(true);
+  const convertPrice = (labelValue) => {
+
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e+9
+
+    ? Math.abs(Number(labelValue)) / 1.0e+9 + " " + t('billion')
+    // Six Zeroes for Millions 
+    : Math.abs(Number(labelValue)) >= 1.0e+6
+
+    ? Math.abs(Number(labelValue)) / 1.0e+6 + " " + t('million')
+    // Three Zeroes for Thousands
+    : Math.abs(Number(labelValue)) >= 1.0e+3
+
+    ? Math.abs(Number(labelValue)) / 1.0e+3 + "K"
+
+    : Math.abs(Number(labelValue));
+  }
 
   const price_range = {
     'below_6': { "$lt": 6000000 },
@@ -53,7 +69,6 @@ const ProductPage = (props) => {
     setProductLoading(true);
     getProducts(data)
       .then((res) => {
-        console.log(res)
         if (isMounted.current) {
           const products = res.data.data;
           setProductLoading(false);
@@ -90,10 +105,9 @@ const ProductPage = (props) => {
   });
 
   function handlePageChange(page, pageSize) {
-    console.log('changePage')
+    window.scrollTo(0, 0); 
     let offset = (page - 1) * 6
     getProductList(offset, filterData);
-    console.log(productList);
   }
 
   function openFilterModal() {
@@ -105,7 +119,6 @@ const ProductPage = (props) => {
   }
 
   function handleFilter(states) {
-    console.log('filtering...', states);
     let filter_states = {};
     for (let state in states) {
       if (states[state]) {
@@ -119,7 +132,6 @@ const ProductPage = (props) => {
     setFilterData(filter_states);
     onFilterClose();
   }
-  console.log(filterData);
 
   useEffect(() => {
     getProductList(0, filterData);
@@ -274,7 +286,7 @@ const ProductPage = (props) => {
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('price')}</span>
-                          <span>{value.price}$</span>
+                          <span>${convertPrice(value.price)}</span>
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('house_type')}</span>

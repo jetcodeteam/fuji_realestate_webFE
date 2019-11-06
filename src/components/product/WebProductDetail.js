@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
+
 import { message } from 'antd';
+import { Tag } from 'antd';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -19,6 +21,23 @@ const WebProductDetail = (props) => {
   const [productImages, setProductImages] = useState([]);
   const isMounted = useRef(true);
   const isFirefox = typeof InstallTrigger !== 'undefined';
+  const convertPrice = (labelValue) => {
+
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e+9
+
+    ? Math.abs(Number(labelValue)) / 1.0e+9 + " " + t('billion')
+    // Six Zeroes for Millions 
+    : Math.abs(Number(labelValue)) >= 1.0e+6
+
+    ? Math.abs(Number(labelValue)) / 1.0e+6 + " " + t('million')
+    // Three Zeroes for Thousands
+    : Math.abs(Number(labelValue)) >= 1.0e+3
+
+    ? Math.abs(Number(labelValue)) / 1.0e+3 + "K"
+
+    : Math.abs(Number(labelValue));
+  }
 
   useEffect(() => () => {
     isMounted.current = false;
@@ -54,7 +73,7 @@ const WebProductDetail = (props) => {
       .then((res) => {
         setProductInfo(_.get(res, 'data.data', ''));
         setProductLoading(false);
-        setProductFeature((_.get(res, 'data.data.feature[0]', '')).split(','));
+        setProductFeature((_.get(res, 'data.data.feature', '')));
         setProductImages(_.get(res, 'data.data.images', ''));
       })
       .catch(() => {
@@ -104,7 +123,7 @@ const WebProductDetail = (props) => {
       textAlign: 'right',
       width: '100%',
       position: 'relative',
-      top: '-60%',
+      top: '-73%',
       height: 'fit-content',
     },
     verticalProductStyle: {
@@ -153,18 +172,16 @@ const WebProductDetail = (props) => {
               </div>
               <h1 className={classes.houseSize}>約{productInfo.square}㎡</h1>
               <div className={classes.productProps}>
-                <h4>{t('location')}： {productInfo.address}</h4>
-                <h4>{t('floor')}：{productInfo.floor}</h4>
+                <h4><Tag color="#87d068">{t('location')}</Tag>： {productInfo.address}</h4>
+                <h4><Tag color="#87d068">{t('floor')}</Tag>：{productInfo.floor}</h4>
                 <div style={{ display: 'flex', width: 'fit-content', height: 'inherit', flexWrap: 'wrap' }}>
-                  {productFeature ? (<h4 style={{ marginRight: '30px' }}>{t('feature')}:</h4>) : null}
-                  {productFeature && (productFeature.map(feature => (
-                    <div style={{ width: 'fit-content', marginRight: '30px' }}>
-                      <h4>{feature}: {t('yes')}</h4>
-                    </div>
-                  )))}
+                  {productFeature ? (
+                      <h4 style={{ marginRight: '30px' }}><Tag color="#87d068">{t('feature')}</Tag>: {productFeature}</h4>
+                    ) : null
+                  }
                 </div>
               </div>
-              <h1 className={classes.price}>{productInfo.price} {t('dollar')}</h1>
+              <h1 className={classes.price}>{convertPrice(productInfo.price)} {t('dollar')}</h1>
               <div className={classes.verticalProducts}>
                 <div>
                   <img

@@ -99,5 +99,7 @@
     "product_filter": "フィルター",
     "total_area": "面積",
     "address": "住所",
-    "dollar": "ドル"
+    "dollar": "ドル",
+    "billion": "十亿",
+    "million": "百万"
 }

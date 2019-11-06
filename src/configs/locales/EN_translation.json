@@ -33,7 +33,7 @@
     "yen": "Yen",
     "size": "Size",
     "location": "Location",
-    "feature": "Feature",
+    "feature": "Features",
 
     "user_name": "User Name",
     "password": "Password",
@@ -99,5 +99,7 @@
     "product_filter": "Product Filter",
     "total_area": "Total Area",
     "address": "Address",
-    "dollar": "Dollar"
+    "dollar": "Dollar",
+    "billion": "Billion",
+    "million": "Million"
 }

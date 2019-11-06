@@ -27,6 +27,23 @@ const ProductDetail = (props) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [relatedLoading, setRelatedLoading] = useState([]);
   const isMounted = useRef(true);
+  const convertPrice = (labelValue) => {
+
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e+9
+
+    ? Math.abs(Number(labelValue)) / 1.0e+9 + " " + t('billion')
+    // Six Zeroes for Millions 
+    : Math.abs(Number(labelValue)) >= 1.0e+6
+
+    ? Math.abs(Number(labelValue)) / 1.0e+6 + " " + t('million')
+    // Three Zeroes for Thousands
+    : Math.abs(Number(labelValue)) >= 1.0e+3
+
+    ? Math.abs(Number(labelValue)) / 1.0e+3 + "K"
+
+    : Math.abs(Number(labelValue));
+  }
 
   useEffect(() => () => {
     isMounted.current = false;
@@ -156,7 +173,7 @@ const ProductDetail = (props) => {
                           </Typography>
                           <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                             <span className={classes.detailTitle}>{t('price')}</span>
-                            <span>{value.price}$</span>
+                            <span>${convertPrice(value.price)}</span>
                           </Typography>
                           <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                             <span className={classes.detailTitle}>{t('house_type')}</span>

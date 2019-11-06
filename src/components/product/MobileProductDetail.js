@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
-import AwesomeSlider from 'react-awesome-slider';
 import { useParams } from 'react-router-dom';
+import AliceCarousel from 'react-alice-carousel';
+import "react-alice-carousel/lib/alice-carousel.css";
 import _ from 'lodash';
 
 import { makeStyles } from '@material-ui/core/styles';
-import AwesomeSliderStyles from 'react-awesome-slider/src/styled/cube-animation';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Tag, message } from 'antd';
 
@@ -21,6 +21,10 @@ const MobileProductDetail = (props) => {
   const [productImages, setProductImages] = useState([]);
   const isMounted = useRef(true);
   const isFirefox = typeof InstallTrigger !== 'undefined';
+  const responsive = {
+    0: { items: 1 },
+    1024: { items: 1 },
+  }
   const convertPrice = (labelValue) => {
 
     // Nine Zeroes for Billions
@@ -144,11 +148,11 @@ const MobileProductDetail = (props) => {
               <p style={{ margin: '20px' }}>{productInfo.name}</p>
               {productInfo.status ? <span style={{ marginRight: '20px' }}><Tag color="#f50">{t('sold')}</Tag></span> : null}
             </div>
-            <AwesomeSlider
-              bullets={false}
-              cssModule={AwesomeSliderStyles}
-              className={classes.image}
-              organicArrows
+            <AliceCarousel
+              responsive={responsive}
+              autoPlay autoPlayInterval={3000}
+              duration={600}
+              buttonsDisabled dotsDisabled
             >
               {productImages.map(image => (
                 <div style={{ width: 'inherit', height: 'inherit' }}>
@@ -160,7 +164,7 @@ const MobileProductDetail = (props) => {
                   />
                 </div>
               ))}
-            </AwesomeSlider>
+            </AliceCarousel>
             <div className={classes.details}>
               <p style={{ margin: '20px' }}>{t('dollar')}</p>
               <p style={{ margin: '20px' }}>{convertPrice(productInfo.price)}</p>

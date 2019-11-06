@@ -10,8 +10,6 @@ import { withI18n } from 'react-i18next';
 import _ from 'lodash';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -22,8 +20,6 @@ import translateIcon from '../../static/images/icon/translate-icon.png';
 import repairIcon from '../../static/images/icon/repair-icon.png';
 import simIcon from '../../static/images/icon/sim-icon.png';
 import wifiIcon from '../../static/images/icon/wifi-icon.png';
-import avatar1 from '../../static/images/avatar/avatar-1.jpeg';
-import avatar2 from '../../static/images/avatar/avatar-2.jpg';
 import { getProducts } from '../../services/ProductServices';
 import Carousel from '../../components/utils/Carousel';
 

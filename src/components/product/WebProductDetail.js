@@ -147,7 +147,8 @@ const WebProductDetail = (props) => {
       color: 'rgb(40,208,55)',
       fontSize: '4em',
       position: 'relative',
-      top: '-41%',
+      top: '-51%',
+      right: '5px',
       width: '60%',
       textAlign: 'right',
     },
@@ -177,7 +178,7 @@ const WebProductDetail = (props) => {
                 <div style={{ display: 'flex', width: 'fit-content', height: 'inherit', flexWrap: 'wrap' }}>
                   {productFeature ? (
                       <h4 style={{ marginRight: '30px' }}><Tag color="#87d068">{t('feature')}</Tag>: {productFeature}</h4>
-                    ) : null
+                    ) : (null)
                   }
                 </div>
               </div>

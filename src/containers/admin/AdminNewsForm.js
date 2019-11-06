@@ -1,10 +1,5 @@
-import React, {
-    useState,
-    useEffect,
-  } from 'react';
-import {
-  useParams
-} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import _ from 'lodash';
 import { withI18n } from 'react-i18next';
 import env from '../../configs/environments';
@@ -15,11 +10,7 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import { getAccessToken } from '../../services/TokenServices';
-import {
-  getNewsDetails,
-  createNews,
-  updateNews,
-} from '../../services/NewsServices';
+import { getNewsDetails, createNews, updateNews } from '../../services/NewsServices';
 
 const AdminNews = (props) => {
   const {
@@ -34,11 +25,19 @@ const AdminNews = (props) => {
   const [fileList, setFileList] = useState([]);
 
   const submitNew = () => {
-    if (title && data && fileList) {
-      const thumburl = _.get(fileList[0], 'response.url').split('/')
+    console.log(fileList)
+    if (title && data && fileList && description) {
+      console.log(fileList)
+      let thumburl;
+      if (fileList[0].url) {
+        thumburl = fileList[0].url.split('/')
+      } else {
+        thumburl = fileList[0].response.url.split('/')
+      }
       const thumbnail = thumburl[thumburl.length-1]
       const body = {
         title: title,
+        description: description,
         thumbnail: thumbnail,
         content: data,
       }

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import _ from 'lodash';
+import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withI18n } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -18,6 +19,7 @@ import { Tag } from 'antd';
 
 import ProductFilter from '../../components/product/ProductFilterForm';
 import { getProducts } from '../../services/ProductServices';
+import { getDistricts } from '../../services/LocationServices';
 
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
@@ -33,6 +35,8 @@ const ProductPage = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const [filterData, setFilterData] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
+  const [chipData, setChipData] = useState([]);
+  const [districts, setDistricts] = useState([]);
   const isMounted = useRef(true);
   const convertPrice = (labelValue) => {
 
@@ -93,6 +97,13 @@ const ProductPage = (props) => {
   }, []);
 
   useEffect(() => {
+    getDistricts()
+    .then((res) => {
+      setDistricts(_.get(res, 'data.data', []));
+    })
+  }, [])
+
+  useEffect(() => {
     document.title = "Real Estate Property in Vietnam";
     getProductList(0, filterData);
   }, []);
@@ -126,15 +137,31 @@ const ProductPage = (props) => {
 
   function handleFilter(states) {
     let filter_states = {};
+    let chip_states = [];
     for (let state in states) {
       if (states[state]) {
         if (String(state) === "price") {
+          chip_states.push([t(String(state)), t(states[state])])
           filter_states[String(state)] = price_range[states[state]];
+        } else if (String(state) === "houseType") {
+          chip_states.push([t('house_type'), t(states[state])]);
+          filter_states[String(state)] = states[state];
+        } else if (String(state) === "district") {
+          for (let district of districts) {
+            let district_state;
+            if (district._id == states[state]) {
+              district_state = district.name_with_type;
+              chip_states.push([t(String(state)), district_state]);
+            };
+          };
+          filter_states[String(state)] = states[state];
         } else {
-          filter_states[String(state)] = states[state]
-        }
+          chip_states.push([t(String(state)), t(states[state])]);
+          filter_states[String(state)] = states[state];
+        };
       };
     };
+    setChipData(chip_states);
     setFilterData(filter_states);
     onFilterClose();
   }
@@ -264,6 +291,9 @@ const ProductPage = (props) => {
         <Button variant="contained" className={classes.filterInput} onClick={openFilterModal}>
           + {t('filter')}
         </Button>
+        {chipData.map(chip => (
+          <Chip style={{ margin: '4px 10px 0 0' }} color="#69C0FF" label={`${chip[0]}: ${chip[1]}`} />
+        ))}
       </div>
       {
         productLoading ? (

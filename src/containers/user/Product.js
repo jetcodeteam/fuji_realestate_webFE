@@ -289,7 +289,7 @@ const ProductPage = (props) => {
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2" className={classes.productDetails} className={classes.longText}>
                           <span>{value.name}</span>
-                          {value.status ? <span><Tag color="#f50">{t('sold')}</Tag></span> : null}
+                          {value.status ? <span style={{ position: 'relative', left: '10px', bottom: '3px'}}><Tag color="#f50">{t('sold')}</Tag></span> : null}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p" className={classes.longText}>
                           <span>{value.address}, {_.get(value, 'ward.name_with_type', '')}, {_.get(value, 'district.name_with_type', '')}, {value.city}</span>

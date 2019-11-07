@@ -18,13 +18,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { Typography as TypAntd, BackTop } from "antd";
+import { BackTop } from "antd";
 
 import { pagination } from "../../configs/constants";
 import { getNews } from "../../services/NewsServices";
-
-
-const { Text } = TypAntd;
 
 const NewsPage = props => {
   const { t } = props;
@@ -34,20 +31,29 @@ const NewsPage = props => {
   const [isTableLoading, setTableLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterData, setFilterData] = useState({});
 
-  const getNewsList = params => {
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  const getNewsList = (offset, isLoadmore) => {
     const data = {
-      offset: 0,
+      offset: offset,
       limit: pagination.limit,
       order: "desc",
       sort: "createdAt",
-      ...params
+      filter: filterData,
     };
     setTableLoading(true);
     getNews(data)
       .then(res => {
-        console.log(res);
-        setTableData([...tableData, ..._.get(res, "data.data")]);
+        if (isLoadmore) {
+          setTableData([...tableData, ..._.get(res, "data.data")]);
+        } else {
+          setTableData(_.get(res, "data.data"));
+        }
         setTableLoading(false);
         setTotalPage(
           parseInt(
@@ -61,7 +67,7 @@ const NewsPage = props => {
   };
 
   useEffect(() => {
-    getNewsList();
+    getNewsList(0, true);
   }, []);
 
   console.log(tableData);
@@ -69,8 +75,16 @@ const NewsPage = props => {
   const loadMore = () => {
     const offset = currentPage * pagination.limit;
     setCurrentPage(currentPage + 1);
-    getNewsList({ offset });
+    getNewsList(offset, true);
   };
+
+  useEffect(() => {
+    const searchState = { "$regex": `${searchTerm}`, "$options": "i" };
+    let tabbleStates = filterData;
+    tabbleStates["title"] = searchState;
+    setFilterData(filterData);
+    getNewsList(0, false)
+  }, [searchTerm])
 
   const useStyles = makeStyles(theme => ({
     newsfeed: {
@@ -167,11 +181,6 @@ const NewsPage = props => {
   }));
   const classes = useStyles();
 
-  // Uncomment this to show filter
-  // function openFilterModal() {
-  //   console.log('oh ye');
-  // }
-
   return (
     <React.Fragment>
       <BackTop />
@@ -181,16 +190,13 @@ const NewsPage = props => {
             <SearchIcon />
           </IconButton>
           <InputBase
-            placeholder="目的地を入力してください"
+            onChange={handleChange}
+            value={searchTerm}
+            placeholder={t('search_help')}
             inputProps={{ "aria-label": "search real estates" }}
             style={{ width: "80%" }}
           />
         </Paper>
-        {/* Uncomment this to show filter
-        <Button variant="contained" className={classes.filterInput} onClick={openFilterModal}>
-          + フィルタ
-        </Button>
-        */}
       </div>
       {isTableLoading ? (
         <LinearProgress className={classes.divider} />

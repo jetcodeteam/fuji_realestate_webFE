@@ -65,6 +65,8 @@
     "pending": "Pending",
     "handled": "Handled",
     "products_nav": "Products",
+    "emails_nav": "Emails",
+    "news_nav": "News",
     "add_product": "Add Product",
     "create_product": "Create Product",
 

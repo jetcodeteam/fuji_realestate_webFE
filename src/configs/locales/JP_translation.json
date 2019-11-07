@@ -62,6 +62,8 @@
     "pending": "保留中",
     "handled": "契約済み",
     "products_nav": "物件情報",
+    "emails_nav": "メール",
+    "news_nav": "ニュース",
     "add_product": "物件情報追加",
     "create_product": "物件情報を作成する",
 

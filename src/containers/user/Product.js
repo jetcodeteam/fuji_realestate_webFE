@@ -32,6 +32,7 @@ const ProductPage = (props) => {
   const [productList, setProductList] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [filterData, setFilterData] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
   const isMounted = useRef(true);
   const convertPrice = (labelValue) => {
 
@@ -57,6 +58,10 @@ const ProductPage = (props) => {
     'from_450_to_650': { "$gte": 450, "$lte": 650},
     'above_650': { "$gt": 650 },
   }
+
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
 
   const getProductList = (offset) => {
     const data = {
@@ -132,6 +137,16 @@ const ProductPage = (props) => {
     setFilterData(filter_states);
     onFilterClose();
   }
+
+  useEffect(() => {
+    const searchState = { "$regex": `${searchTerm}`, "$options": "i" };
+    let filterStates = filterData;
+    if (searchTerm !== '') {
+      filterStates["name"] = searchState;
+    };
+    setFilterData(filterData);
+    getProductList(0, filterData)
+  }, [searchTerm])
 
   useEffect(() => {
     getProductList(0, filterData);
@@ -238,6 +253,8 @@ const ProductPage = (props) => {
             <SearchIcon />
           </IconButton>
           <InputBase
+            onChange={handleChange}
+            value={searchTerm}
             placeholder={t('search_help')}
             inputProps={{ 'aria-label': 'search real estates' }}
             style={{ width: '80%' }}

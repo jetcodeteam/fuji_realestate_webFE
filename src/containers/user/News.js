@@ -236,7 +236,7 @@ const NewsPage = props => {
                           value,
                           "thumbnail"
                         )}`}
-                        title="News Title"
+                        title={value.title}
                       />
                       <div className={classes.details}>
                         <CardContent className={classes.content}>

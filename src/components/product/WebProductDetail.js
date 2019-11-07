@@ -51,7 +51,7 @@ const WebProductDetail = (props) => {
         console.log(data);
         setProductLoading(false);
         setProductInfo(data);
-        setProductFeature(data.feature[0].split(','));
+        setProductFeature(data.feature[0]);
         setProductImages(data.images);
       })
       .catch(() => {

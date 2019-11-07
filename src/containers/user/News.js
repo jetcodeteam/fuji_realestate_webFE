@@ -68,6 +68,7 @@ const NewsPage = props => {
 
   useEffect(() => {
     getNewsList(0, true);
+    document.title = "Latest Real Estate News";
   }, []);
 
   console.log(tableData);

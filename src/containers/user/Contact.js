@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withI18n } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,6 +28,10 @@ const ContactPage = (props) => {
   const handleChange = name => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
+
+  useEffect(() => {
+    document.title = "Contact For More Information";
+  }, [])
 
   const handleSubmit = () => {
     if (topic && data && email && phone) {

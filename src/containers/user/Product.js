@@ -93,6 +93,7 @@ const ProductPage = (props) => {
   }, []);
 
   useEffect(() => {
+    document.title = "Real Estate Property in Vietnam";
     getProductList(0, filterData);
   }, []);
 

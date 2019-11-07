@@ -43,6 +43,7 @@ const HomePage = (props) => {
   }, []);
 
   useEffect(() => {
+    document.title = "Fujiwara Real Estate";
     setProductLoading(true);
     getProducts(0, 3, 'createdAt', 'DESC')
       .then((res) => {

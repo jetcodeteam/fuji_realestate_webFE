@@ -72,6 +72,7 @@ const WebProductDetail = (props) => {
     getProductDetails(product_id)
       .then((res) => {
         setProductInfo(_.get(res, 'data.data', ''));
+        document.title = _.get(res, 'data.data.name', '');
         setProductLoading(false);
         setProductFeature((_.get(res, 'data.data.feature', '')));
         setProductImages(_.get(res, 'data.data.images', ''));

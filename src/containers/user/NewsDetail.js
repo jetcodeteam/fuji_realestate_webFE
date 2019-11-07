@@ -99,6 +99,7 @@ const ProductDetail = props => {
     getNewsDetails(news_id)
       .then(res => {
         setArticleInfo(_.get(res, "data.data"));
+        document.title = _.get(res, "data.data.title");
         setPageLoading(false);
       })
       .catch(() => {

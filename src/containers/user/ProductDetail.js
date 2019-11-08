@@ -137,7 +137,7 @@ const ProductDetail = (props) => {
   return (
     <React.Fragment>
       { shouldWrap ? (<WebProductDetail />) : (<MobileProductDetail />) }
-      <div style={{ marginBottom: '100px' }}>
+      <div style={{ margin: '200px 0 100px 0' }}>
         <div className={classes.relatedContainer}>
           <h1 style={{ marginLeft: 7, fontSize: 25, fontWeight: 700 }}>{t('more')}</h1>
           { relatedLoading ? (<LinearProgress />) : (<Divider />) }

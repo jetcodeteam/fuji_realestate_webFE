@@ -291,7 +291,7 @@ const ProductPage = (props) => {
         <Button variant="contained" className={classes.filterInput} onClick={openFilterModal}>
           + {t('filter')}
         </Button>
-        {chipData.map(chip => (
+        {!matches || chipData.map(chip => (
           <Chip style={{ margin: '4px 10px 0 0' }} color="#69C0FF" label={`${chip[0]}: ${chip[1]}`} />
         ))}
       </div>

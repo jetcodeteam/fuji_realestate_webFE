@@ -99,7 +99,6 @@ const NewsPage = props => {
       display: "flex",
       flexDirection: "column"
     },
-    subContent: {},
     subCover: {
       width: 150,
       margin: "10px",
@@ -114,6 +113,7 @@ const NewsPage = props => {
       width: "100%"
     },
     details: {
+      width: '50vw',
       display: "flex",
       flexDirection: "column"
     },

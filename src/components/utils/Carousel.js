@@ -80,7 +80,7 @@ const Carousel = (props) => {
     <React.Fragment>
       {
         showProduct ? (
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className={classes.slickSlide}>
               <AliceCarousel
                 responsive={responsive}
@@ -116,7 +116,7 @@ const Carousel = (props) => {
             </div>
             {
               adjustServices ? (
-                <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: '10px', width: '50vw', alignSelf: 'center' }}>
                   <Button type="ghost" size="default" onClick={() => ca.slidePrev()}>
                     <Icon type="left" />
                   </Button>

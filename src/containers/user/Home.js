@@ -44,8 +44,14 @@ const HomePage = (props) => {
 
   useEffect(() => {
     document.title = "Fujiwara Real Estate";
+    const data = {
+      offset: 0,
+      limit: 3,
+      order: 'desc',
+      sort: 'createdAt',
+    };
     setProductLoading(true);
-    getProducts(0, 3, 'createdAt', 'DESC')
+    getProducts(data)
       .then((res) => {
         if (isMounted.current) {
           const data = res.data.data;

@@ -250,7 +250,7 @@ const ProductCreateForm = (props) => {
               <Form.Item label={t('street')}>
                 {getFieldDecorator('address', {
                   initialValue: _.get(formData, 'address', ''),
-                  rules: [{ required: true, message: 'Street is required!' }],
+                  rules: [{ required: false, message: 'Street is required!' }],
                 })(<Input />)}
               </Form.Item>
             </Col>

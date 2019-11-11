@@ -122,7 +122,7 @@ const MobileHeader = (props) => {
           
           <Button style={{ backgroundColor: 'transparent' }} component={Link} to="/home">
             <div className={classes.brand}>
-              FUJIWARA
+              {t('fujiwara')}
             </div>
           </Button>
           
@@ -136,7 +136,7 @@ const MobileHeader = (props) => {
           onOpen={toggleDrawer('left', true)}
         >
           <div className={classes.drawerBrand}>
-            FUJIWARA
+            {t('fujiwara')}
           </div>
           <Divider />
           {sideList('left')}

@@ -5,6 +5,10 @@
     "news": "ニュース",
     "contact_us": "連絡",
 
+    "______FOOTER______": "______FOOTER______",
+    "fujiwara": "藤原不動産",
+    "fujiwara_real_estate": "藤原不動産",
+
     "______MOBILE_HEADER______": "______MOBILE HEADER______",
     "home_menu": "ホーム",
     "product_menu": "物件情報",
@@ -18,18 +22,18 @@
     "______MAIN_SERVICES______": "______HOME______",
     "main_service": "サービス",
     "real_estate": "物件情報",
-    "translating": "翻訳中",
+    "translating": "翻訳",
     "repair_furniture": "内装工事",
     "mobile_sim": "Mobile Sim",
     "wifi": "Wifi",
-    "jobs": "仕事",
+    "jobs": "人材紹介",
     "visa": "Visa",
 
     "no": "いいえ",
     "yes": "はい",
 
     "______PRODUCT_DETAIL______": "______PRODUCT DETAIL______",
-    "more": "もって見る",
+    "more": "もっと見る",
     "house_type": "物件タイプ",
     "area": "エリア",
     "price": "値段",
@@ -112,7 +116,7 @@
 
     "______CONTACT______": "______CONTACT______",        
     "working_hours": "営業時間",
-    "call_now": "電話番後",
+    "call_now": "電話番号",
     "mailing_address": "メールアドレス",
     "contact_information": "連絡先",
     "submit": "提出する"

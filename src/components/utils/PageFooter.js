@@ -41,7 +41,7 @@ const PageFooter = (props) => {
   return (
     <footer>
       <div className={classes.pageFooter}>
-        <h1 className={classes.title}>FUJIWARA</h1>
+        <h1 className={classes.title}>{t('fujiwara')}</h1>
         <div style={{ display: 'flex' }}>
           <div className={classes.icon}>
             <Icon type="facebook" style={{ fontSize: '25px' }} />

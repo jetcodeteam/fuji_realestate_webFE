@@ -31,10 +31,6 @@ const WebProductDetail = (props) => {
     : Math.abs(Number(labelValue)) >= 1.0e+6
 
     ? Math.abs(Number(labelValue)) / 1.0e+6 + " " + t('million')
-    // Three Zeroes for Thousands
-    : Math.abs(Number(labelValue)) >= 1.0e+3
-
-    ? Math.abs(Number(labelValue)) / 1.0e+3 + "K"
 
     : Math.abs(Number(labelValue));
   }

@@ -113,7 +113,7 @@ const NewsPage = props => {
       width: "100%"
     },
     details: {
-      width: '50vw',
+      width: !matches || '50vw',
       display: "flex",
       flexDirection: "column"
     },

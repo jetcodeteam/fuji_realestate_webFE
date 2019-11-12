@@ -46,7 +46,7 @@ const HomePage = (props) => {
     document.title = "Fujiwara Real Estate";
     const data = {
       offset: 0,
-      limit: 3,
+      limit: 5,
       order: 'desc',
       sort: 'createdAt',
     };

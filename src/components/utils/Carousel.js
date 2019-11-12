@@ -116,7 +116,7 @@ const Carousel = (props) => {
             </div>
             {
               adjustServices ? (
-                <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: '10px', width: '50vw', alignSelf: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: '10px', width: '60vw', alignSelf: 'center' }}>
                   <Button type="ghost" size="default" onClick={() => ca.slidePrev()}>
                     <Icon type="left" />
                   </Button>

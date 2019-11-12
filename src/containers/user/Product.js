@@ -169,9 +169,7 @@ const ProductPage = (props) => {
   useEffect(() => {
     const searchState = { "$regex": `${searchTerm}`, "$options": "i" };
     let filterStates = filterData;
-    if (searchTerm !== '') {
-      filterStates["name"] = searchState;
-    };
+    filterStates["name"] = searchState;
     setFilterData(filterData);
     getProductList(0, filterData)
   }, [searchTerm])

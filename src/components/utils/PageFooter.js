@@ -44,7 +44,9 @@ const PageFooter = (props) => {
         <h1 className={classes.title}>{t('fujiwara')}</h1>
         <div style={{ display: 'flex' }}>
           <div className={classes.icon}>
-            <Icon type="facebook" style={{ fontSize: '25px' }} />
+            <a href="https://www.facebook.com/fujiwarafudosan/" target="_blank" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Icon type="facebook" style={{ fontSize: '25px' }} />
+            </a>
           </div>
           <div className={classes.icon}>
             <Icon type="twitter" style={{ fontSize: '25px' }} />

@@ -25,19 +25,6 @@ const MobileProductDetail = (props) => {
     0: { items: 1 },
     1024: { items: 1 },
   }
-  const convertPrice = (labelValue) => {
-
-    // Nine Zeroes for Billions
-    return Math.abs(Number(labelValue)) >= 1.0e+9
-
-    ? Math.abs(Number(labelValue)) / 1.0e+9 + " " + t('billion')
-    // Six Zeroes for Millions 
-    : Math.abs(Number(labelValue)) >= 1.0e+6
-
-    ? Math.abs(Number(labelValue)) / 1.0e+6 + " " + t('million')
-
-    : Math.abs(Number(labelValue));
-  }
 
   useEffect(() => () => {
     isMounted.current = false;
@@ -163,7 +150,7 @@ const MobileProductDetail = (props) => {
             </AliceCarousel>
             <div className={classes.details}>
               <p style={{ margin: '20px' }}>{t('dollar')}</p>
-              <p style={{ margin: '20px' }}>{convertPrice(productInfo.price)}</p>
+              <p style={{ margin: '20px' }}>{productInfo.price}</p>
             </div>
             <div className={classes.details}>
               <p style={{ margin: '20px' }}>{t('room')}</p>

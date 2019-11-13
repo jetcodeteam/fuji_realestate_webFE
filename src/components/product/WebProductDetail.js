@@ -21,19 +21,6 @@ const WebProductDetail = (props) => {
   const [productImages, setProductImages] = useState([]);
   const isMounted = useRef(true);
   const isFirefox = typeof InstallTrigger !== 'undefined';
-  const convertPrice = (labelValue) => {
-
-    // Nine Zeroes for Billions
-    return Math.abs(Number(labelValue)) >= 1.0e+9
-
-    ? Math.abs(Number(labelValue)) / 1.0e+9 + " " + t('billion')
-    // Six Zeroes for Millions 
-    : Math.abs(Number(labelValue)) >= 1.0e+6
-
-    ? Math.abs(Number(labelValue)) / 1.0e+6 + " " + t('million')
-
-    : Math.abs(Number(labelValue));
-  }
 
   useEffect(() => () => {
     isMounted.current = false;
@@ -179,7 +166,7 @@ const WebProductDetail = (props) => {
                   }
                 </div>
               </div>
-              <h1 className={classes.price}>{convertPrice(productInfo.price)} {t('dollar')}</h1>
+              <h1 className={classes.price}>{productInfo.price} {t('dollar')}</h1>
               <div className={classes.verticalProducts}>
                 <div>
                   <img

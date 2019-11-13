@@ -38,19 +38,6 @@ const ProductPage = (props) => {
   const [chipData, setChipData] = useState([]);
   const [districts, setDistricts] = useState([]);
   const isMounted = useRef(true);
-  const convertPrice = (labelValue) => {
-
-    // Nine Zeroes for Billions
-    return Math.abs(Number(labelValue)) >= 1.0e+9
-
-    ? Math.abs(Number(labelValue)) / 1.0e+9 + " " + t('billion')
-    // Six Zeroes for Millions 
-    : Math.abs(Number(labelValue)) >= 1.0e+6
-
-    ? Math.abs(Number(labelValue)) / 1.0e+6 + " " + t('million')
-
-    : Math.abs(Number(labelValue));
-  }
 
   const price_range = {
     'below_250': { "$lt": 250 },
@@ -328,7 +315,7 @@ const ProductPage = (props) => {
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('price')}</span>
-                          <span>${convertPrice(value.price)}</span>
+                          <span>${value.price}</span>
                         </Typography>
                         <Typography className={classes.productDetails} variant="body2" color="textSecondary">
                           <span className={classes.detailTitle}>{t('house_type')}</span>

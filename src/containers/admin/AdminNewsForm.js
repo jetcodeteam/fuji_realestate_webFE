@@ -26,7 +26,7 @@ const AdminNews = (props) => {
 
   const submitNew = () => {
     console.log(fileList)
-    if (title && data && fileList && description) {
+    if (title && data && fileList[0] && description) {
       console.log(fileList)
       let thumburl;
       if (fileList[0].url) {
